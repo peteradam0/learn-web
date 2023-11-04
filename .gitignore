@@ -42,5 +42,4 @@ logs
 public
 .cache
 .vscode
-.idea
 npm-debug.log

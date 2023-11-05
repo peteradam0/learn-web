@@ -1,5 +1,6 @@
+"use client";
 import { ClerkProvider } from "@clerk/nextjs";
-import exp from "constants";
+import { NextUIProvider } from "@nextui-org/react";
 import { FunctionComponent, ReactNode } from "react";
 
 type PageContextProps = {
@@ -11,7 +12,9 @@ const PageContextProviders: FunctionComponent<PageContextProps> = ({
 }) => {
   return (
     <ClerkProvider>
-      <div>{children}</div>
+      <NextUIProvider>
+        <div>{children}</div>
+      </NextUIProvider>
     </ClerkProvider>
   );
 };

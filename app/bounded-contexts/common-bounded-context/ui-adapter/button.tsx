@@ -1,21 +1,17 @@
 "use client";
 
 import React from "react";
+import { makeApiCall } from "../api-adapter/get-members";
 
 type ButtonProps = {
   apiBaseUrl: string | undefined;
 };
 
 export default function Button({ apiBaseUrl }: ButtonProps) {
-  const makeApiCall = async () => {
-    const res = await fetch(`${apiBaseUrl}/members`);
-    const data = await res.json();
-    console.log(data);
-  };
-
+  const handleOnClick = makeApiCall(apiBaseUrl);
   return (
     <div>
-      <button onClick={makeApiCall}>Fetch Data</button>
+      <button onClick={() => handleOnClick}>Fetch Data</button>
     </div>
   );
 }

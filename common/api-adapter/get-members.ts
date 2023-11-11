@@ -1,5 +1,5 @@
-export const makeApiCall = async (apiBaseUrl: string | undefined) => {
-  const res = await fetch(`${apiBaseUrl}/members`);
+export const getMembers = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/members`);
   const data = await res.json();
-  console.log(data);
+  return data;
 };

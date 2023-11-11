@@ -1,9 +1,10 @@
 "use client";
 
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { Card, CardBody } from "@nextui-org/react";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import useNavigation from "./hooks/use-navigation";
 
 const links = [
   {
@@ -19,57 +20,108 @@ const links = [
     path: "/profile",
   },
 ];
+type SidebarContetProp = {
+  isAdmin: boolean;
+};
 
-export default function SidebarContent() {
+export default function SidebarContent({ isAdmin }: SidebarContetProp) {
+  const {
+    isHomeActive,
+    isDashboardActive,
+    isMyCoursesActive,
+    isAnalyticsActive,
+  } = useNavigation();
+
   return (
-    <div className="flex-col space-y-4 items-center py-8 pl-1 sm:flex h-full  w-[120px] md:w-[250px] md:items-start fixed">
+    <div className="flex-col space-y-4 items-center py-8 pl-1 sm:flex h-full w-[120px] md:w-[250px] md:items-start fixed">
       <Link
         href="/"
         className="flex flex-row space-x-1 items-center p-4 rounded-full duration-200"
       >
-        <p className="p-2 font-bold text-inherit">LOGO</p>
+        <Image alt="test" src="/favicon.ico" width="70" height="70" />
       </Link>
 
       <Link
         href="/"
         className="flex flex-row space-x-4 items-center px-4 py-3 rounded-full duration-200  relative"
       >
-        <Icon icon="mingcute:home-5-fill" width="30" height="30" />
-
-        <span className={`text-2xl p-2 md:flex ${true ? "font-bold" : ""}`}>
+        {isHomeActive ? (
+          <Icon icon="mingcute:home-5-fill" width="32" height="32" />
+        ) : (
+          <Icon icon="mingcute:home-5-line" width="32" height="30" />
+        )}
+        <span
+          className={`text-2xl p-2 hidden md:flex ${
+            isHomeActive ? "font-bold" : ""
+          }`}
+        >
           Home
         </span>
       </Link>
       <Link
-        href="/explore"
+        href="/dashboard"
         className="flex flex-row space-x-4 items-center px-4 py-3 rounded-full duration-200 "
       >
-        <Icon
-          icon="uil:search"
-          width="32"
-          height="32"
-          className="stroke-current stroke-5"
-        />
-        <span className={`text-2xl p-2 md:flex ${true ? "font-bold" : ""}`}>
+        {isDashboardActive ? (
+          <Icon
+            icon="material-symbols:dashboard"
+            width="32"
+            height="32"
+            className="stroke-current stroke-5"
+          />
+        ) : (
+          <Icon icon="material-symbols:dashboard" width="30" height="30" />
+        )}
+        <span
+          className={`text-2xl p-2 hidden md:flex ${
+            isDashboardActive ? "font-bold" : ""
+          }`}
+        >
           Explore
         </span>
       </Link>
       <Link
-        href="/notifications"
+        href="/administration/courses"
         className="flex flex-row space-x-4 items-center px-4 py-3 rounded-full duration-200 "
       >
-        <Icon icon="mingcute:notification-fill" width="30" height="30" />
-        <span className={`text-2xl p-2 md:flex ${true ? "font-bold" : ""}`}>
-          Notifications
+        {isMyCoursesActive ? (
+          <Icon
+            icon="fluent:learning-app-24-filled"
+            width="32"
+            height="32"
+            className="stroke-current stroke-5"
+          />
+        ) : (
+          <Icon icon="fluent:learning-app-24-regular" width="30" height="30" />
+        )}
+        <span
+          className={`text-2xl p-2 hidden md:flex ${
+            isMyCoursesActive ? "font-bold" : ""
+          }`}
+        >
+          My Courses
         </span>
       </Link>
       <Link
-        href="/messages"
-        className="flex flex-row space-x-4 items-center px-4 py-3 rounded-full duration-200"
+        href="/administration/analytics"
+        className="flex flex-row space-x-4 items-center px-4 py-3 rounded-full duration-200 "
       >
-        <Icon icon="ic:baseline-email" width="30" height="30" />
-        <span className={`text-2xl p-2 md:flex ${true ? "font-bold" : ""}`}>
-          Messages
+        {isAnalyticsActive ? (
+          <Icon
+            icon="ic:baseline-analytics"
+            width="32"
+            height="32"
+            className="stroke-current stroke-5"
+          />
+        ) : (
+          <Icon icon="ic:outline-analytics" width="30" height="30" />
+        )}
+        <span
+          className={`text-2xl p-2 hidden md:flex ${
+            isAnalyticsActive ? "font-bold" : ""
+          }`}
+        >
+          Analytics
         </span>
       </Link>
     </div>

@@ -8,8 +8,8 @@ export default function MainLayout({
 }) {
   return (
     <div className="h-full">
-      <div className="hidden md:flex w-60 z-20 flex-col fixed inset-y-0 border-r-1">
-        <SidebarContent />
+      <div className="md:flex hidden w-60 z-20 flex-col fixed inset-y-0 border-r">
+        <SidebarContent isAdmin={true} />
       </div>
       <main className="h-full md:pl-60">
         <MainHeader />

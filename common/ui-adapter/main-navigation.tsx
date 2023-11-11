@@ -11,20 +11,10 @@ import ThemeRadioButton from "./theme-switch";
 
 export default function MainHeader() {
   return (
-    <Navbar className="border-b-1">
+    <Navbar className="border-b">
       <NavbarContent justify="center">
         <NavbarItem>
           <Link color="foreground" href="#"></Link>
-        </NavbarItem>
-        <NavbarItem isActive>
-          <Link href="/courses" aria-current="page">
-            Courses
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Integrations
-          </Link>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">

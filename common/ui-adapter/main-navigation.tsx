@@ -7,12 +7,13 @@ import {
   Link,
 } from "@nextui-org/react";
 import { UserButton } from "@clerk/nextjs";
+import ThemeRadioButton from "./theme-switch";
 
 export default function MainHeader() {
   return (
     <Navbar>
       <NavbarBrand>
-        <p className="font-bold text-inherit">ACME</p>
+        <p className="font-bold text-inherit">LOGO</p>
       </NavbarBrand>
       <NavbarContent justify="center">
         <NavbarItem>
@@ -29,8 +30,12 @@ export default function MainHeader() {
           </Link>
         </NavbarItem>
       </NavbarContent>
+
       <NavbarContent justify="end">
         <NavbarItem>
+          <ThemeRadioButton />
+        </NavbarItem>
+        <NavbarItem className="p-4">
           <UserButton afterSignOutUrl="/" />
         </NavbarItem>
       </NavbarContent>

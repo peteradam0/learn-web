@@ -5,8 +5,8 @@ import {
   NavbarContent,
   NavbarItem,
   Link,
-  Button,
 } from "@nextui-org/react";
+import { UserButton } from "@clerk/nextjs";
 
 export default function MainHeader() {
   return (
@@ -31,12 +31,7 @@ export default function MainHeader() {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          <Link href="#">Login</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} href="#" variant="flat">
-            Sign Up
-          </Button>
+          <UserButton afterSignOutUrl="/" />
         </NavbarItem>
       </NavbarContent>
     </Navbar>

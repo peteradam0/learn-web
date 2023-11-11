@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.26.2",
-    "@nextui-org/react": "^2.2.2",
+    "@nextui-org/react": "^2.2.9",
     "axios": "^1.6.0",
     "framer-motion": "^10.16.4",
     "next": "14.0.1",

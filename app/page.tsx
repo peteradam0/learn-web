@@ -1,7 +1,7 @@
 import { UserButton } from "@clerk/nextjs";
-import Button from "./bounded-contexts/common-bounded-context/ui-adapter/button";
+import Button from "../common/ui-adapter/button";
 import PageContextProviders from "./page-context-providers";
-import MainHeader from "./bounded-contexts/common-bounded-context/ui-adapter/main-navigation";
+import MainHeader from "../common/ui-adapter/main-navigation";
 
 export default function Home() {
   return (

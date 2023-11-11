@@ -11,6 +11,7 @@
   "dependencies": {
     "@clerk/nextjs": "^4.26.2",
     "@heroicons/react": "^2.0.18",
+    "@iconify/react": "^4.1.1",
     "@nextui-org/react": "^2.2.9",
     "axios": "^1.6.0",
     "framer-motion": "^10.16.4",

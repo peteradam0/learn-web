@@ -11,17 +11,14 @@ import ThemeRadioButton from "./theme-switch";
 
 export default function MainHeader() {
   return (
-    <Navbar>
-      <NavbarBrand>
-        <p className="font-bold text-inherit">LOGO</p>
-      </NavbarBrand>
+    <Navbar className="border-b-1">
       <NavbarContent justify="center">
         <NavbarItem>
           <Link color="foreground" href="#"></Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link href="#" aria-current="page">
-            Customers
+          <Link href="/courses" aria-current="page">
+            Courses
           </Link>
         </NavbarItem>
         <NavbarItem>
@@ -30,7 +27,6 @@ export default function MainHeader() {
           </Link>
         </NavbarItem>
       </NavbarContent>
-
       <NavbarContent justify="end">
         <NavbarItem>
           <ThemeRadioButton />

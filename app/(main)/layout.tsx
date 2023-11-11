@@ -1,5 +1,5 @@
-import MainHeader from "@/common/ui-adapter/main-navigation";
-import SidebarContent from "@/common/ui-adapter/sidebar-content";
+import MainHeader from "@/navigation/ui-adapter/main-navigation";
+import SidebarContent from "@/navigation/ui-adapter/sidebar-content";
 
 export default function MainLayout({
   children,
@@ -12,7 +12,7 @@ export default function MainLayout({
         <SidebarContent isAdmin={true} />
       </div>
       <main className="h-full md:pl-60">
-        <MainHeader />
+        <MainHeader isAdmin={true} />
         <div>{children}</div>
       </main>
     </div>

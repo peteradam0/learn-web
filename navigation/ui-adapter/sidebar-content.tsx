@@ -44,7 +44,7 @@ export default function SidebarContent({ isAdmin }: SidebarContetProp) {
               <Icon icon="mingcute:home-5-line" width="32" height="30" />
             )}
             <span
-              className={`text-2xl p-2 hidden md:flex ${
+              className={`text-l p-2 hidden md:flex ${
                 isHomeActive ? "font-bold" : ""
               }`}
             >
@@ -66,7 +66,7 @@ export default function SidebarContent({ isAdmin }: SidebarContetProp) {
               <Icon icon="material-symbols:dashboard" width="30" height="30" />
             )}
             <span
-              className={`text-2xl p-2 hidden md:flex ${
+              className={`text-l p-2 hidden md:flex ${
                 isDashboardActive ? "font-bold" : ""
               }`}
             >
@@ -96,7 +96,7 @@ export default function SidebarContent({ isAdmin }: SidebarContetProp) {
               />
             )}
             <span
-              className={`text-2xl p-2 hidden md:flex ${
+              className={`text-l p-2 hidden md:flex ${
                 isMyCoursesActive ? "font-bold" : ""
               }`}
             >
@@ -118,7 +118,7 @@ export default function SidebarContent({ isAdmin }: SidebarContetProp) {
               <Icon icon="ic:outline-analytics" width="30" height="30" />
             )}
             <span
-              className={`text-2xl p-2 hidden md:flex ${
+              className={`text-l p-2 hidden md:flex ${
                 isAnalyticsActive ? "font-bold" : ""
               }`}
             >

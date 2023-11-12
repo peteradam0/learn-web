@@ -1,7 +1,7 @@
 import axios from "axios";
 import qs from "query-string";
 
-export const createCourse = async ({ title }: { title: string }) => {
+export const createCourse = async (title: string, token: string) => {
   const url = qs.stringifyUrl({
     url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/course`,
   });
@@ -15,7 +15,7 @@ export const createCourse = async ({ title }: { title: string }) => {
       },
       {
         headers: {
-          Authorization: `Basic 123`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );

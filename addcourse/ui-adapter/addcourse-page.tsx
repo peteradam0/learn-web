@@ -4,12 +4,15 @@ import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Button, Input } from "@nextui-org/react";
 import { createCourse } from "@/course/api-adapter/create-course";
+import { useRouter } from "next/navigation";
+
 type Inputs = {
   title: string;
 };
 
 export default function AddCoursePage({ token }: { token: string }) {
   const [data, setData] = useState<Inputs>();
+  const router = useRouter();
 
   const {
     register,
@@ -25,9 +28,14 @@ export default function AddCoursePage({ token }: { token: string }) {
   const processForm: SubmitHandler<Inputs> = async (data) => {
     setData(data);
 
-    await createCourse(data.title, token);
-
-    reset();
+    try {
+      const res = await createCourse(data.title, token);
+      console.log(res);
+      reset();
+      router.push(`/administration/addcourse/${res?.data.id}`);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

@@ -10,9 +10,5 @@ export default async function AddCoursePageRoute() {
     redirect("/");
   }
 
-  return (
-    <div>
-      <AddCoursePage token={token} />
-    </div>
-  );
+  return <AddCoursePage token={token} />;
 }

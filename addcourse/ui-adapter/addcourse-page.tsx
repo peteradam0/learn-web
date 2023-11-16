@@ -2,12 +2,13 @@
 import React, { useState } from "react";
 
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Button, Input } from "@nextui-org/react";
+import { Button, Input, Textarea } from "@nextui-org/react";
 import { createCourse } from "@/course/api-adapter/create-course";
 import { useRouter } from "next/navigation";
 
 type Inputs = {
   title: string;
+  description: string;
 };
 
 export default function AddCoursePage({ token }: { token: string }) {
@@ -22,6 +23,7 @@ export default function AddCoursePage({ token }: { token: string }) {
   } = useForm<Inputs>({
     defaultValues: {
       title: "",
+      description: "",
     },
   });
 
@@ -60,15 +62,30 @@ export default function AddCoursePage({ token }: { token: string }) {
                 onSubmit={handleSubmit(processForm)}
               >
                 <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-                  <div className="md:col-span-5">
+                  <div className="p-1 md:col-span-5">
                     <h3 className="text-default-500 text-small pb-1">
                       The first thing that you will have to specify is the name
                       of the course
                     </h3>
                     <Input
-                      type="text"
-                      label="title"
+                      label="Title"
                       {...register("title", { required: "Title is required" })}
+                    />
+                    {errors.title?.message && (
+                      <p className="text-sm text-red-400">
+                        {errors.title.message}
+                      </p>
+                    )}
+                  </div>
+                  <div className="p-1 md:col-span-5">
+                    <h3 className="text-default-500 text-small pb-1">
+                      Please enter the description of the course
+                    </h3>
+                    <Textarea
+                      label="Description"
+                      {...register("description", {
+                        required: "Description is required",
+                      })}
                     />
                     {errors.title?.message && (
                       <p className="text-sm text-red-400">

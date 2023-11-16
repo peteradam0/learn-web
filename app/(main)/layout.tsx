@@ -13,7 +13,7 @@ export default function MainLayout({
       </div>
       <main className="h-full md:pl-60">
         <MainHeader isAdmin={true} />
-        <div>{children}</div>
+        {children}
       </main>
     </div>
   );

@@ -8,6 +8,7 @@ import { Button, Input, Textarea, input } from "@nextui-org/react";
 import { createCourse } from "@/course/api-adapter/create-course";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { UploadButton } from "@/common/api-adapter/uploadthing";
 
 type Inputs = {
   title: string;
@@ -101,6 +102,19 @@ export default function AddCoursePageRoute() {
                       </p>
                     )}
                   </div>
+
+                  <UploadButton
+                    endpoint="imageUploader"
+                    onClientUploadComplete={(res) => {
+                      // Do something with the response
+                      console.log("Files: ", res);
+                      alert("Upload Completed");
+                    }}
+                    onUploadError={(error: Error) => {
+                      // Do something with the error.
+                      alert(`ERROR! ${error.message}`);
+                    }}
+                  />
 
                   <div className="md:col-span-5 text-right">
                     <div className="inline-flex items-end">

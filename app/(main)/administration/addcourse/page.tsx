@@ -1,26 +1,35 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getUserToken } from "@/course/domain/get-user-token";
 import { redirect } from "next/navigation";
 import { SubmitHandler } from "react-hook-form";
-import { Button, Input, Textarea, input } from "@nextui-org/react";
+import { Button, Image, Input, Textarea, input } from "@nextui-org/react";
 import { createCourse } from "@/course/api-adapter/create-course";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { UploadButton } from "@/common/api-adapter/uploadthing";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 type Inputs = {
   title: string;
   description: string;
+  imageUrl: string;
 };
 
 export default function AddCoursePageRoute() {
   const [data, setData] = useState<Inputs>();
+  const [url, setUrl] = useState("");
   const router = useRouter();
 
   const processForm: SubmitHandler<Inputs> = async (data) => {
-    setData(data);
+    //TODO: this is hacky, find a better approach
+    setData({
+      ...data,
+      imageUrl: url,
+    });
+
+    console.log(url);
     const token = await getUserToken();
 
     if (!token) {
@@ -46,8 +55,12 @@ export default function AddCoursePageRoute() {
     defaultValues: {
       title: "",
       description: "",
+      imageUrl: "",
     },
   });
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   return (
     <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
@@ -102,20 +115,59 @@ export default function AddCoursePageRoute() {
                       </p>
                     )}
                   </div>
+                  <div className="p-1 md:col-span-5 ">
+                    <h3 className="text-default-500 text-small pb-1">
+                      Please upload the thumbnail image of the course
+                    </h3>
+                    {errors.imageUrl?.message && (
+                      <p className="text-sm text-red-400">
+                        {errors.imageUrl.message}
+                      </p>
+                    )}
+                    {url && (
+                      <div className="p-3 ">
+                        <div className="relative flex">
+                          <Image
+                            src={url}
+                            alt="upload"
+                            className="object-cover border-1 h-48 w-96 "
+                          />
+                          <Button
+                            onClick={() => setUrl("")}
+                            className="bg-rose-500 text-white p-1 rounded-full pl-1 -top-2 -right-1 shadow-sm"
+                            type="button"
+                          >
+                            <Icon icon="ph:x" width="20" height="20" />
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  <div className="md:col-span-5 text-right">
+                    <div className="inline-flex items-end">
+                      {!url && (
+                        <>
+                          <UploadButton
+                            endpoint="imageUploader"
+                            onClientUploadComplete={(res) => {
+                              setUrl(res?.[0].url);
+                            }}
+                            onUploadError={(error: Error) => {
+                              alert(`ERROR! ${error.message}`);
+                            }}
+                          />
 
-                  <UploadButton
-                    endpoint="imageUploader"
-                    onClientUploadComplete={(res) => {
-                      // Do something with the response
-                      console.log("Files: ", res);
-                      alert("Upload Completed");
-                    }}
-                    onUploadError={(error: Error) => {
-                      // Do something with the error.
-                      alert(`ERROR! ${error.message}`);
-                    }}
-                  />
-
+                          <input
+                            className="hidden"
+                            value={url}
+                            {...register("imageUrl", {
+                              required: "Image is required",
+                            })}
+                          />
+                        </>
+                      )}
+                    </div>
+                  </div>
                   <div className="md:col-span-5 text-right">
                     <div className="inline-flex items-end">
                       <Button type="submit">Submit</Button>

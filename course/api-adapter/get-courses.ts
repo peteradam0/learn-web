@@ -1,9 +1,10 @@
+import { CreateCourseProps } from "@/common/domain/types";
 import axios from "axios";
 import qs from "query-string";
 
-export const getCoursesForUser = async (token: string) => {
+export const getCourses = async (token: string) => {
   const url = qs.stringifyUrl({
-    url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/administration/courses`,
+    url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/courses`,
   });
 
   let res = undefined;

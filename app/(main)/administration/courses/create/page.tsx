@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { getUserToken } from "@/course/domain/get-user-token";
 import { redirect } from "next/navigation";
 import { SubmitHandler } from "react-hook-form";
@@ -14,32 +14,20 @@ import {
   Image,
   Input,
   Textarea,
-  input,
 } from "@nextui-org/react";
 import { createCourse } from "@/course/api-adapter/create-course";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { UploadButton } from "@/common/api-adapter/uploadthing";
-
-type Inputs = {
-  title: string;
-  description: string;
-  imageUrl: string;
-  category: string;
-};
+import { CreateCourseProps } from "@/common/domain/types";
 
 export default function AddCoursePageRoute() {
-  const [data, setData] = useState<Inputs>();
   const [url, setUrl] = useState("");
   const [category, setCategory] = useState("Frontend");
   const router = useRouter();
 
-  const processForm: SubmitHandler<Inputs> = async (data) => {
+  const processForm: SubmitHandler<CreateCourseProps> = async (data) => {
     //TODO: this is hacky, find a better approach
-    setData({
-      ...data,
-      imageUrl: url,
-    });
 
     console.log(url);
     const token = await getUserToken();
@@ -49,10 +37,18 @@ export default function AddCoursePageRoute() {
     }
 
     try {
-      const res = await createCourse(data.title, token);
+      const res = await createCourse(
+        {
+          title: data.title,
+          description: data.description,
+          category: data.category,
+          imageUrl: url,
+        },
+        token
+      );
       console.log(res);
       reset();
-      router.push(`/administration/addcourse/${res?.data.id}`);
+      router.push(`/administration/courses/`);
     } catch (e) {
       console.log(e);
     }
@@ -63,7 +59,7 @@ export default function AddCoursePageRoute() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<Inputs>({
+  } = useForm<CreateCourseProps>({
     defaultValues: {
       title: "",
       description: "",

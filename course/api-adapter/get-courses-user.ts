@@ -2,7 +2,10 @@ import { CreateCourseProps } from "@/common/domain/types";
 import axios from "axios";
 import qs from "query-string";
 
-export const createCourse = async (createCourseData: CreateCourseProps, token: string) => {
+export const getCoursesForUser = async (
+  createCourseData: CreateCourseProps,
+  token: string
+) => {
   const url = qs.stringifyUrl({
     url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/course`,
   });

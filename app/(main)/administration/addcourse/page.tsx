@@ -4,22 +4,34 @@ import React, { useEffect, useState } from "react";
 import { getUserToken } from "@/course/domain/get-user-token";
 import { redirect } from "next/navigation";
 import { SubmitHandler } from "react-hook-form";
-import { Button, Image, Input, Textarea, input } from "@nextui-org/react";
+import {
+  Badge,
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  Image,
+  Input,
+  Textarea,
+  input,
+} from "@nextui-org/react";
 import { createCourse } from "@/course/api-adapter/create-course";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { UploadButton } from "@/common/api-adapter/uploadthing";
-import { Icon } from "@iconify/react/dist/iconify.js";
 
 type Inputs = {
   title: string;
   description: string;
   imageUrl: string;
+  category: string;
 };
 
 export default function AddCoursePageRoute() {
   const [data, setData] = useState<Inputs>();
   const [url, setUrl] = useState("");
+  const [category, setCategory] = useState("Frontend");
   const router = useRouter();
 
   const processForm: SubmitHandler<Inputs> = async (data) => {
@@ -56,11 +68,9 @@ export default function AddCoursePageRoute() {
       title: "",
       description: "",
       imageUrl: "",
+      category: category,
     },
   });
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   return (
     <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
@@ -109,17 +119,52 @@ export default function AddCoursePageRoute() {
                         required: "Description is required",
                       })}
                     />
-                    {errors.title?.message && (
+                    {errors.description?.message && (
                       <p className="text-sm text-red-400">
-                        {errors.title.message}
+                        {errors.description.message}
                       </p>
                     )}
                   </div>
+                  <div className="p-1 md:col-span-5">
+                    <h3 className="text-default-500 text-small pb-1">
+                      Please select the course category
+                    </h3>
+                    <Dropdown backdrop="blur">
+                      <DropdownTrigger>
+                        <Button
+                          color="primary"
+                          variant="bordered"
+                          {...register("category", {
+                            value: category,
+                            required: "Category is required",
+                          })}
+                        >
+                          {category}
+                        </Button>
+                      </DropdownTrigger>
+                      <DropdownMenu
+                        variant="faded"
+                        aria-label="Static Actions"
+                        onAction={(key) => {
+                          setCategory(key.toString());
+                        }}
+                      >
+                        <DropdownItem key="Frontend">Frontend</DropdownItem>
+                        <DropdownItem key="Backend">Backend</DropdownItem>
+                      </DropdownMenu>
+                    </Dropdown>
+                    {errors.category?.message && (
+                      <p className="text-sm text-red-400">
+                        {errors.category.message}
+                      </p>
+                    )}
+                  </div>
+
                   <div className="p-1 md:col-span-5 ">
                     <h3 className="text-default-500 text-small pb-1">
                       Please upload the thumbnail image of the course
                     </h3>
-                    {errors.imageUrl?.message && (
+                    {url === "" && errors.imageUrl?.message && (
                       <p className="text-sm text-red-400">
                         {errors.imageUrl.message}
                       </p>
@@ -127,18 +172,18 @@ export default function AddCoursePageRoute() {
                     {url && (
                       <div className="p-3 ">
                         <div className="relative flex">
-                          <Image
-                            src={url}
-                            alt="upload"
-                            className="object-cover border-1 h-48 w-96 "
-                          />
-                          <Button
+                          <Badge
+                            content="X"
+                            size="lg"
+                            color="default"
                             onClick={() => setUrl("")}
-                            className="bg-rose-500 text-white p-1 rounded-full pl-1 -top-2 -right-1 shadow-sm"
-                            type="button"
                           >
-                            <Icon icon="ph:x" width="20" height="20" />
-                          </Button>
+                            <Image
+                              src={url}
+                              alt="upload"
+                              className="object-cover border-1 h-48 w-96 "
+                            />
+                          </Badge>
                         </div>
                       </div>
                     )}

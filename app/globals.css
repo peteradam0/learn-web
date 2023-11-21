@@ -15,6 +15,18 @@
       --background-end-rgb: 0, 0, 0;
     }
   }
+  .max-w-\[1024px\] {
+    max-width: 2000px;
+  }
+
+  .sidebarheight {
+    min-height: fit-content;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    width: 25%;
+  
+}
   
   body {
     color: rgb(var(--foreground-rgb));
@@ -25,3 +37,4 @@
       )
       rgb(var(--background-start-rgb));
   }
+  

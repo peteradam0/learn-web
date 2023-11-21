@@ -46,9 +46,9 @@ export default function CourseCard({ course }: any) {
                   </p>
                   <a className="" href="javascript:;"></a>
                   <div className="flex gap-4 items-center pt-1">
-                    <Button color="primary">Take a photo</Button>
+                    <Button color="primary">Get Full Access</Button>
                     <Button color="secondary" variant="bordered">
-                      Delete user
+                      Watch Preview
                     </Button>
                   </div>
                 </div>

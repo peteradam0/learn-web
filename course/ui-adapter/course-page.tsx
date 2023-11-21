@@ -35,7 +35,9 @@ export default function CoursePage() {
   return (
     <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
       <div className="container max-w-screen-lg mx-auto">
-        <h2 className="font-semibold text-xl text-gray-600 pb-1">MyCourses</h2>
+        <h2 className="font-semibold text-xl text-gray-600 pb-1">
+          Frontend & Fullstack Engineering Courses
+        </h2>
         <p className="text-gray-500 mb-6">
           ed ut perspiciatis unde omnis iste natus error sit voluptatem
           accusantium doloremque laudantium.

@@ -7,14 +7,12 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="h-full">
-      <div className="md:flex hidden w-60 z-20 flex-col fixed inset-y-0 border-r">
-        <SidebarContent isAdmin={true} />
-      </div>
-      <main className="h-full md:pl-60">
-        <MainHeader isAdmin={true} />
-        {children}
+    <div>
+      <MainHeader isAdmin={false} />
+      <main>
+        <SidebarContent isAdmin={false} />
       </main>
+      <div style={{ marginLeft: "255px" }}>{children}</div>
     </div>
   );
 }

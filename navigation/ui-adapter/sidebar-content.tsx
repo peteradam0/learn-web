@@ -25,7 +25,7 @@ export default function SidebarContent({ isAdmin }: SidebarContetProp) {
   const isAdminPage = pathname.startsWith("/administration");
 
   return (
-    <div className="flex-col space-y-4 items-center py-8 pl-1 sm:flex h-full w-[120px] md:w-[250px] md:items-start fixed">
+    <div className="flex-col space-y-4 items-center py-8 pl-1 sm:flex h-full w-[120px] md:w-[250px] md:items-start fixed text-white">
       <Link
         href="/"
         className="flex flex-row space-x-1 items-center p-4 rounded-full duration-200"
@@ -44,7 +44,7 @@ export default function SidebarContent({ isAdmin }: SidebarContetProp) {
               <Icon icon="mingcute:home-5-line" width="32" height="30" />
             )}
             <span
-              className={`text-l p-2 hidden md:flex ${
+              className={`text-l p-2 hidden md:flex text-white${
                 isHomeActive ? "font-bold" : ""
               }`}
             >
@@ -66,7 +66,7 @@ export default function SidebarContent({ isAdmin }: SidebarContetProp) {
               <Icon icon="material-symbols:dashboard" width="30" height="30" />
             )}
             <span
-              className={`text-l p-2 hidden md:flex ${
+              className={`text-l p-2 hidden md:flex text-white${
                 isDashboardActive ? "font-bold" : ""
               }`}
             >
@@ -96,7 +96,7 @@ export default function SidebarContent({ isAdmin }: SidebarContetProp) {
               />
             )}
             <span
-              className={`text-l p-2 hidden md:flex ${
+              className={`text-l p-2 hidden md:flex text-white${
                 isMyCoursesActive ? "font-bold" : ""
               }`}
             >

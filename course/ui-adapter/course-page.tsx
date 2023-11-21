@@ -47,6 +47,7 @@ export default function CoursePage() {
               {courseData.map((course) => (
                 <>
                   <CourseCard course={course} />
+                  <CourseCard course={course} />
                 </>
               ))}
             </div>

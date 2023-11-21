@@ -32,16 +32,6 @@ export default function MainHeader({ isAdmin }: MainHeaderPorps) {
 
   const isAdminPage = pathname.startsWith("/administration");
 
-  <nav className="bg-blue-500 ">
-    <div>
-      <h1 className="">SALUD 360</h1>
-    </div>
-    <div className="flex items-center space-x-4">
-      <span className="text-white">Bienvenido</span>
-      <i className="fas fa-user-circle text-white text-2xl"></i>
-    </div>
-  </nav>;
-
   const menuItems = [
     { name: "MyCourses", url: "/administration/courses" },
     { name: "Analytics", url: "/administration/analytics" },

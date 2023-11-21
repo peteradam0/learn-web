@@ -22,7 +22,10 @@ export default function SidebarContent({ isAdmin }: SidebarContetProp) {
   const pathname = usePathname();
 
   return (
-    <aside className="bg-gray-950 text-white w-64 sidebarheight p-4 float-left">
+    <aside
+      className="text-white w-64 sidebarheight p-4 float-left bg-slate-50"
+      style={{ backgroundColor: "#14151f" }}
+    >
       <nav>
         <ul className="space-y-2">
           <li className="opcion-con-desplegable">

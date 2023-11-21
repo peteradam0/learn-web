@@ -7,30 +7,20 @@ import {
   NavbarItem,
   Link,
   NavbarMenuToggle,
-  NavbarBrand,
   Button,
   NavbarMenu,
   NavbarMenuItem,
-  Input,
-  Dropdown,
-  DropdownTrigger,
-  Avatar,
-  DropdownMenu,
-  DropdownItem,
 } from "@nextui-org/react";
 import { UserButton } from "@clerk/nextjs";
-import ThemeRadioButton from "./theme-switch";
-import { usePathname } from "next/navigation";
+
+import Image from "next/image";
 
 type MainHeaderPorps = {
   isAdmin: boolean;
 };
 
 export default function MainHeader({ isAdmin }: MainHeaderPorps) {
-  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-  const isAdminPage = pathname.startsWith("/administration");
 
   const menuItems = [
     { name: "MyCourses", url: "/administration/courses" },
@@ -43,11 +33,26 @@ export default function MainHeader({ isAdmin }: MainHeaderPorps) {
         style={{ float: "left" }}
         aria-label={isMenuOpen ? "Close menu" : "Open menu"}
       />
-      <NavbarContent className="" justify="start"></NavbarContent>
-
+      <NavbarContent className="" justify="start">
+        <NavbarItem className="">
+          <Link
+            href="/"
+            className="flex flex-row space-x-1 items-center p-4 rounded-full duration-200"
+          >
+            <Image alt="test" src="/favicon.ico" width="35" height="35" />
+          </Link>
+        </NavbarItem>
+        <NavbarItem className="lg:flex ">
+          <Link className="text-white" href="/dashboard">
+            Dashboard
+          </Link>
+        </NavbarItem>
+      </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className=" lg:flex">
-          <Link href="#">What to learn?</Link>
+          <Link className="text-white" href="#">
+            What to learn?
+          </Link>
         </NavbarItem>
         <NavbarItem>
           <Button as={Link} color="warning" href="#" variant="flat">

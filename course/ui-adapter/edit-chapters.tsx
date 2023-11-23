@@ -1,0 +1,142 @@
+import { CreateCourseProps } from "@/common/domain/types";
+
+import { SubmitHandler, useForm } from "react-hook-form";
+
+import {
+  Badge,
+  Button,
+  Divider,
+  Image,
+  Input,
+  Textarea,
+} from "@nextui-org/react";
+import { UploadButton } from "@/common/api-adapter/uploadthing";
+import { useState } from "react";
+
+export default function EditChapters({ courseId, number }: any) {
+  const [url, setUrl] = useState("");
+  const [disable, setDisable] = useState(false);
+
+  const processForm: SubmitHandler<CreateCourseProps> = async (data) => {
+    console.log(data);
+    setDisable(true);
+  };
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<CreateCourseProps>({});
+  return (
+    <div>
+      <Divider className="bg-gray-600 my-4" />
+      <h2 className="font-semibold text-xl text-gray-600">Add new chapter</h2>
+
+      <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+        <div className="text-gray-600">
+          <p>Here the chapters of the courses can be added</p>
+        </div>
+        <form className="lg:col-span-2" onSubmit={handleSubmit(processForm)}>
+          <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+            <div className="p-1 md:col-span-5">
+              <h3 className="text-default-500 text-small pb-1">
+                The first thing that you will have to specify is the title of
+                the chapter
+              </h3>
+              <Input
+                disabled={disable}
+                label="Title"
+                {...register("title", {
+                  required: "Title is required",
+                })}
+              ></Input>
+
+              {errors.title?.message && (
+                <p className="text-sm text-red-400">{errors.title.message}</p>
+              )}
+            </div>
+            <div className="p-1 md:col-span-5">
+              <h3 className="text-default-500 text-small pb-1">
+                Please enter the description of the course
+              </h3>
+              <Textarea
+                disabled={disable}
+                label="Description"
+                {...register("description", {
+                  required: "Description is required",
+                })}
+              />
+              {errors.description?.message && (
+                <p className="text-sm text-red-400">
+                  {errors.description.message}
+                </p>
+              )}
+            </div>
+
+            <div className="p-1 md:col-span-5 ">
+              <h3 className="text-default-500 text-small pb-1">
+                Please upload the video for this chapter
+              </h3>
+              {url === "" && errors.imageUrl?.message && (
+                <p className="text-sm text-red-400">
+                  {errors.imageUrl.message}
+                </p>
+              )}
+              {url && (
+                <div className="p-3 ">
+                  <div className="relative flex">
+                    <Badge
+                      content="X"
+                      size="lg"
+                      color="default"
+                      onClick={() => setUrl("")}
+                    >
+                      <Image
+                        src={url}
+                        alt="upload"
+                        className="object-cover border-1 h-48 w-96 "
+                      />
+                    </Badge>
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className="md:col-span-5 text-right">
+              <div className="inline-flex items-end">
+                {!url && (
+                  <>
+                    <UploadButton
+                      endpoint="imageUploader"
+                      onClientUploadComplete={(res) => {
+                        setUrl(res?.[0].url);
+                      }}
+                      onUploadError={(error: Error) => {
+                        alert(`ERROR! ${error.message}`);
+                      }}
+                    />
+
+                    <input
+                      className="hidden"
+                      value={url}
+                      {...register("imageUrl", {
+                        required: "Image is required",
+                      })}
+                    />
+                  </>
+                )}
+              </div>
+            </div>
+            <div className="md:col-span-5 text-right">
+              <div className="inline-flex items-end">
+                <Button disabled={disable} type="submit">
+                  Create chapter
+                </Button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}

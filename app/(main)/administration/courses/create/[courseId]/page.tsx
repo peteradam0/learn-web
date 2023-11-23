@@ -11,12 +11,14 @@ import {
   Image,
   DropdownTrigger,
   Input,
+  Divider,
   Textarea,
 } from "@nextui-org/react";
 import { UploadButton } from "@/common/api-adapter/uploadthing";
 import { redirect } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import EditChapters from "@/course/ui-adapter/edit-chapters";
 
 export default function EditCoursePage({
   params,
@@ -27,6 +29,15 @@ export default function EditCoursePage({
   const [courseData, setCourseData] = useState();
   const [isLoading, setLoading] = useState(true);
   const [category, setCategory] = useState("Frontend");
+  const [chapterList, setChapterListList] = useState([
+    <EditChapters courseId={params.courseId} key={"1"} />,
+  ]);
+
+  const handleAddChapterClick = () => {
+    setChapterListList(
+      chapterList.concat(<EditChapters courseId={params.courseId} key={"1"} />)
+    );
+  };
 
   const processForm: SubmitHandler<CreateCourseProps> = async (data) => {
     console.log(data);
@@ -207,11 +218,21 @@ export default function EditCoursePage({
                 </div>
                 <div className="md:col-span-5 text-right">
                   <div className="inline-flex items-end">
-                    <Button type="submit">Submit</Button>
+                    <Button type="submit">Update</Button>
                   </div>
                 </div>
               </div>
             </form>
+          </div>
+        </div>
+        <div>{chapterList}</div>
+
+        <Divider className="bg-gray-600 my-4" />
+        <div className="md:col-span-5 text-right">
+          <div className="inline-flex items-end">
+            <Button type="submit" onClick={() => handleAddChapterClick()}>
+              Add further chapeters
+            </Button>
           </div>
         </div>
       </div>

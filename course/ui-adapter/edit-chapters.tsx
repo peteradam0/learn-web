@@ -1,4 +1,4 @@
-import { CreateCourseProps } from "@/common/domain/types";
+import { CreateChapterProps, CreateCourseProps } from "@/common/domain/types";
 
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -17,8 +17,9 @@ export default function EditChapters({ courseId, number }: any) {
   const [url, setUrl] = useState("");
   const [disable, setDisable] = useState(false);
 
-  const processForm: SubmitHandler<CreateCourseProps> = async (data) => {
+  const processForm: SubmitHandler<CreateChapterProps> = async (data) => {
     console.log(data);
+    console.log(url);
     setDisable(true);
   };
 
@@ -27,7 +28,7 @@ export default function EditChapters({ courseId, number }: any) {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<CreateCourseProps>({});
+  } = useForm<CreateChapterProps>({});
   return (
     <div>
       <Divider className="bg-gray-600 my-4" />
@@ -78,9 +79,9 @@ export default function EditChapters({ courseId, number }: any) {
               <h3 className="text-default-500 text-small pb-1">
                 Please upload the video for this chapter
               </h3>
-              {url === "" && errors.imageUrl?.message && (
+              {url === "" && errors.videoUrl?.message && (
                 <p className="text-sm text-red-400">
-                  {errors.imageUrl.message}
+                  {errors.videoUrl.message}
                 </p>
               )}
               {url && (
@@ -92,9 +93,8 @@ export default function EditChapters({ courseId, number }: any) {
                       color="default"
                       onClick={() => setUrl("")}
                     >
-                      <Image
+                      <video
                         src={url}
-                        alt="upload"
                         className="object-cover border-1 h-48 w-96 "
                       />
                     </Badge>
@@ -107,7 +107,12 @@ export default function EditChapters({ courseId, number }: any) {
                 {!url && (
                   <>
                     <UploadButton
-                      endpoint="imageUploader"
+                      content={{
+                        allowedContent() {
+                          return "";
+                        },
+                      }}
+                      endpoint="videoUploader"
                       onClientUploadComplete={(res) => {
                         setUrl(res?.[0].url);
                       }}
@@ -119,8 +124,8 @@ export default function EditChapters({ courseId, number }: any) {
                     <input
                       className="hidden"
                       value={url}
-                      {...register("imageUrl", {
-                        required: "Image is required",
+                      {...register("videoUrl", {
+                        required: "The video for this is required",
                       })}
                     />
                   </>

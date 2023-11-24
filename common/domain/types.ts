@@ -12,3 +12,9 @@ export type CourseData = {
   imageUrl: string;
   category: string;
 };
+
+export type CreateChapterProps = {
+  title: string;
+  description: string;
+  videoUrl: string;
+};

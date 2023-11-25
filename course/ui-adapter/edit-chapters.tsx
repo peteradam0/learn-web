@@ -2,51 +2,59 @@ import { CreateChapterProps } from "@/common/domain/types";
 
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { Badge, Button, Divider, Input, Textarea } from "@nextui-org/react";
+import {
+  Badge,
+  Button,
+  Divider,
+  Input,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Textarea,
+} from "@nextui-org/react";
 import { UploadButton } from "@/common/api-adapter/uploadthing";
 import { useState } from "react";
 import { createChapter } from "../api-adapter/create-chapter";
 import { getUserToken } from "../domain/get-user-token";
 import { redirect } from "next/navigation";
 import { removeChapter } from "../api-adapter/remove-chapter";
+import { updateChapter } from "../api-adapter/update-chapter";
 
 export default function EditChapters({
   courseId,
-  displayRemoveBadge,
-  uuid,
   handleRemoveChapter,
+  uuid,
+  closeChapter,
+  chapterData,
 }: any) {
-  const [url, setUrl] = useState("");
-  const [disable, setDisable] = useState(false);
-  const [chapterId, setChapterId] = useState("");
+  const [url, setUrl] = useState(chapterData?.videoUrl);
+  const [chapterId, setChapterId] = useState(chapterData?.id);
 
   const processForm: SubmitHandler<any> = async (data: any) => {
-    if (disable) {
-      const token = await getUserToken();
-      if (!token) {
-        redirect("/");
-      }
-      await removeChapter(courseId, chapterId, token);
-      setDisable(false);
-      setUrl("");
+    if (chapterId) {
+      //update chapter
+      const chapter: any = await updateChapter(
+        {
+          id: chapterId,
+          title: data.title,
+          description: data.description,
+          videoUrl: url,
+          courseId: courseId,
+        },
+        chapterId,
+        courseId
+      );
     } else {
-      const token = await getUserToken();
-
-      if (!token) {
-        redirect("/");
-      }
-      const chapter = await createChapter(
+      //create chapter
+      const chapter: any = await createChapter(
         {
           title: data.title,
           description: data.description,
           videoUrl: url,
         },
-        courseId,
-        token
+        courseId
       );
-
       setChapterId(chapter?.data.id);
-      setDisable(true);
     }
   };
 
@@ -57,9 +65,10 @@ export default function EditChapters({
         redirect("/");
       }
       await removeChapter(courseId, chapterId, token);
+      handleRemoveChapter();
+    } else {
+      closeChapter(uuid);
     }
-
-    handleRemoveChapter(uuid);
   };
 
   const {
@@ -72,30 +81,23 @@ export default function EditChapters({
     <>
       <Divider className="bg-gray-600 my-4" />
 
-      <div
-        className="p-1"
-        style={{ backgroundColor: `${disable ? "#e9e7e7" : ""}` }}
-      >
-        {displayRemoveBadge && (
-          <div className="p-3 ">
-            <div className="relative flex bg-red-300">
-              <Badge
-                content="X"
-                size="lg"
-                color="default"
-                onClick={() => removeFromList()}
-              ></Badge>
-            </div>
-          </div>
-        )}
+      <div className="p-1">
         <h2 className="font-semibold text-xl text-gray-600 p-1">
-          Add a new chapter
+          Edit your chapters
         </h2>
 
         <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
           <div className="text-gray-600">
-            <p className="p-1">Here the chapters of the courses can be added</p>
+            <p className="p-1">
+              By prssing the delete button the chapter will be removed
+            </p>
+            <div className="pt-2">
+              <Button color="danger" onClick={() => removeFromList()}>
+                Delete Chapter
+              </Button>
+            </div>
           </div>
+
           <form className="lg:col-span-2" onSubmit={handleSubmit(processForm)}>
             <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
               <div className="p-1 md:col-span-5">
@@ -104,8 +106,8 @@ export default function EditChapters({
                   the chapter
                 </h3>
                 <Input
-                  disabled={disable}
                   label="Title"
+                  defaultValue={chapterData?.title}
                   {...register("title", {
                     required: "Title is required",
                   })}
@@ -120,7 +122,7 @@ export default function EditChapters({
                   Please enter the description of the course
                 </h3>
                 <Textarea
-                  disabled={disable}
+                  defaultValue={chapterData?.description}
                   label="Description"
                   {...register("description", {
                     required: "Description is required",
@@ -145,25 +147,17 @@ export default function EditChapters({
                 {url && (
                   <div className="p-3 ">
                     <div className="relative flex">
-                      {!disable && (
-                        <Badge
-                          content="X"
-                          size="lg"
-                          color="default"
-                          onClick={() => setUrl("")}
-                        >
-                          <video
-                            src={url}
-                            className="object-cover border-1 h-48 w-96 "
-                          />
-                        </Badge>
-                      )}
-                      {disable && (
+                      <Badge
+                        content="X"
+                        size="lg"
+                        color="default"
+                        onClick={() => setUrl("")}
+                      >
                         <video
                           src={url}
                           className="object-cover border-1 h-48 w-96 "
                         />
-                      )}
+                      </Badge>
                     </div>
                   </div>
                 )}
@@ -200,16 +194,26 @@ export default function EditChapters({
               </div>
               <div className="md:col-span-5 text-right p-1">
                 <div className="inline-flex items-end">
-                  {!displayRemoveBadge && disable && (
-                    <Button color="danger" type="submit">
-                      Reset
-                    </Button>
-                  )}
-                  {!disable && (
-                    <Button disabled={disable} type="submit">
-                      Create chapter
-                    </Button>
-                  )}
+                  <Popover placement="bottom" showArrow={true}>
+                    <PopoverTrigger>
+                      <Button type="submit">
+                        {chapterData ? "Update" : "Create"}
+                      </Button>
+                    </PopoverTrigger>
+
+                    <PopoverContent>
+                      <div className="px-1 py-2">
+                        <div className="text-small font-bold">
+                          Popover Content
+                        </div>
+                        <div className="text-tiny">
+                          {chapterData
+                            ? "Successful update"
+                            : "Successful create"}
+                        </div>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
                 </div>
               </div>
             </div>

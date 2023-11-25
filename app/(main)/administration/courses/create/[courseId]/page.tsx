@@ -1,5 +1,5 @@
 "use client";
-import { CreateCourseProps } from "@/common/domain/types";
+import { CreateChapterProps, CreateCourseProps } from "@/common/domain/types";
 import { getCourse } from "@/course/api-adapter/get-course";
 import { getUserToken } from "@/course/domain/get-user-token";
 import { UUID } from "uuid-generator-ts";
@@ -30,17 +30,18 @@ export default function EditCoursePage({
   const [courseData, setCourseData] = useState();
   const [isLoading, setLoading] = useState(true);
   const [category, setCategory] = useState("Frontend");
-  const [chapterList, setChapterListList] = useState([] as any);
+  const [chapterList, setChapterList] = useState([] as any);
 
   const handleAddChapterClick = () => {
     const uuid = new UUID();
-
-    setChapterListList(
+    const id = uuid.toString();
+    setChapterList(
       chapterList.concat(
         <EditChapters
           courseId={params.courseId}
-          uuid={uuid.getDashFreeUUID()}
-          key={1}
+          key={id}
+          uuid={id}
+          closeChapter={closeChapter}
           displayRemoveBadge="true"
           handleRemoveChapter={handleRemoveChapter}
         />
@@ -48,16 +49,35 @@ export default function EditCoursePage({
     );
   };
 
-  const handleRemoveChapter = (uuid: string) => {
-    setChapterListList(
-      chapterList.filter((chapter: any) => {
-        !(chapter.uuid === uuid);
-      })
-    );
+  const loadChapters = (chapterData: any[]) => {
+    const chapterSet = new Set(chapterData);
+
+    const list: any[] = [];
+
+    chapterSet.forEach((chapter) => {
+      list.push(
+        <EditChapters
+          courseId={params.courseId}
+          key={chapter.id}
+          handleRemoveChapter={handleRemoveChapter}
+          chapterData={chapter}
+        />
+      );
+      setChapterList(list);
+    });
+  };
+
+  const handleRemoveChapter = () => {
+    setChapterList(chapterList);
+  };
+
+  const closeChapter = (uuid: string) => {
+    console.log(uuid);
+    console.log(chapterList);
   };
 
   const processForm: SubmitHandler<CreateCourseProps> = async (data) => {
-    console.log(data);
+    //TODO: update course
   };
 
   useEffect(() => {
@@ -72,11 +92,16 @@ export default function EditCoursePage({
     }
 
     try {
-      const res = await getCourse(token, params.courseId);
-      setCourseData(res?.data);
+      const course = await getCourse(token, params.courseId);
+      setCourseData(course?.data);
 
-      setUrl(res?.data.imageUrl);
-      setCategory(res?.data.category);
+      setUrl(course?.data.imageUrl);
+      setCategory(course?.data.category);
+
+      if (course?.data?.chapterData) {
+        loadChapters(course?.data?.chapterData);
+      }
+
       setLoading(false);
     } catch (e) {
       console.log(e);
@@ -242,16 +267,14 @@ export default function EditCoursePage({
             </form>
           </div>
         </div>
-        <div>
-          <EditChapters courseId={params.courseId} key={"1"} />
-          {chapterList}
-        </div>
+
+        <div>{chapterList}</div>
 
         <Divider className="bg-gray-600 my-4" />
         <div className="md:col-span-5 text-right">
           <div className="inline-flex items-end">
             <Button type="submit" onClick={() => handleAddChapterClick()}>
-              Add further chapeters
+              Add new chapeters
             </Button>
           </div>
         </div>

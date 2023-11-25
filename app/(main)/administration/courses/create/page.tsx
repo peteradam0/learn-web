@@ -44,7 +44,6 @@ export default function AddCoursePageRoute() {
         },
         token
       );
-      console.log(res);
       reset();
       router.push(`/administration/courses/`);
     } catch (e) {

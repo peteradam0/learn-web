@@ -28,7 +28,6 @@ export default function AddCoursePageRoute() {
 
   const processForm: SubmitHandler<CreateCourseProps> = async (data) => {
     //TODO: this is hacky, find a better approach
-
     const token = await getUserToken();
 
     if (!token) {

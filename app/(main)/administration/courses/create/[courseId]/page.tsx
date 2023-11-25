@@ -2,6 +2,7 @@
 import { CreateCourseProps } from "@/common/domain/types";
 import { getCourse } from "@/course/api-adapter/get-course";
 import { getUserToken } from "@/course/domain/get-user-token";
+import { UUID } from "uuid-generator-ts";
 import {
   Badge,
   Button,
@@ -29,13 +30,28 @@ export default function EditCoursePage({
   const [courseData, setCourseData] = useState();
   const [isLoading, setLoading] = useState(true);
   const [category, setCategory] = useState("Frontend");
-  const [chapterList, setChapterListList] = useState([
-    <EditChapters courseId={params.courseId} key={"1"} />,
-  ]);
+  const [chapterList, setChapterListList] = useState([] as any);
 
   const handleAddChapterClick = () => {
+    const uuid = new UUID();
+
     setChapterListList(
-      chapterList.concat(<EditChapters courseId={params.courseId} key={"1"} />)
+      chapterList.concat(
+        <EditChapters
+          courseId={params.courseId}
+          uuid={uuid.getDashFreeUUID()}
+          displayRemoveBadge="true"
+          handleRemoveChapter={handleRemoveChapter}
+        />
+      )
+    );
+  };
+
+  const handleRemoveChapter = (uuid: string) => {
+    setChapterListList(
+      chapterList.filter((chapter: any) => {
+        !(chapter.uuid === uuid);
+      })
     );
   };
 
@@ -225,7 +241,10 @@ export default function EditCoursePage({
             </form>
           </div>
         </div>
-        <div>{chapterList}</div>
+        <div>
+          <EditChapters courseId={params.courseId} key={"1"} />
+          {chapterList}
+        </div>
 
         <Divider className="bg-gray-600 my-4" />
         <div className="md:col-span-5 text-right">

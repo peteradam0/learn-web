@@ -40,6 +40,7 @@ export default function EditCoursePage({
         <EditChapters
           courseId={params.courseId}
           uuid={uuid.getDashFreeUUID()}
+          key={1}
           displayRemoveBadge="true"
           handleRemoveChapter={handleRemoveChapter}
         />

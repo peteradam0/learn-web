@@ -5,6 +5,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Badge, Button, Divider, Input, Textarea } from "@nextui-org/react";
 import { UploadButton } from "@/common/api-adapter/uploadthing";
 import { useState } from "react";
+import { createChapter } from "../api-adapter/create-chapter";
+import { getUserToken } from "../domain/get-user-token";
+import { redirect } from "next/navigation";
+import { removeChapter } from "../api-adapter/remove-chapter";
 
 export default function EditChapters({
   courseId,
@@ -16,19 +20,45 @@ export default function EditChapters({
   const [disable, setDisable] = useState(false);
   const [chapterId, setChapterId] = useState("");
 
-  const processForm: SubmitHandler<CreateChapterProps> = async (data) => {
+  const processForm: SubmitHandler<any> = async (data: any) => {
     if (disable) {
+      const token = await getUserToken();
+      if (!token) {
+        redirect("/");
+      }
+      await removeChapter(courseId, chapterId, token);
       setDisable(false);
       setUrl("");
-      //  removeChapter(uuid);
     } else {
-      //  const chapter = createChapter(courseId, data, url);
-      //  setChapterId(chapter.id);
+      const token = await getUserToken();
+
+      if (!token) {
+        redirect("/");
+      }
+      const chapter = await createChapter(
+        {
+          title: data.title,
+          description: data.description,
+          videoUrl: url,
+        },
+        courseId,
+        token
+      );
+
+      setChapterId(chapter?.data.id);
       setDisable(true);
     }
   };
 
-  const removeFromList = () => {
+  const removeFromList = async () => {
+    if (chapterId) {
+      const token = await getUserToken();
+      if (!token) {
+        redirect("/");
+      }
+      await removeChapter(courseId, chapterId, token);
+    }
+
     handleRemoveChapter(uuid);
   };
 

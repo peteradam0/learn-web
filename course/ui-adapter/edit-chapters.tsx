@@ -23,8 +23,6 @@ import { updateChapter } from "../api-adapter/update-chapter";
 export default function EditChapters({
   courseId,
   handleRemoveChapter,
-  uuid,
-  closeChapter,
   chapterData,
 }: any) {
   const [url, setUrl] = useState(chapterData?.videoUrl);
@@ -67,7 +65,6 @@ export default function EditChapters({
       await removeChapter(courseId, chapterId, token);
       handleRemoveChapter();
     } else {
-      closeChapter(uuid);
     }
   };
 

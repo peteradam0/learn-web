@@ -52,7 +52,7 @@ export default function MyCoursePage() {
             <div className="grid lg:grid-cols-3 gap-4">
               {courseData.map((course) => (
                 <>
-                  <CourseCard course={course} />
+                  <CourseCard key={course.id} course={course} />
                 </>
               ))}
             </div>

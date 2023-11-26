@@ -14,12 +14,15 @@ import {
   Input,
   Divider,
   Textarea,
+  Switch,
+  cn,
 } from "@nextui-org/react";
 import { UploadButton } from "@/common/api-adapter/uploadthing";
 import { redirect } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import EditChapters from "@/course/ui-adapter/edit-chapters";
+import { updateChapter } from "@/course/api-adapter/update-publication";
 
 export default function EditCoursePage({
   params,
@@ -31,6 +34,7 @@ export default function EditCoursePage({
   const [isLoading, setLoading] = useState(true);
   const [category, setCategory] = useState("Frontend");
   const [chapterList, setChapterList] = useState([] as any);
+  const [publish, setIsPublished] = useState(false);
 
   const handleAddChapterClick = () => {
     const uuid = new UUID();
@@ -41,7 +45,6 @@ export default function EditCoursePage({
           courseId={params.courseId}
           key={id}
           uuid={id}
-          closeChapter={closeChapter}
           displayRemoveBadge="true"
           handleRemoveChapter={handleRemoveChapter}
         />
@@ -71,9 +74,9 @@ export default function EditCoursePage({
     setChapterList(chapterList);
   };
 
-  const closeChapter = (uuid: string) => {
-    console.log(uuid);
-    console.log(chapterList);
+  const handlePublication = async () => {
+    await updateChapter(params.courseId);
+    setIsPublished(!publish);
   };
 
   const processForm: SubmitHandler<CreateCourseProps> = async (data) => {
@@ -101,7 +104,7 @@ export default function EditCoursePage({
       if (course?.data?.chapterData) {
         loadChapters(course?.data?.chapterData);
       }
-
+      setIsPublished(course?.data?.published);
       setLoading(false);
     } catch (e) {
       console.log(e);
@@ -128,6 +131,36 @@ export default function EditCoursePage({
             <div className="text-gray-600">
               <p className="font-medium text-lg">Course details</p>
               <p>Here you can start the creation process of a course.</p>
+              <div style={{ paddingTop: "20px", paddingBottom: "20px" }}>
+                <Switch
+                  isSelected={publish}
+                  onClick={() => handlePublication()}
+                  classNames={{
+                    base: cn(
+                      "inline-flex flex-row-reverse w-full max-w-md bg-content1 hover:bg-content2 items-center",
+                      "justify-between cursor-pointer rounded-lg gap-2 p-4 border-2 border-transparent",
+                      "data-[selected=true]:border-primary"
+                    ),
+                    wrapper: "p-0 h-4 overflow-visible",
+                    thumb: cn(
+                      "w-6 h-6 border-2 shadow-lg",
+                      "group-data-[hover=true]:border-primary",
+                      //selected
+                      "group-data-[selected=true]:ml-6",
+                      // pressed
+                      "group-data-[pressed=true]:w-7",
+                      "group-data-[selected]:group-data-[pressed]:ml-4"
+                    ),
+                  }}
+                >
+                  <div className="flex flex-col gap-1">
+                    <p className="text-medium">Publication</p>
+                    <p className="text-tiny text-default-400">
+                      By turning the switch on the course will be published
+                    </p>
+                  </div>
+                </Switch>
+              </div>
             </div>
             <form
               className="lg:col-span-2"

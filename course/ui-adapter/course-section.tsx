@@ -1,13 +1,12 @@
 import { Divider } from "@nextui-org/react";
 import Link from "next/link";
-import router from "next/router";
 
 import React from "react";
 
 export default function CourseSection(props: any) {
   const chapterData = props.data;
   const courseId = props.courseId;
-  const url = `/administration/courses/preview/${courseId}/chapter/${chapterData.id}`;
+  const url = `/courses/${courseId}/chapter/${chapterData.id}`;
 
   return (
     <Link href={url}>

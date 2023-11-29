@@ -1,3 +1,4 @@
+import CourseVideoPage from "@/course/ui-adapter/course-video-page";
 import React from "react";
 
 export default function ChapterPageRoute({ params }: any) {
@@ -5,7 +6,7 @@ export default function ChapterPageRoute({ params }: any) {
 
   return (
     <div>
-      {chapterId}ChapterPageRoute {courseId}
+      <CourseVideoPage />
     </div>
   );
 }

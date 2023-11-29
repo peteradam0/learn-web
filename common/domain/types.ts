@@ -32,9 +32,7 @@ export type Course = {
   description: string;
   imageUrl: string;
   category: string;
-  topics: Topics[];
-  teacher: Teacher;
   createdAt: string;
-  previewVideoUrl: string;
+  videoUrl: string;
   chapters: CreateChapterProps[];
 };

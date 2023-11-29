@@ -8,7 +8,7 @@ export default function PreviewPageRoute({
 }) {
   return (
     <div>
-      <CoursePreviewPage />
+      <CoursePreviewPage courseId={params.courseId} />
     </div>
   );
 }

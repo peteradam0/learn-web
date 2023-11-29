@@ -3,20 +3,21 @@ import React from "react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Avatar, Chip } from "@nextui-org/react";
 
-export default function CourseHeadline() {
+export default function CourseHeadline(data: any) {
+  const course = data.courseData;
   return (
     <div className="mb-8" style={{ marginLeft: "80px" }}>
       <h2 className="font-semibold text-xl text-gray-600 pb-1">
-        Frontend & Fullstack Engineering Courses
+        {course.title}
       </h2>
       <div className="text-sm text-gray-600 flex items-center">
         <img
-          src="http://placehold.it/360x150"
+          src={course.imageUrl}
           alt="waves"
           style={{
             height: "170px",
             paddingTop: "15px",
-            width: "200px",
+            width: "300px",
           }}
         />
         <div className="text-gray-900 font-bold text-xl mb-2 ml-2 p-1">

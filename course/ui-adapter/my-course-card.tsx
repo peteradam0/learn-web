@@ -1,14 +1,19 @@
 "use client";
 
-import { Button, Card, Chip } from "@nextui-org/react";
+import { Button, Card, Chip, Link } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function MyCourseCard({ course }: any) {
   const router = useRouter();
+
   const handleRedirect = (courseId: string) => {
     router.push(`/administration/courses/create/${courseId}`);
   };
+  const handleRedirectToPreview = (courseId: string) => {
+    router.push(`/administration/courses/preview/${courseId}`);
+  };
+
   return (
     <div className="shadow-lg">
       <Card className="bg-red-300">
@@ -57,6 +62,13 @@ export default function MyCourseCard({ course }: any) {
                         onClick={() => handleRedirect(course.id)}
                       >
                         Edit
+                      </Button>
+
+                      <Button
+                        color="primary"
+                        onClick={() => handleRedirectToPreview(course.id)}
+                      >
+                        Preview
                       </Button>
                     </div>
                   </div>

@@ -1,5 +1,6 @@
 "use client";
-import { CreateChapterProps, CreateCourseProps } from "@/common/domain/types";
+
+import { CreateCourseProps } from "@/common/domain/types";
 import { getCourse } from "@/course/api-adapter/get-course";
 import { getUserToken } from "@/course/domain/get-user-token";
 import { UUID } from "uuid-generator-ts";
@@ -30,6 +31,7 @@ export default function EditCoursePage({
   params: { courseId: string };
 }) {
   const [url, setUrl] = useState("");
+  const [videoUrl, setVideoUrl] = useState("");
   const [courseData, setCourseData] = useState();
   const [isLoading, setLoading] = useState(true);
   const [category, setCategory] = useState("Frontend");
@@ -99,6 +101,7 @@ export default function EditCoursePage({
       setCourseData(course?.data);
 
       setUrl(course?.data.imageUrl);
+      setVideoUrl(course?.data.videoUrl);
       setCategory(course?.data.category);
 
       if (course?.data?.chapterData) {
@@ -285,6 +288,63 @@ export default function EditCoursePage({
                           value={url}
                           {...register("imageUrl", {
                             required: "Image is required",
+                          })}
+                        />
+                      </>
+                    )}
+                  </div>
+                </div>
+                <div className="p-1 md:col-span-5 ">
+                  <h3 className="text-default-500 text-small pb-1">
+                    Please upload the preview video of the course
+                  </h3>
+                  {videoUrl === "" && errors.videoUrl?.message && (
+                    <p className="text-sm text-red-400">
+                      {errors.videoUrl.message}
+                    </p>
+                  )}
+                  {videoUrl && (
+                    <div className="p-3 ">
+                      <div className="relative flex">
+                        <Badge
+                          content="X"
+                          size="lg"
+                          color="default"
+                          onClick={() => setVideoUrl("")}
+                        >
+                          <video
+                            src={videoUrl}
+                            className="object-cover border-1 h-48 w-96 "
+                          />
+                        </Badge>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <div className="md:col-span-5 text-right">
+                  <div className="inline-flex items-end">
+                    {!videoUrl && (
+                      <>
+                        <UploadButton
+                          endpoint="videoUploader"
+                          onClientUploadComplete={(res) => {
+                            setVideoUrl(res?.[0].url);
+                          }}
+                          content={{
+                            allowedContent() {
+                              return "";
+                            },
+                          }}
+                          onUploadError={(error: Error) => {
+                            alert(`ERROR! ${error.message}`);
+                          }}
+                        />
+
+                        <input
+                          className="hidden"
+                          value={videoUrl}
+                          {...register("videoUrl", {
+                            required: "Preview video is required",
                           })}
                         />
                       </>

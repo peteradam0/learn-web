@@ -23,6 +23,7 @@ import { CreateCourseProps } from "@/common/domain/types";
 
 export default function AddCoursePageRoute() {
   const [url, setUrl] = useState("");
+  const [videoUrl, setVideoUrl] = useState("");
   const [category, setCategory] = useState("Frontend");
   const router = useRouter();
 
@@ -41,6 +42,7 @@ export default function AddCoursePageRoute() {
           description: data.description,
           category: data.category,
           imageUrl: url,
+          videoUrl: videoUrl,
         },
         token
       );
@@ -62,6 +64,7 @@ export default function AddCoursePageRoute() {
       description: "",
       imageUrl: "",
       category: category,
+      videoUrl: "",
     },
   });
 
@@ -144,6 +147,7 @@ export default function AddCoursePageRoute() {
                       >
                         <DropdownItem key="Frontend">Frontend</DropdownItem>
                         <DropdownItem key="Backend">Backend</DropdownItem>
+                        <DropdownItem key="DevOps">DevOps</DropdownItem>
                       </DropdownMenu>
                     </Dropdown>
                     {errors.category?.message && (
@@ -206,9 +210,67 @@ export default function AddCoursePageRoute() {
                       )}
                     </div>
                   </div>
+
+                  <div className="p-1 md:col-span-5 ">
+                    <h3 className="text-default-500 text-small pb-1">
+                      Please upload the preview video of the course
+                    </h3>
+                    {videoUrl === "" && errors.videoUrl?.message && (
+                      <p className="text-sm text-red-400">
+                        {errors.videoUrl.message}
+                      </p>
+                    )}
+                    {videoUrl && (
+                      <div className="p-3 ">
+                        <div className="relative flex">
+                          <Badge
+                            content="X"
+                            size="lg"
+                            color="default"
+                            onClick={() => setVideoUrl("")}
+                          >
+                            <video
+                              src={videoUrl}
+                              className="object-cover border-1 h-48 w-96 "
+                            />
+                          </Badge>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                   <div className="md:col-span-5 text-right">
                     <div className="inline-flex items-end">
-                      <Button type="submit">Submit</Button>
+                      {!videoUrl && (
+                        <>
+                          <UploadButton
+                            endpoint="videoUploader"
+                            onClientUploadComplete={(res) => {
+                              setVideoUrl(res?.[0].url);
+                            }}
+                            content={{
+                              allowedContent() {
+                                return "";
+                              },
+                            }}
+                            onUploadError={(error: Error) => {
+                              alert(`ERROR! ${error.message}`);
+                            }}
+                          />
+
+                          <input
+                            className="hidden"
+                            value={videoUrl}
+                            {...register("videoUrl", {
+                              required: "Preview video is required",
+                            })}
+                          />
+                        </>
+                      )}
+                    </div>
+                  </div>
+                  <div className="md:col-span-5 text-right">
+                    <div className="inline-flex items-end">
+                      <Button type="submit">Create</Button>
                     </div>
                   </div>
                 </div>

@@ -1,12 +1,16 @@
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { Avatar, Chip, Divider } from "@nextui-org/react";
+import { Divider } from "@nextui-org/react";
 import Link from "next/link";
+import router from "next/router";
+
 import React from "react";
 
 export default function CourseSection(props: any) {
   const chapterData = props.data;
+  const courseId = props.courseId;
+  const url = `/administration/courses/preview/${courseId}/chapter/${chapterData.id}`;
+
   return (
-    <Link href="#">
+    <Link href={url}>
       <h2 className="font-semibold text-white pb-1 pt-2 mt-2">
         {chapterData.title}
       </h2>

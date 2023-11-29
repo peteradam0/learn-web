@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Card, Chip, Link } from "@nextui-org/react";
+import { Button, Card, Chip } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import React from "react";
 

@@ -23,8 +23,8 @@ export default function MainHeader({ isAdmin }: MainHeaderPorps) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const menuItems = [
-    { name: "MyCourses", url: "/administration/courses" },
-    { name: "Analytics", url: "/administration/analytics" },
+    { name: "Courses", url: "/courses" },
+    { name: "Admin", url: "/administration/courses" },
   ];
 
   return (
@@ -43,7 +43,7 @@ export default function MainHeader({ isAdmin }: MainHeaderPorps) {
           </Link>
         </NavbarItem>
         <NavbarItem className="lg:flex ">
-          <Link className="text-white" href="/dashboard">
+          <Link className="text-white" href="/">
             Dashboard
           </Link>
         </NavbarItem>

@@ -1,9 +1,5 @@
-import Button from "../../common/ui-adapter/button";
+import React from "react";
 
-export default function Home() {
-  return (
-    <>
-      <Button />
-    </>
-  );
+export default function WelcomePage() {
+  return <div>WelcomePage</div>;
 }

@@ -177,7 +177,7 @@ export default function EditCoursePage({
                   </h3>
                   <Input
                     label="Title"
-                    defaultValue={courseData.title}
+                    defaultValue={courseData?.title}
                     {...register("title", {
                       required: "Title is required",
                     })}
@@ -195,7 +195,7 @@ export default function EditCoursePage({
                   </h3>
                   <Textarea
                     label="Description"
-                    defaultValue={courseData.description}
+                    defaultValue={courseData?.description}
                     {...register("description", {
                       required: "Description is required",
                     })}

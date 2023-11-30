@@ -34,11 +34,6 @@ export default function SidebarContent({ isAdmin }: SidebarContetProp) {
                 <span>Home</span>
               </div>
             </div>
-            <div className="flex items-center justify-between p-2 hover:bg-gray-700">
-              <div className="flex items-center">
-                <span>Administration</span>
-              </div>
-            </div>
             <ul className="desplegable ml-4 ">
               <li>
                 <Link

@@ -1,16 +1,57 @@
+"use client";
+import { getCourse } from "@/course/api-adapter/get-course";
+import { getUserToken } from "@/course/domain/get-user-token";
 import CourseVideoPage from "@/course/ui-adapter/course-video-page";
-import SidebarContent from "@/navigation/ui-adapter/sidebar-content";
+
 import VidePlayerSidebar from "@/navigation/ui-adapter/video-player-sidebar";
-import React from "react";
+import { redirect } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 export default function ChapterPageRoute({ params }: any) {
+  const [loading, setLoading] = useState(false);
+  const [courseData, setCourseData] = useState({});
+  const [videoUrl, setVideoUrl] = useState();
   const { courseId, chapterId } = params;
+
+  const getCurrentVideoUrl = (courseData: any, chapterId: string) => {
+    const currentChapter = courseData?.chapterData?.find((chapter: any) => {
+      return chapter.id === chapterId;
+    });
+    return currentChapter?.videoUrl;
+  };
+
+  useEffect(() => {
+    getCourseData();
+  }, []);
+
+  const getCourseData = async () => {
+    setLoading(true);
+    const token = await getUserToken();
+
+    if (!token) {
+      redirect("/");
+    }
+
+    try {
+      const course = await getCourse(token, courseId);
+      setCourseData(course?.data);
+      setLoading(false);
+
+      console.log(course?.data);
+    } catch (e) {
+      console.log(e);
+      setLoading(false);
+    }
+  };
 
   return (
     <div>
-      <VidePlayerSidebar />
+      <VidePlayerSidebar
+        chapterData={courseData.chapterData}
+        courseId={courseId}
+      />
       <div style={{ marginLeft: "255px" }}>
-        <CourseVideoPage />
+        <CourseVideoPage videoUrl={getCurrentVideoUrl(courseData, chapterId)} />
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import React from "react";
 
 export default function CourseCard({ course }: any) {
   return (
-    <Card className="bg-red-300">
+    <Card>
       <div className="relative flex flex-col min-w-0 break-wordsshadow-soft-xl rounded-2xl bg-clip-border ">
         <div className="flex-auto p-4">
           <div className="flex flex-wrap -mx-3">

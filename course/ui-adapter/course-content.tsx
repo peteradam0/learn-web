@@ -2,7 +2,6 @@
 
 import React from "react";
 import CourseTableOfContents from "./course-table-of-contents";
-import { CldVideoPlayer } from "next-cloudinary";
 
 import "next-cloudinary/dist/cld-video-player.css";
 

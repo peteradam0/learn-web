@@ -17,6 +17,7 @@
     "@uploadthing/react": "^6.0.0",
     "axios": "^1.6.0",
     "framer-motion": "^10.16.4",
+    "get-video-duration": "^4.1.0",
     "modern-normalize": "^2.0.0",
     "next": "14.0.1",
     "next-cloudinary": "^5.7.0",

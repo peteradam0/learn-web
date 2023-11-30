@@ -18,7 +18,7 @@ export default function CourseContent(data: any) {
       }}
     >
       <div className="text-sm text-gray-600 flex items-center ">
-        <CldVideoPlayer width="700" height="450" src={course.videoUrl} />
+        <video width="600" height="450" src={course.videoUrl} controls />
 
         <div className="text-white  text-xl mb-2 ml-2 p-1">
           <p>{course.description}</p>

@@ -22,6 +22,7 @@ export default function CourseSection(props: any) {
             paddingTop: "15px",
             width: "200px",
           }}
+          disablePictureInPicture
         />
         <div className="text-gray-900 font-bold text-l mb-2 ml-2 p-1">
           <div className="flex items-center gap-4 pt-2">

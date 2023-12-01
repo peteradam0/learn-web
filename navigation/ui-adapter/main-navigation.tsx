@@ -23,6 +23,7 @@ export default function MainHeader({ isAdmin }: MainHeaderPorps) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const menuItems = [
+    { name: "Home", url: "/" },
     { name: "Courses", url: "/courses" },
     { name: "Admin", url: "/administration/courses" },
   ];
@@ -55,7 +56,12 @@ export default function MainHeader({ isAdmin }: MainHeaderPorps) {
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="warning" href="#" variant="flat">
+          <Button
+            as={Link}
+            color="warning"
+            href="/administration/courses"
+            variant="flat"
+          >
             Admin
           </Button>
         </NavbarItem>

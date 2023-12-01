@@ -16,7 +16,7 @@ export default function VidePlayerSidebar({ chapterData, courseId }: any) {
             <li className="opcion-con-desplegable">
               <div className="flex items-center justify-between p-2 hover:bg-gray-700">
                 <div className="flex items-center">
-                  <span>Lessons</span>
+                  <span className="text-xl">Lessons</span>
                 </div>
               </div>
               <Accordion>

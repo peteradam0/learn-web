@@ -1,7 +1,51 @@
+"use client";
+
 import { Avatar, Button, Card } from "@nextui-org/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { createCoursePartitipation } from "../api-adapter/create-course-participation";
+import { getUserToken } from "../domain/get-user-token";
+import { useRouter } from "next/navigation";
+import { getCoursePartitipation } from "../api-adapter/get-course-participation";
 
 export default function CourseCard({ course }: any) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [participationData, setParticipationData] = useState();
+  const router = useRouter();
+
+  useEffect(() => {
+    getParticipationData();
+  }, []);
+
+  const handleEnroll = async () => {
+    const token = await getUserToken();
+
+    if (token === null) {
+      router.push("/");
+    } else {
+      const res = await createCoursePartitipation(course?.id, token);
+      if (res) {
+        router.push(`/courses/${course?.id}`);
+      }
+    }
+  };
+
+  const getParticipationData = async () => {
+    const token = await getUserToken();
+    if (!token) {
+      router.push("/");
+    } else {
+      try {
+        const res = await getCoursePartitipation(course?.id, token);
+        setParticipationData(res?.data.courseId);
+        setIsLoading(false);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
+
+  if (isLoading) return <p>Loading...</p>;
+
   return (
     <Card>
       <div className="relative flex flex-col min-w-0 break-wordsshadow-soft-xl rounded-2xl bg-clip-border ">
@@ -45,10 +89,16 @@ export default function CourseCard({ course }: any) {
                   </p>
                   <a className="" href="javascript:;"></a>
                   <div className="flex gap-4 items-center pt-1">
-                    <Button color="primary">Get Full Access</Button>
-                    <Button color="secondary" variant="bordered">
-                      Watch Preview
-                    </Button>
+                    {participationData && (
+                      <Button color="secondary" variant="bordered">
+                        Continue
+                      </Button>
+                    )}
+                    {!participationData && (
+                      <Button color="primary" onClick={() => handleEnroll()}>
+                        Enroll
+                      </Button>
+                    )}
                   </div>
                 </div>
               </div>

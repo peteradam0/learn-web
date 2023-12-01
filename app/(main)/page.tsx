@@ -1,25 +1,39 @@
 "use client";
+import { getUserData } from "@/common/api-adapter/get-user-data";
+import { getUserToken } from "@/course/domain/get-user-token";
 import CoursesInProgressCard from "@/dashboard/ui-adapter/courses-in-progress-card";
 import NewCoursesCard from "@/dashboard/ui-adapter/new-courses-card";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import {
-  Avatar,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Chip,
-  Divider,
-  Link,
-} from "@nextui-org/react";
-import React from "react";
+
+import { Divider } from "@nextui-org/react";
+import { redirect } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 export default function WelcomePage() {
+  const [userData, setUserData] = useState();
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const token = await getUserToken();
+
+    if (!token) {
+      redirect("/");
+    }
+
+    try {
+      const res = await getUserData(token);
+      setUserData(res?.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <div
       style={{ marginLeft: "255px", marginRight: "255px", paddingTop: "30px" }}
     >
-      <h1 className="text-xl pb-7">Welcome Back, peteradam </h1>
+      <h1 className="text-xl pb-7">Welcome Back, {userData?.username} </h1>
       <Divider />
       <div className="pt-5">
         <div className="grid grid-cols-2" style={{ gap: "70px" }}>

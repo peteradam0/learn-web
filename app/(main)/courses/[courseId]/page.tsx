@@ -1,5 +1,11 @@
+import CourseDetailsPage from "@/course/ui-adapter/course-details-page";
 import React from "react";
 
-export default function CoursePage() {
-  return <div>CoursePage</div>;
+export default function CourseDetailsPageRoute({ params }: any) {
+  const { courseId } = params;
+  return (
+    <div>
+      <CourseDetailsPage courseId={courseId} />
+    </div>
+  );
 }

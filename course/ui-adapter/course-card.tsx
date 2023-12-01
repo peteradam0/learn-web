@@ -16,6 +16,10 @@ export default function CourseCard({ course }: any) {
     getParticipationData();
   }, []);
 
+  const handleRedirect = () => {
+    router.push(`/courses/${course?.id}`);
+  };
+
   const handleEnroll = async () => {
     const token = await getUserToken();
 
@@ -24,7 +28,7 @@ export default function CourseCard({ course }: any) {
     } else {
       const res = await createCoursePartitipation(course?.id, token);
       if (res) {
-        router.push(`/courses/${course?.id}`);
+        handleRedirect();
       }
     }
   };
@@ -90,7 +94,11 @@ export default function CourseCard({ course }: any) {
                   <a className="" href="javascript:;"></a>
                   <div className="flex gap-4 items-center pt-1">
                     {participationData && (
-                      <Button color="secondary" variant="bordered">
+                      <Button
+                        color="secondary"
+                        variant="bordered"
+                        onClick={() => handleRedirect()}
+                      >
                         Continue
                       </Button>
                     )}

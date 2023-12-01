@@ -1,13 +1,6 @@
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Divider,
-  Link,
-} from "@nextui-org/react";
+import { Card, CardFooter, CardHeader, Link } from "@nextui-org/react";
 import React from "react";
-import CourseCard from "./course-card";
+import CourseInProgressCardBody from "./course-in-progres-card-body";
 
 export default function CoursesInProgressCard() {
   return (
@@ -21,12 +14,10 @@ export default function CoursesInProgressCard() {
           </span>
         </p>
       </CardHeader>
-      <CourseCard />
-      <CourseCard />
-      <CourseCard />
+      <CourseInProgressCardBody />
       <CardFooter>
-        <Link isExternal showAnchorIcon href="/courses">
-          See all courses.
+        <Link className="text-small" isExternal showAnchorIcon href="/courses">
+          See all in progress courses.
         </Link>
       </CardFooter>
     </Card>

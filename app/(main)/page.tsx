@@ -22,7 +22,7 @@ export default function WelcomePage() {
       <h1 className="text-xl pb-7">Welcome Back, peteradam </h1>
       <Divider />
       <div className="pt-5">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2" style={{ gap: "70px" }}>
           <div>
             <h1>Courses in progress</h1>
             <div className="pt-5">
@@ -30,7 +30,7 @@ export default function WelcomePage() {
             </div>
           </div>
           <div>
-            <h1>New courses</h1>
+            <h1>Explore courses</h1>
             <div className="pt-5">
               <NewCoursesCard />
             </div>

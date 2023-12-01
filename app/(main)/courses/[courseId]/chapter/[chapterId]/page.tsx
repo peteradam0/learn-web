@@ -51,7 +51,11 @@ export default function ChapterPageRoute({ params }: any) {
         courseId={courseId}
       />
       <div style={{ marginLeft: "255px" }}>
-        <CourseVideoPage videoUrl={getCurrentVideoUrl(courseData, chapterId)} />
+        <CourseVideoPage
+          chapterId={chapterId}
+          courseId={courseId}
+          videoUrl={getCurrentVideoUrl(courseData, chapterId)}
+        />
       </div>
     </div>
   );

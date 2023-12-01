@@ -1,12 +1,21 @@
+"use clien";
+import { getVideLengthInMin } from "@/common/domain/course-domain";
 import { Divider } from "@nextui-org/react";
 import Link from "next/link";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export default function CourseSection(props: any) {
+  const [videoMin, setVideoMin] = useState("");
   const chapterData = props.data;
   const courseId = props.courseId;
   const url = `/courses/${courseId}/chapter/${chapterData.id}`;
+
+  useEffect(() => {
+    setTimeout(() => {
+      setVideoMin(getVideLengthInMin(chapterData.id));
+    }, 5000);
+  }, []);
 
   return (
     <div style={{ paddingTop: "30px" }}>
@@ -17,6 +26,7 @@ export default function CourseSection(props: any) {
         <Divider className="bg-gray-600 my-4" />
         <div className="text-sm text-gray-600 flex items-center">
           <video
+            id={chapterData.id}
             src={chapterData.videoUrl}
             style={{
               height: "170px",
@@ -31,7 +41,7 @@ export default function CourseSection(props: any) {
                 <p>{chapterData.description}</p>
               </div>
             </div>
-            <p className="pt-2">00:00 - 00:12</p>
+            <p className="pt-2">{videoMin}</p>
           </div>
         </div>
       </Link>

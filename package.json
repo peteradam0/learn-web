@@ -30,6 +30,11 @@
     "uuid-generator-ts": "^1.1.0",
     "zod": "^3.22.4"
   },
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
+  },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/node": "^20",

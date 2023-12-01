@@ -8,6 +8,8 @@ import "next-cloudinary/dist/cld-video-player.css";
 export default function CourseContent(data: any) {
   const course = data.courseData;
   const courseDate = new Date(course.createdAt).toDateString();
+
+  
   return (
     <div
       style={{

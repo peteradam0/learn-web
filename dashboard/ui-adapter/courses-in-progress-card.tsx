@@ -42,7 +42,7 @@ export default function CoursesInProgressCard() {
           </span>
         </p>
       </CardHeader>
-      {courseData?.map((course) => (
+      {courseData?.slice(0, 2).map((course) => (
         <CourseInProgressCardBody key={course.id} course={course} />
       ))}
       <CardFooter>

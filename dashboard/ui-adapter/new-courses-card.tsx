@@ -34,7 +34,7 @@ export default function NewCoursesCard() {
 
   return (
     <Card className="max-w-[400px]">
-      {courseData.map((course: any) => (
+      {courseData.slice(0, 2).map((course: any) => (
         <CourseCard key={course.id} course={course} />
       ))}
       <CardFooter>

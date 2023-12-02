@@ -53,10 +53,10 @@ export default function SidebarContent({ isAdmin }: SidebarContetProp) {
               </li>
               <li>
                 <Link
-                  href="/administration/analytics"
+                  href="/administration/users"
                   className=" p-2 hover:bg-gray-700 flex items-center"
                 >
-                  Analytics
+                  Users
                 </Link>
               </li>
             </ul>

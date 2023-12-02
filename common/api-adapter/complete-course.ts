@@ -7,7 +7,7 @@ export const completeChapter = async (
   token: string
 ) => {
   const url = qs.stringifyUrl({
-    url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/courses/${courseId}/chapter/${chapterId}`,
+    url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/courses/${courseId}/chapter/${chapterId}/participation`,
   });
 
   let res = undefined;

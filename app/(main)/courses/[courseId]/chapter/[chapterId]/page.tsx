@@ -10,7 +10,6 @@ import React, { useEffect, useState } from "react";
 export default function ChapterPageRoute({ params }: any) {
   const [loading, setLoading] = useState(false);
   const [courseData, setCourseData] = useState({});
-  const [videoUrl, setVideoUrl] = useState();
   const { courseId, chapterId } = params;
 
   const getCurrentVideoUrl = (courseData: any, chapterId: string) => {
@@ -44,9 +43,12 @@ export default function ChapterPageRoute({ params }: any) {
     }
   };
 
+  if (loading) return <p>Loading...</p>;
+
   return (
     <div>
       <VidePlayerSidebar
+        currentChapterId={chapterId}
         chapterData={courseData.chapterData}
         courseId={courseId}
       />

@@ -1,3 +1,4 @@
+import { getUserToken } from "@/course/domain/get-user-token";
 import { completeChapter } from "../api-adapter/complete-course";
 
 export const getVideLengthInMin = (videoId: string): string => {
@@ -10,17 +11,15 @@ export const getVideLengthInMin = (videoId: string): string => {
   return "00:00";
 };
 
-export const triggerCompleteChapter = (
+export const triggerCompleteChapter = async (
   courseId: string,
-  chapterId: string,
-  token: string
+  chapterId: string
 ) => {
-  setTimeout(() => {
-    const video = document.getElementById(chapterId);
-    video?.addEventListener("ended", async (event) => {
-      await completeChapter(courseId, chapterId, token);
-    });
-  }, 5000);
+  const token = await getUserToken();
+
+  if (token) {
+    await completeChapter(courseId, chapterId, token);
+  }
 };
 
 function secondsToMinutesAndSeconds(totalSeconds: number): string {

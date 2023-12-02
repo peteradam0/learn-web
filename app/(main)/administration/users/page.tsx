@@ -10,6 +10,12 @@ import {
   User,
   Chip,
   Tooltip,
+  Input,
+  Dropdown,
+  DropdownTrigger,
+  Button,
+  DropdownMenu,
+  DropdownItem,
 } from "@nextui-org/react";
 
 import { columns, users } from "./data";
@@ -59,13 +65,19 @@ export default function UserPageRoute() {
         return (
           <div className="relative flex items-center gap-2">
             <Tooltip content="Details">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50"></span>
+              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                test
+              </span>
             </Tooltip>
             <Tooltip content="Edit user">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50"></span>
+              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                test
+              </span>
             </Tooltip>
             <Tooltip color="danger" content="Delete user">
-              <span className="text-lg text-danger cursor-pointer active:opacity-50"></span>
+              <span className="text-lg text-danger cursor-pointer active:opacity-50">
+                test
+              </span>
             </Tooltip>
           </div>
         );
@@ -78,6 +90,26 @@ export default function UserPageRoute() {
     <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
       <div className="container max-w-screen-lg mx-auto">
         <div>
+          <div className="flex flex-col gap-4">
+            <div className="flex justify-between gap-3 items-end">
+              <Input
+                isClearable
+                className="w-full sm:max-w-[44%]"
+                placeholder="Search by name..."
+                startContent={"search"}
+              />
+              <div className="flex gap-3">
+                <Button color="primary" endContent={""}>
+                  Add New
+                </Button>
+              </div>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-default-400 text-small">
+                Total {users.length} users
+              </span>
+            </div>
+          </div>
           <Table aria-label="Example table with custom cells">
             <TableHeader columns={columns}>
               {(column) => (

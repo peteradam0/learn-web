@@ -11,14 +11,13 @@ import {
   Chip,
   Tooltip,
   Input,
-  Dropdown,
-  DropdownTrigger,
   Button,
-  DropdownMenu,
-  DropdownItem,
+  useDisclosure,
 } from "@nextui-org/react";
 
 import { columns, users } from "./data";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import UserRegistrationModal from "@/users/ui-adapter/user-registration-modal";
 
 const statusColorMap = {
   active: "success",
@@ -27,6 +26,8 @@ const statusColorMap = {
 };
 
 export default function UserPageRoute() {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
   const renderCell = React.useCallback((user: any, columnKey: any) => {
     const cellValue = user[columnKey];
 
@@ -99,9 +100,17 @@ export default function UserPageRoute() {
                 startContent={"search"}
               />
               <div className="flex gap-3">
-                <Button color="primary" endContent={""}>
+                <Button
+                  onPress={onOpen}
+                  color="primary"
+                  endContent={<Icon icon="ph:plus-bold" />}
+                >
                   Add New
                 </Button>
+                <UserRegistrationModal
+                  isOpen={isOpen}
+                  onOpenChange={onOpenChange}
+                />
               </div>
             </div>
             <div className="flex justify-between items-center">

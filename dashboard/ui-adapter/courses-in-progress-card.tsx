@@ -4,8 +4,10 @@ import CourseInProgressCardBody from "./course-in-progres-card-body";
 import { getUserToken } from "@/course/domain/get-user-token";
 import { redirect } from "next/navigation";
 import { getInProgressCourses } from "@/course/api-adapter/get-course";
+import { getCourses } from "@/course/api-adapter/get-courses";
 
 export default function CoursesInProgressCard() {
+  const [inProgressCourses, setInProgressCourseData] = useState([]);
   const [courseData, setCourseData] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -23,7 +25,9 @@ export default function CoursesInProgressCard() {
 
     try {
       const res = await getInProgressCourses(token);
-      setCourseData(res?.data);
+      const resCourse = await getCourses(token);
+      setCourseData(resCourse?.data);
+      setInProgressCourseData(res?.data);
       setLoading(false);
     } catch (e) {
       console.log(e);
@@ -33,21 +37,36 @@ export default function CoursesInProgressCard() {
   if (loading) return <p>Loading...</p>;
   return (
     <Card className="max-w-[400px]">
-      <CardHeader>
-        <p>
-          Haven't started watching courses, no worries!
-          <br />
-          <span className="text-small text-default-500 pt-1">
-            Below are some great courses to check out:
-          </span>
-        </p>
-      </CardHeader>
-      {courseData?.slice(0, 2).map((course) => (
-        <CourseInProgressCardBody key={course.id} course={course} />
-      ))}
+      {inProgressCourses.length === 0 && (
+        <CardHeader>
+          <p>
+            Haven't started watching courses, no worries!
+            <br />
+            <span className="text-small text-default-500 pt-1">
+              Below are some great courses to check out:
+            </span>
+          </p>
+        </CardHeader>
+      )}
+
+      {inProgressCourses.length !== 0
+        ? inProgressCourses
+            ?.slice(0, 2)
+            .map((course) => (
+              <CourseInProgressCardBody
+                key={course.id}
+                course={course}
+                displayProgressBar={true}
+              />
+            ))
+        : courseData
+            ?.slice(0, 2)
+            .map((course) => (
+              <CourseInProgressCardBody key={course.id} course={course} />
+            ))}
       <CardFooter>
         <Link className="text-small" isExternal showAnchorIcon href="/courses">
-          See all in progress courses.
+          See all courses.
         </Link>
       </CardFooter>
     </Card>

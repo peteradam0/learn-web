@@ -6,7 +6,10 @@ import { redirect } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { calculateProgressBar } from "../domain/calculate-progress-bar";
 
-export default function CourseInProgressCardBody({ course }: any) {
+export default function CourseInProgressCardBody({
+  course,
+  displayProgressBar,
+}: any) {
   const [progressBarNumber, setProgressBarNumber] = useState(0);
   const [loading, setLoading] = useState(false);
   const url = `/courses/${course?.id}`;
@@ -60,20 +63,22 @@ export default function CourseInProgressCardBody({ course }: any) {
             </div>
           </div>
         </Link>
-        <div
-          style={{
-            paddingTop: "10px",
-            paddingRight: "10px",
-            paddingLeft: "6px",
-            paddingBottom: "10px",
-          }}
-        >
-          <Progress
-            size="sm"
-            aria-label="Loading..."
-            value={progressBarNumber}
-          />
-        </div>
+        {displayProgressBar && (
+          <div
+            style={{
+              paddingTop: "10px",
+              paddingRight: "10px",
+              paddingLeft: "6px",
+              paddingBottom: "10px",
+            }}
+          >
+            <Progress
+              size="sm"
+              aria-label="Loading..."
+              value={progressBarNumber}
+            />
+          </div>
+        )}
       </CardBody>
       <Divider />
     </>

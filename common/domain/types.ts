@@ -18,6 +18,7 @@ export type CreateChapterProps = {
   title: string;
   description: string;
   videoUrl: string;
+  videoDuration: string;
 };
 
 type Topics = {

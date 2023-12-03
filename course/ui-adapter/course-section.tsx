@@ -6,16 +6,9 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 export default function CourseSection(props: any) {
-  const [videoMin, setVideoMin] = useState("");
   const chapterData = props.data;
   const courseId = props.courseId;
   const url = `/courses/${courseId}/chapter/${chapterData.id}`;
-
-  useEffect(() => {
-    setTimeout(() => {
-      setVideoMin(getVideLengthInMin(chapterData.id));
-    }, 5000);
-  }, []);
 
   return (
     <div style={{ paddingTop: "30px" }}>
@@ -41,7 +34,7 @@ export default function CourseSection(props: any) {
                 <p>{chapterData.description}</p>
               </div>
             </div>
-            <p className="pt-2">{videoMin}</p>
+            <p className="pt-2">{chapterData.videoDuration}</p>
           </div>
         </div>
       </Link>

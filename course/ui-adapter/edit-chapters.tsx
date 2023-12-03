@@ -19,6 +19,7 @@ import { getUserToken } from "../domain/get-user-token";
 import { redirect } from "next/navigation";
 import { removeChapter } from "../api-adapter/remove-chapter";
 import { updateChapter } from "../api-adapter/update-chapter";
+import { getVideLengthInMin } from "@/common/domain/course-domain";
 
 export default function EditChapters({
   courseId,
@@ -27,6 +28,7 @@ export default function EditChapters({
 }: any) {
   const [url, setUrl] = useState(chapterData?.videoUrl);
   const [chapterId, setChapterId] = useState(chapterData?.id);
+  const [duration, setDuration] = useState("00:00");
 
   const processForm: SubmitHandler<any> = async (data: any) => {
     if (chapterId) {
@@ -38,6 +40,7 @@ export default function EditChapters({
           description: data.description,
           videoUrl: url,
           courseId: courseId,
+          videoDuration: duration,
         },
         chapterId,
         courseId
@@ -49,6 +52,7 @@ export default function EditChapters({
           title: data.title,
           description: data.description,
           videoUrl: url,
+          videoDuration: duration,
         },
         courseId
       );
@@ -74,6 +78,7 @@ export default function EditChapters({
     reset,
     formState: { errors },
   } = useForm<CreateChapterProps>({});
+
   return (
     <>
       <Divider className="bg-gray-600 my-4" />
@@ -151,8 +156,12 @@ export default function EditChapters({
                         onClick={() => setUrl("")}
                       >
                         <video
+                          id={chapterId}
                           src={url}
-                          className="object-cover border-1 h-48 w-96 "
+                          className="object-cover border-1 h-48 w-96"
+                          onLoadedDataCapture={() => {
+                            setDuration(getVideLengthInMin(chapterId));
+                          }}
                         />
                       </Badge>
                     </div>

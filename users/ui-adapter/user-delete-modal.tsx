@@ -8,13 +8,10 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@nextui-org/react";
-import { useRouter } from "next/navigation";
 
 import React from "react";
 
-export default function UserRegistrationModal({ isOpen, onOpenChange }: any) {
-  const { signOut } = useClerk();
-  const router = useRouter();
+export default function UserDeleteModal({ isOpen, onOpenChange }: any) {
   return (
     <div>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
@@ -22,28 +19,18 @@ export default function UserRegistrationModal({ isOpen, onOpenChange }: any) {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                User registration
+                Delete user
               </ModalHeader>
               <ModalBody>
-                <p>
-                  Since the application is using clerk for user registration,
-                  the user has to be first registered on CLERK side.
-                </p>
-                <p>
-                  Therefore by pressing the continue button, you will get
-                  redirected to the CLERK sign up.
-                </p>
+                <p>Are you sure that you want to delete this user?</p>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
                 </Button>
 
-                <Button
-                  color="primary"
-                  onClick={() => signOut(() => router.push("/sign-up"))}
-                >
-                  Continue
+                <Button color="primary" onClick={() => {}}>
+                  Delete
                 </Button>
               </ModalFooter>
             </>

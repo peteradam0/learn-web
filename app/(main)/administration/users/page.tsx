@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableHeader,
@@ -15,78 +15,97 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 
-import { columns, users } from "./data";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import UserRegistrationModal from "@/users/ui-adapter/user-registration-modal";
+import { getUsers } from "@/users/api-adapter/getUsers";
+import UsersModal from "@/users/ui-adapter/users-modal";
 
 const statusColorMap = {
-  active: "success",
-  paused: "danger",
-  vacation: "warning",
+  CUSTOMER: "success",
+  ADMIN: "danger",
+  TEACHER: "warning",
 };
+
+const columns = [
+  { name: "NAME", uid: "name" },
+  { name: "ROLE", uid: "role" },
+  { name: "ACTIONS", uid: "actions" },
+];
 
 export default function UserPageRoute() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [loading, setLoading] = useState(false);
+  const [userData, setUserData] = useState([]);
+  const [modalVersion, setModalVersion] = useState("");
+
+  const handleOpenModal = (modalVersion: string) => {
+    setModalVersion(modalVersion);
+    onOpen();
+  };
+
+  useEffect(() => {
+    getCourseData();
+  }, []);
+
+  const getCourseData = async () => {
+    try {
+      setLoading(true);
+      const res = await getUsers();
+      setUserData(res?.data);
+      console.log(res?.data);
+      setLoading(false);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const renderCell = React.useCallback((user: any, columnKey: any) => {
-    const cellValue = user[columnKey];
-
     switch (columnKey) {
       case "name":
         return (
           <User
-            avatarProps={{ radius: "lg", src: user.avatar }}
+            avatarProps={{ radius: "lg", src: user.imageUrl }}
             description={user.email}
-            name={cellValue}
-          >
-            {user.email}
-          </User>
+            name={user.username}
+          ></User>
         );
       case "role":
         return (
-          <div className="flex flex-col">
-            <p className="text-bold text-sm capitalize">{cellValue}</p>
-            <p className="text-bold text-sm capitalize text-default-400">
-              {user.team}
-            </p>
-          </div>
-        );
-      case "status":
-        return (
           <Chip
             className="capitalize"
-            color={statusColorMap[user.status]}
+            color={statusColorMap[user.userRole]}
             size="sm"
             variant="flat"
           >
-            {cellValue}
+            {user.userRole}
           </Chip>
         );
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
-            <Tooltip content="Details">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                test
-              </span>
-            </Tooltip>
             <Tooltip content="Edit user">
               <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                test
+                <Icon
+                  width={13}
+                  icon="uiw:edit"
+                  onClick={() => handleOpenModal("edit")}
+                />
               </span>
             </Tooltip>
             <Tooltip color="danger" content="Delete user">
               <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                test
+                <Icon
+                  icon="iconamoon:trash-fill"
+                  onClick={() => handleOpenModal("delete")}
+                />
               </span>
             </Tooltip>
           </div>
         );
       default:
-        return cellValue;
+        return "";
     }
   }, []);
-
+  if (loading) return <p>Loading...</p>;
   return (
     <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
       <div className="container max-w-screen-lg mx-auto">
@@ -101,21 +120,22 @@ export default function UserPageRoute() {
               />
               <div className="flex gap-3">
                 <Button
-                  onPress={onOpen}
+                  onPress={() => handleOpenModal("add")}
                   color="primary"
                   endContent={<Icon icon="ph:plus-bold" />}
                 >
                   Add New
                 </Button>
-                <UserRegistrationModal
+                <UsersModal
                   isOpen={isOpen}
                   onOpenChange={onOpenChange}
+                  modalVersion={modalVersion}
                 />
               </div>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-default-400 text-small">
-                Total {users.length} users
+              <span className="text-default-400 text-small pb-2">
+                Total {userData?.length} users
               </span>
             </div>
           </div>
@@ -130,9 +150,9 @@ export default function UserPageRoute() {
                 </TableColumn>
               )}
             </TableHeader>
-            <TableBody items={users}>
+            <TableBody items={userData}>
               {(item) => (
-                <TableRow key={item.id}>
+                <TableRow>
                   {(columnKey) => (
                     <TableCell>{renderCell(item, columnKey)}</TableCell>
                   )}

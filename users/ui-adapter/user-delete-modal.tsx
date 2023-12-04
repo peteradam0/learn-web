@@ -1,5 +1,4 @@
 "use client";
-import { useClerk } from "@clerk/nextjs";
 import {
   Button,
   Modal,
@@ -11,13 +10,17 @@ import {
 
 import React from "react";
 
-export default function UserDeleteModal({ isOpen, onOpenChange }: any) {
+export default function UserDeleteModal({ isOpen, onOpenChange, userId }: any) {
+  const handleDeleteUser = () => {
+    console.log("delete " + userId);
+  };
   return (
     <div>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
             <>
+              {userId}
               <ModalHeader className="flex flex-col gap-1">
                 Delete user
               </ModalHeader>
@@ -29,7 +32,12 @@ export default function UserDeleteModal({ isOpen, onOpenChange }: any) {
                   Close
                 </Button>
 
-                <Button color="primary" onClick={() => {}}>
+                <Button
+                  color="primary"
+                  onClick={() => {
+                    handleDeleteUser();
+                  }}
+                >
                   Delete
                 </Button>
               </ModalFooter>

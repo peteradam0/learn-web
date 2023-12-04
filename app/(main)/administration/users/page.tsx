@@ -36,9 +36,11 @@ export default function UserPageRoute() {
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState([]);
   const [modalVersion, setModalVersion] = useState("");
+  const [userId, setUserId] = useState("");
 
-  const handleOpenModal = (modalVersion: string) => {
+  const handleOpenModal = (modalVersion: string, userId: string) => {
     setModalVersion(modalVersion);
+    setUserId(userId);
     onOpen();
   };
 
@@ -51,7 +53,6 @@ export default function UserPageRoute() {
       setLoading(true);
       const res = await getUsers();
       setUserData(res?.data);
-      console.log(res?.data);
       setLoading(false);
     } catch (e) {
       console.log(e);
@@ -87,7 +88,7 @@ export default function UserPageRoute() {
                 <Icon
                   width={13}
                   icon="uiw:edit"
-                  onClick={() => handleOpenModal("edit")}
+                  onClick={() => handleOpenModal("edit", user.id)}
                 />
               </span>
             </Tooltip>
@@ -95,7 +96,7 @@ export default function UserPageRoute() {
               <span className="text-lg text-danger cursor-pointer active:opacity-50">
                 <Icon
                   icon="iconamoon:trash-fill"
-                  onClick={() => handleOpenModal("delete")}
+                  onClick={() => handleOpenModal("delete", user.id)}
                 />
               </span>
             </Tooltip>
@@ -128,6 +129,7 @@ export default function UserPageRoute() {
                 </Button>
                 <UsersModal
                   isOpen={isOpen}
+                  userId={userId}
                   onOpenChange={onOpenChange}
                   modalVersion={modalVersion}
                 />

@@ -19,6 +19,7 @@ export default function UsersModal({
   isOpen,
   onOpenChange,
   modalVersion,
+  userId
 }: any) {
   return (
     <div>
@@ -29,7 +30,7 @@ export default function UsersModal({
         <UserEditModal isOpen={isOpen} onOpenChange={onOpenChange} />
       )}
       {modalVersion === "delete" && (
-        <UserDeleteModal isOpen={isOpen} onOpenChange={onOpenChange} />
+        <UserDeleteModal isOpen={isOpen} onOpenChange={onOpenChange} userId={userId}/>
       )}
     </div>
   );

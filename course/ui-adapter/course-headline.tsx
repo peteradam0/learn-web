@@ -1,7 +1,6 @@
 import React from "react";
 
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { Avatar, Chip } from "@nextui-org/react";
+import { Avatar } from "@nextui-org/react";
 
 export default function CourseHeadline(data: any) {
   const course = data.courseData;
@@ -21,15 +20,6 @@ export default function CourseHeadline(data: any) {
           }}
         />
         <div className="text-gray-900 font-bold text-xl mb-2 ml-2 p-1">
-          <div>
-            <Chip
-              startContent={<Icon icon="heroicons-outline:star" />}
-              variant="faded"
-              color="success"
-            >
-              Star 10
-            </Chip>
-          </div>
           <div className="pt-1 pb-2">
             <div
               style={{
@@ -50,12 +40,13 @@ export default function CourseHeadline(data: any) {
             </div>
           </div>
           <div className="flex items-center gap-4 pt-2">
-            <Avatar
-              src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-              size="md"
-            />
+            <Avatar src={course?.courseAuthorData?.imageUrl} size="md" />
             <div className="font-medium text-gray-500">
-              <div>John Doe</div>
+              <div>
+                {course?.courseAuthorData?.firstName +
+                  " " +
+                  course?.courseAuthorData?.lastName}
+              </div>
               <div className="text-sm text-gray-500 dark:text-gray-400">
                 Snowflake
               </div>

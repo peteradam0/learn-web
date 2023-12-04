@@ -74,12 +74,13 @@ export default function CourseCard({ course }: any) {
 
                 <div style={{ paddingTop: "15px" }}>
                   <div className="flex items-center gap-4">
-                    <Avatar
-                      src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                      size="md"
-                    />
+                    <Avatar src={course.courseAuthorData.imageUrl} size="md" />
                     <div className="font-medium text-gray-500">
-                      <div>John Doe</div>
+                      <div>
+                        {course.courseAuthorData.firstName +
+                          " " +
+                          course.courseAuthorData.lastName}
+                      </div>
                       <div className="text-sm text-gray-500 dark:text-gray-400">
                         Snowflake
                       </div>

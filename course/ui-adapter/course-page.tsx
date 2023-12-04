@@ -47,9 +47,7 @@ export default function CoursePage() {
           <div className="container mx-auto py-46 px-8">
             <div className="grid lg:grid-cols-3 gap-3">
               {courseData.map((course) => (
-                <>
-                  <CourseCard course={course} />
-                </>
+                <CourseCard key={course.id} course={course} />
               ))}
             </div>
           </div>

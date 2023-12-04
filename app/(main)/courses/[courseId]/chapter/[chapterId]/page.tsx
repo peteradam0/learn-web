@@ -35,8 +35,6 @@ export default function ChapterPageRoute({ params }: any) {
       const course = await getCourse(token, courseId);
       setCourseData(course?.data);
       setLoading(false);
-
-      console.log(course?.data);
     } catch (e) {
       console.log(e);
       setLoading(false);

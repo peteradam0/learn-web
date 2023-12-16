@@ -6,6 +6,12 @@ export type CreateCourseProps = {
   videoUrl: string;
 };
 
+export type CanvasAuth = {
+  clientId:string
+  domain:string
+
+}
+
 export type CourseData = {
   id: string;
   title: string;

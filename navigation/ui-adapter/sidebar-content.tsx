@@ -45,7 +45,7 @@ export default function SidebarContent({ isAdmin }: SidebarContetProp) {
               </li>
               <li>
                 <Link
-                  href="/dashboard"
+                  href="/"
                   className=" p-2 hover:bg-gray-700 flex items-center"
                 >
                   Explore
@@ -57,6 +57,14 @@ export default function SidebarContent({ isAdmin }: SidebarContetProp) {
                   className=" p-2 hover:bg-gray-700 flex items-center"
                 >
                   Users
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/administration/integration"
+                  className=" p-2 hover:bg-gray-700 flex items-center"
+                >
+                  Canvas LMS
                 </Link>
               </li>
             </ul>

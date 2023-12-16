@@ -1,7 +1,5 @@
 "use client";
 
-import { Icon } from "@iconify/react/dist/iconify.js";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import useNavigation from "./hooks/use-navigation";
@@ -61,10 +59,10 @@ export default function SidebarContent({ isAdmin }: SidebarContetProp) {
               </li>
               <li>
                 <Link
-                  href="/administration/integration"
+                  href="/administration/organizations"
                   className=" p-2 hover:bg-gray-700 flex items-center"
                 >
-                  Canvas LMS
+                  Organizations
                 </Link>
               </li>
             </ul>

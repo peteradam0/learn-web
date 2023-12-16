@@ -210,7 +210,6 @@ export default function AddCoursePageRoute() {
                       )}
                     </div>
                   </div>
-
                   <div className="p-1 md:col-span-5 ">
                     <h3 className="text-default-500 text-small pb-1">
                       Please upload the preview video of the course

@@ -28,6 +28,7 @@ export default function CourseInProgressCardBody({
 
     try {
       const res = await getCoursePartitipation(course.id, token);
+      console.log(res);
       setProgressBarNumber(
         calculateProgressBar(
           course.chapterData.length,

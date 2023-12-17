@@ -121,7 +121,7 @@ export default function UserPageRoute() {
               />
               <div className="flex gap-3">
                 <Button
-                  onPress={() => handleOpenModal("add")}
+                  onPress={() => handleOpenModal("add", userId)}
                   color="primary"
                   endContent={<Icon icon="ph:plus-bold" />}
                 >

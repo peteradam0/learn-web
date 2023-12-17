@@ -1,12 +1,11 @@
-"use client";
 import { Modal, ModalBody, ModalContent, ModalHeader } from "@nextui-org/react";
-import { useRouter } from "next/navigation";
-
-import React from "react";
 import CreateOrganizationForm from "./create-organization-form";
 
-export default function CreateOrganizationModal({ isOpen, onOpenChange }: any) {
-  const router = useRouter();
+export default function OrganizationCreateModal({
+  isOpen,
+  onOpenChange,
+  onClose,
+}: any) {
   return (
     <div>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>

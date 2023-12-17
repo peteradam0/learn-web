@@ -16,10 +16,9 @@ import {
 } from "@nextui-org/react";
 
 import { Icon } from "@iconify/react/dist/iconify.js";
-import CreateOrganizationModal from "@/organizations/ui-adapter/create-organization";
-import { getOrganizations } from "@/organizations/api-adapter/get-organizations";
-import { getUsers } from "@/users/api-adapter/getUsers";
 
+import { getOrganizations } from "@/organizations/api-adapter/get-organizations";
+import OrganizationModal from "@/organizations/ui-adapter/organization-modal";
 const statusColorMap = {
   CUSTOMER: "success",
   ADMIN: "danger",
@@ -33,14 +32,16 @@ const columns = [
 ];
 
 export default function OrganizationsPageRoute() {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [loading, setLoading] = useState(false);
-  const [organizationData, setOrganizationData] = useState([]);
-  const [modalVersion, setModalVersion] = useState("");
-  const [userId, setUserId] = useState("");
 
-  const handleOpenModal = (modalVersion: string) => {
+  const [organizationsData, setOrganizationsData] = useState([]);
+  const [modalVersion, setModalVersion] = useState("");
+  const [currentOrganization, setCurrentOrganization] = useState(Object);
+
+  const handleOpenModal = (modalVersion: string, organization: object) => {
     setModalVersion(modalVersion);
+    setCurrentOrganization(organization);
     onOpen();
   };
 
@@ -52,12 +53,21 @@ export default function OrganizationsPageRoute() {
     try {
       setLoading(true);
       const res = await getOrganizations();
+      setOrganizationsData(res?.data);
       console.log(res?.data);
-      setOrganizationData(res?.data);
       setLoading(false);
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const handleDeleteOrganization = async () => {
+    const organizations = organizationsData.filter(function (
+      organization: any
+    ) {
+      return organization.name !== currentOrganization.name;
+    });
+    setOrganizationsData(organizations);
   };
 
   const renderCell = React.useCallback((organization: any, columnKey: any) => {
@@ -83,7 +93,7 @@ export default function OrganizationsPageRoute() {
                 <Icon
                   width={13}
                   icon="uiw:edit"
-                  onClick={() => handleOpenModal("edit")}
+                  onClick={() => handleOpenModal("edit", organization)}
                 />
               </span>
             </Tooltip>
@@ -91,7 +101,7 @@ export default function OrganizationsPageRoute() {
               <span className="text-lg text-danger cursor-pointer active:opacity-50">
                 <Icon
                   icon="iconamoon:trash-fill"
-                  onClick={() => handleOpenModal("delete")}
+                  onClick={() => handleOpenModal("delete", organization)}
                 />
               </span>
             </Tooltip>
@@ -116,23 +126,25 @@ export default function OrganizationsPageRoute() {
               />
               <div className="flex gap-3">
                 <Button
-                  onPress={() => handleOpenModal("add")}
+                  onPress={() => handleOpenModal("create", currentOrganization)}
                   color="primary"
                   endContent={<Icon icon="ph:plus-bold" />}
                 >
                   Create
                 </Button>
-                <CreateOrganizationModal
+                <OrganizationModal
+                  onClose={onClose}
                   isOpen={isOpen}
-                  userId={userId}
                   onOpenChange={onOpenChange}
                   modalVersion={modalVersion}
+                  organization={currentOrganization}
+                  handleDeleteOrganization={handleDeleteOrganization}
                 />
               </div>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-default-400 text-small pb-2">
-                Total {organizationData?.length} organizations
+                Total {organizationsData?.length} organizations
               </span>
             </div>
           </div>
@@ -147,7 +159,7 @@ export default function OrganizationsPageRoute() {
                 </TableColumn>
               )}
             </TableHeader>
-            <TableBody items={organizationData}>
+            <TableBody items={organizationsData}>
               {(item) => (
                 <TableRow>
                   {(columnKey) => (

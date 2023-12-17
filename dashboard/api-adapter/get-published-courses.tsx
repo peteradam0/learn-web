@@ -16,5 +16,6 @@ export const getPublishedCourses = async (token: string) => {
   } catch (e) {
     console.log(e);
   }
+
   return res;
 };

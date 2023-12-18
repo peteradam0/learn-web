@@ -16,10 +16,9 @@ import {
 } from "@nextui-org/react";
 
 import { Icon } from "@iconify/react/dist/iconify.js";
-
-import { getOrganizations } from "@/organizations/api-adapter/get-organizations";
-import OrganizationModal from "@/organizations/ui-adapter/organization-modal";
-import { useRouter } from "next/navigation";
+import { getUsers } from "@/users/api-adapter/getUsers";
+import UsersModal from "@/users/ui-adapter/users-modal";
+import OrganizationMemberModal from "@/organizations/ui-adapter/organization-member-modal";
 
 const statusColorMap = {
   CUSTOMER: "success",
@@ -29,86 +28,67 @@ const statusColorMap = {
 
 const columns = [
   { name: "NAME", uid: "name" },
-  { name: "MEMBERS", uid: "members" },
+  { name: "ROLE", uid: "role" },
   { name: "ACTIONS", uid: "actions" },
 ];
 
-export default function OrganizationsPageRoute() {
-  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+export default function OrganizationPageRoute() {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [loading, setLoading] = useState(false);
-
-  const [organizationsData, setOrganizationsData] = useState([]);
+  const [userData, setUserData] = useState([]);
   const [modalVersion, setModalVersion] = useState("");
-  const [currentOrganization, setCurrentOrganization] = useState(Object);
-  const router = useRouter();
+  const [userId, setUserId] = useState("");
 
-  const handleOpenModal = (modalVersion: string, organization: object) => {
+  const handleOpenModal = (modalVersion: string, userId: string) => {
     setModalVersion(modalVersion);
-    setCurrentOrganization(organization);
+    setUserId(userId);
     onOpen();
   };
 
   useEffect(() => {
-    getOrganizationData();
+    getCourseData();
   }, []);
 
-  const getOrganizationData = async () => {
+  const getCourseData = async () => {
     try {
       setLoading(true);
-      const res = await getOrganizations();
-      setOrganizationsData(res?.data);
-      console.log(res?.data);
+      const res = await getUsers();
+      setUserData(res?.data);
       setLoading(false);
     } catch (e) {
       console.log(e);
     }
   };
 
-  const handleRedirectToOrganization = (organization: any) => {
-    router.push(`/administration/organizations/${organization.name}`);
-  };
-
-  const handleDeleteOrganization = async () => {
-    const organizations = organizationsData.filter(function (
-      organization: any
-    ) {
-      return organization.name !== currentOrganization.name;
-    });
-    setOrganizationsData(organizations);
-  };
-
-  const renderCell = React.useCallback((organization: any, columnKey: any) => {
+  const renderCell = React.useCallback((user: any, columnKey: any) => {
     switch (columnKey) {
       case "name":
         return (
           <User
-            avatarProps={{ radius: "lg", src: organization.imageUrl }}
-            name={organization.name}
+            avatarProps={{ radius: "lg", src: user.imageUrl }}
+            description={user.email}
+            name={user.username}
           ></User>
         );
-      case "members":
+      case "role":
         return (
-          <Button onClick={() => handleRedirectToOrganization(organization)}>
-            Members
-          </Button>
+          <Chip
+            className="capitalize"
+            color={statusColorMap[user.userRole]}
+            size="sm"
+            variant="flat"
+          >
+            {user.userRole}
+          </Chip>
         );
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
-            <Tooltip content="Edit user">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                <Icon
-                  width={13}
-                  icon="uiw:edit"
-                  onClick={() => handleOpenModal("edit", organization)}
-                />
-              </span>
-            </Tooltip>
             <Tooltip color="danger" content="Delete user">
               <span className="text-lg text-danger cursor-pointer active:opacity-50">
                 <Icon
                   icon="iconamoon:trash-fill"
-                  onClick={() => handleOpenModal("delete", organization)}
+                  onClick={() => handleOpenModal("delete", user.id)}
                 />
               </span>
             </Tooltip>
@@ -133,29 +113,27 @@ export default function OrganizationsPageRoute() {
               />
               <div className="flex gap-3">
                 <Button
-                  onPress={() => handleOpenModal("create", currentOrganization)}
+                  onPress={() => handleOpenModal("add", userId)}
                   color="primary"
                   endContent={<Icon icon="ph:plus-bold" />}
                 >
-                  Create
+                  Add New
                 </Button>
-                <OrganizationModal
-                  onClose={onClose}
+                <OrganizationMemberModal
                   isOpen={isOpen}
+                  userId={userId}
                   onOpenChange={onOpenChange}
                   modalVersion={modalVersion}
-                  organization={currentOrganization}
-                  handleDeleteOrganization={handleDeleteOrganization}
                 />
               </div>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-default-400 text-small pb-2">
-                Total {organizationsData?.length} organizations
+                Total {userData?.length} users
               </span>
             </div>
           </div>
-          <Table aria-label="Organizations table">
+          <Table aria-label="Example table with custom cells">
             <TableHeader columns={columns}>
               {(column) => (
                 <TableColumn
@@ -166,7 +144,7 @@ export default function OrganizationsPageRoute() {
                 </TableColumn>
               )}
             </TableHeader>
-            <TableBody items={organizationsData}>
+            <TableBody items={userData}>
               {(item) => (
                 <TableRow>
                   {(columnKey) => (

@@ -5,6 +5,7 @@ export default function OrganizationMemberCreateModal({
   isOpen,
   onOpenChange,
   onClose,
+  organizationName,
 }: any) {
   return (
     <div>
@@ -20,7 +21,10 @@ export default function OrganizationMemberCreateModal({
                   By submiting this form with a valid email address, an
                   invitation will be sent out.
                 </p>
-                <AddUserToOrganizationForm onClose={onClose} />
+                <AddUserToOrganizationForm
+                  onClose={onClose}
+                  organizationName={organizationName}
+                />
               </ModalBody>
             </>
           )}

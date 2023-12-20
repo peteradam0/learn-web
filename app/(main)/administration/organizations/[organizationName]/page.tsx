@@ -17,7 +17,6 @@ import {
 
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { getUsers } from "@/users/api-adapter/getUsers";
-import UsersModal from "@/users/ui-adapter/users-modal";
 import OrganizationMemberModal from "@/organizations/ui-adapter/organization-member-modal";
 
 const statusColorMap = {
@@ -32,7 +31,8 @@ const columns = [
   { name: "ACTIONS", uid: "actions" },
 ];
 
-export default function OrganizationPageRoute() {
+export default function OrganizationPageRoute({ params }: any) {
+  const { organizationName } = params;
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState([]);
@@ -124,6 +124,7 @@ export default function OrganizationPageRoute() {
                   userId={userId}
                   onOpenChange={onOpenChange}
                   modalVersion={modalVersion}
+                  organizationName={organizationName}
                 />
               </div>
             </div>

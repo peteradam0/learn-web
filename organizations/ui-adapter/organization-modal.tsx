@@ -1,5 +1,4 @@
 "use client";
-import { useRouter } from "next/navigation";
 
 import React from "react";
 
@@ -12,7 +11,6 @@ export default function OrganizationModal({
   handleDeleteOrganization,
   organization,
 }: any) {
-  const router = useRouter();
   return (
     <div>
       {modalVersion === "create" && (

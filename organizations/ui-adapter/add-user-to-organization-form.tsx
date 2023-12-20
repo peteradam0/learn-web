@@ -9,11 +9,15 @@ const EMAIL_REGEX = new RegExp(
   "/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/"
 );
 
-export default function AddUserToOrganizationForm({ onClose }: any) {
+export default function AddUserToOrganizationForm({
+  onClose,
+  organizationName,
+}: any) {
   const processForm: SubmitHandler<OrganizationMember> = async (data) => {
     const { email } = data;
     await createOrganization({
       email,
+      organizationName,
     });
     onClose();
   };
@@ -40,10 +44,6 @@ export default function AddUserToOrganizationForm({ onClose }: any) {
               label="email"
               {...register("email", {
                 required: "Email is required",
-                pattern: {
-                  value: EMAIL_REGEX,
-                  message: "Invalid email address",
-                },
               })}
             />
             {errors.email?.message && (

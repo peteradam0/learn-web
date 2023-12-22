@@ -46,10 +46,10 @@ export default function OrganizationPageRoute({ params }: any) {
   };
 
   useEffect(() => {
-    getCourseData();
+    getOrganizationUserData();
   }, []);
 
-  const getCourseData = async () => {
+  const getOrganizationUserData = async () => {
     try {
       setLoading(true);
       const res = await getUsers();

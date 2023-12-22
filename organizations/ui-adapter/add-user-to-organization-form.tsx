@@ -3,7 +3,7 @@
 import { Button, Input } from "@nextui-org/react";
 
 import { SubmitHandler, useForm } from "react-hook-form";
-import { createOrganization } from "../api-adapter/create-organization";
+import { sendOrganizationMemberInvite } from "../api-adapter/create-organization";
 
 const EMAIL_REGEX = new RegExp(
   "/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/"
@@ -15,7 +15,7 @@ export default function AddUserToOrganizationForm({
 }: any) {
   const processForm: SubmitHandler<OrganizationMember> = async (data) => {
     const { email } = data;
-    await createOrganization({
+    await sendOrganizationMemberInvite({
       email,
       organizationName,
     });

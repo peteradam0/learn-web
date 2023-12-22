@@ -3,7 +3,36 @@ import axios from "axios";
 import { redirect } from "next/navigation";
 import qs from "query-string";
 
-export const createOrganization = async ({ email, organizationName }: any) => {
+export const createOrganization = async ({ name, imageUrl }: any) => {
+  const token = await getUserToken();
+  if (!token) {
+    redirect("/");
+  }
+
+  const url = qs.stringifyUrl({
+    url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/organizations`,
+  });
+  let res = undefined;
+  try {
+    res = await axios.post(
+      url,
+      { name, imageUrl },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+  return res;
+};
+
+export const sendOrganizationMemberInvite = async ({
+  email,
+  organizationName,
+}: any) => {
   const token = await getUserToken();
   if (!token) {
     redirect("/");
@@ -17,6 +46,34 @@ export const createOrganization = async ({ email, organizationName }: any) => {
     res = await axios.post(
       url,
       { userEmail: email, organizationName },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+  return res;
+};
+
+export const confirmInvite = async (invitationId: string) => {
+  const token = await getUserToken();
+  if (!token) {
+    redirect("/");
+  }
+
+  console.log(token);
+
+  const url = qs.stringifyUrl({
+    url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/organizations/invite/${invitationId}/confirmation`,
+  });
+  let res = undefined;
+  try {
+    res = await axios.post(
+      url,
+      {},
       {
         headers: {
           Authorization: `Bearer ${token}`,

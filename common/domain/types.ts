@@ -4,6 +4,7 @@ export type CreateCourseProps = {
   imageUrl: string;
   category: string;
   videoUrl: string;
+  organization: string;
 };
 
 export type CanvasAuth = {

@@ -85,3 +85,25 @@ export const confirmInvite = async (invitationId: string) => {
   }
   return res;
 };
+
+export const getOrganizationMemberData = async (organizationName: string) => {
+  const token = await getUserToken();
+  if (!token) {
+    redirect("/");
+  }
+
+  const url = qs.stringifyUrl({
+    url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/organizations/${organizationName}/members`,
+  });
+  let res = undefined;
+  try {
+    res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (e) {
+    console.log(e);
+  }
+  return res;
+};

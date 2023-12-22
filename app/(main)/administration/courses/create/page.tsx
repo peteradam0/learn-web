@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getUserToken } from "@/course/domain/get-user-token";
 import { redirect } from "next/navigation";
 import { SubmitHandler } from "react-hook-form";
@@ -9,10 +9,13 @@ import {
   Button,
   Dropdown,
   DropdownItem,
+  DropdownItemProps,
   DropdownMenu,
   DropdownTrigger,
   Image,
   Input,
+  Select,
+  SelectItem,
   Textarea,
 } from "@nextui-org/react";
 import { createCourse } from "@/course/api-adapter/create-course";
@@ -20,14 +23,34 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { UploadButton } from "@/common/api-adapter/uploadthing";
 import { CreateCourseProps } from "@/common/domain/types";
+import { getOrganizations } from "@/organizations/api-adapter/get-organizations";
+import { Organization } from "@/organizations/domain/organization";
+import { CollectionElement } from "@react-types/shared";
 
 export default function AddCoursePageRoute() {
   const [url, setUrl] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
   const [category, setCategory] = useState("Frontend");
+  const [organization, setOrganization] = useState("Public");
+  const [organizationData, setOrganizationData] = useState([]);
+
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
+  useEffect(() => {
+    getOrganizationData();
+  }, []);
+
+  const getOrganizationData = async () => {
+    setLoading(true);
+    const res = await getOrganizations();
+    setOrganizationData(res?.data);
+    console.log(res?.data);
+    setLoading(false);
+  };
+
   const processForm: SubmitHandler<CreateCourseProps> = async (data) => {
+    console.log(data);
     //TODO: this is hacky, find a better approach
     const token = await getUserToken();
 
@@ -36,13 +59,14 @@ export default function AddCoursePageRoute() {
     }
 
     try {
-      const res = await createCourse(
+      await createCourse(
         {
           title: data.title,
           description: data.description,
           category: data.category,
           imageUrl: url,
           videoUrl: videoUrl,
+          organization: data.organization,
         },
         token
       );
@@ -65,8 +89,11 @@ export default function AddCoursePageRoute() {
       imageUrl: "",
       category: category,
       videoUrl: "",
+      organization: "",
     },
   });
+
+  if (loading) return <p>Loading...</p>;
 
   return (
     <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
@@ -123,6 +150,38 @@ export default function AddCoursePageRoute() {
                   </div>
                   <div className="p-1 md:col-span-5">
                     <h3 className="text-default-500 text-small pb-1">
+                      Should the course be published only for a certain
+                      organization or it should be public
+                    </h3>
+
+                    <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+                      <Select
+                        label="Organization"
+                        className="max-w-xs"
+                        onChange={(key) => {
+                          setOrganization(key.target.value);
+                        }}
+                        {...register("organization", {
+                          value: organization,
+                          required: "Organization is required",
+                        })}
+                      >
+                        {organizationData.map((org: any) => (
+                          <SelectItem key={org.name} value={org.name}>
+                            {org.name}
+                          </SelectItem>
+                        ))}
+                      </Select>
+                    </div>
+
+                    {errors.organization?.message && (
+                      <p className="text-sm text-red-400">
+                        {errors.organization.message}
+                      </p>
+                    )}
+                  </div>
+                  <div className="p-1 md:col-span-5">
+                    <h3 className="text-default-500 text-small pb-1">
                       Please select the course category
                     </h3>
                     <Dropdown backdrop="blur">
@@ -156,7 +215,6 @@ export default function AddCoursePageRoute() {
                       </p>
                     )}
                   </div>
-
                   <div className="p-1 md:col-span-5 ">
                     <h3 className="text-default-500 text-small pb-1">
                       Please upload the thumbnail image of the course

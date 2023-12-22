@@ -1,11 +1,13 @@
 "use client";
 
 import { confirmInvite } from "@/organizations/api-adapter/create-organization";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 export default function OrganizationConfirmationPageRoute({ params }: any) {
   const { invitationId } = params;
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     getOrganizationUserData();
@@ -14,8 +16,9 @@ export default function OrganizationConfirmationPageRoute({ params }: any) {
   const getOrganizationUserData = async () => {
     try {
       setLoading(true);
-      const res = await confirmInvite(invitationId);
+      await confirmInvite(invitationId);
       setLoading(false);
+      router.push("/courses");
     } catch (e) {
       console.log(e);
     }

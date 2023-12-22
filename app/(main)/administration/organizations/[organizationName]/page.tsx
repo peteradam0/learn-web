@@ -18,6 +18,7 @@ import {
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { getUsers } from "@/users/api-adapter/getUsers";
 import OrganizationMemberModal from "@/organizations/ui-adapter/organization-member-modal";
+import { getOrganizationMemberData } from "@/organizations/api-adapter/create-organization";
 
 const statusColorMap = {
   CUSTOMER: "success",
@@ -52,7 +53,7 @@ export default function OrganizationPageRoute({ params }: any) {
   const getOrganizationUserData = async () => {
     try {
       setLoading(true);
-      const res = await getUsers();
+      const res = await getOrganizationMemberData(organizationName);
       setUserData(res?.data);
       setLoading(false);
     } catch (e) {
@@ -105,12 +106,6 @@ export default function OrganizationPageRoute({ params }: any) {
         <div>
           <div className="flex flex-col gap-4">
             <div className="flex justify-between gap-3 items-end">
-              <Input
-                isClearable
-                className="w-full sm:max-w-[44%]"
-                placeholder="Search by name..."
-                startContent={"search"}
-              />
               <div className="flex gap-3">
                 <Button
                   onPress={() => handleOpenModal("add", userId)}

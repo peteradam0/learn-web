@@ -24,8 +24,6 @@ import { useForm } from "react-hook-form";
 import { UploadButton } from "@/common/api-adapter/uploadthing";
 import { CreateCourseProps } from "@/common/domain/types";
 import { getOrganizations } from "@/organizations/api-adapter/get-organizations";
-import { Organization } from "@/organizations/domain/organization";
-import { CollectionElement } from "@react-types/shared";
 
 export default function AddCoursePageRoute() {
   const [url, setUrl] = useState("");

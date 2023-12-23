@@ -3,10 +3,12 @@
 import { CanvasAuth } from "@/common/domain/types";
 import { getUserToken } from "@/course/domain/get-user-token";
 import { Button, Input, Link } from "@nextui-org/react";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { createRedirectUrl } from "../domain/canvas";
 
 export default function IntegrationForm() {
+  const router = useRouter();
   const processForm: SubmitHandler<CanvasAuth> = async (data) => {
     const token = await getUserToken();
 
@@ -17,7 +19,7 @@ export default function IntegrationForm() {
     const { clientId } = data;
     const { domain } = data;
 
-    console.log(data);
+    router.push(createRedirectUrl(domain, clientId));
   };
 
   const {
@@ -51,16 +53,16 @@ export default function IntegrationForm() {
             <p>
               In order to access the desired Canvas LMS, a developer key is
               needed that can be created under in the Developer Keys section.
-              <p className="pt-2">
-                More about the{" "}
-                <Link
-                  className="font-medium"
-                  size="sm"
-                  href="https://canvas.instructure.com/doc/api/"
-                >
-                  Canvas LMS API
-                </Link>
-              </p>
+            </p>
+            <p className="pt-2">
+              More about the{" "}
+              <Link
+                className="font-medium"
+                size="sm"
+                href="https://canvas.instructure.com/doc/api/"
+              >
+                Canvas LMS API
+              </Link>
             </p>
           </div>
           <form className="lg:col-span-2" onSubmit={handleSubmit(processForm)}>
@@ -99,7 +101,7 @@ export default function IntegrationForm() {
               </div>
               <div className="md:col-span-5 text-right">
                 <div className="inline-flex items-end">
-                  <Button type="submit">Create</Button>
+                  <Button type="submit">Connect</Button>
                 </div>
               </div>
             </div>

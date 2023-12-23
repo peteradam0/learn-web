@@ -101,7 +101,10 @@ export default function OrganizationPageRoute({ params }: any) {
   if (loading) return <p>Loading...</p>;
   return (
     <>
-      <div className=" p-6 bg-gray-100 flex items-center justify-center">
+      <div
+        className=" p-6 bg-gray-100 flex items-center justify-center"
+        style={{ height: "100%" }}
+      >
         <div className="container max-w-screen-lg mx-auto">
           <div className="flex flex-col gap-4" style={{ paddingTop: "20px" }}>
             <h2 className="font-semibold text-xl text-gray-600">
@@ -151,7 +154,7 @@ export default function OrganizationPageRoute({ params }: any) {
               )}
             </TableBody>
           </Table>
-          <div style={{ paddingTop: "70px" }}>
+          <div style={{ paddingTop: "90px" }}>
             <IntegrationForm />
           </div>
         </div>

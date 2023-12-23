@@ -10,15 +10,14 @@ import {
   User,
   Chip,
   Tooltip,
-  Input,
   Button,
   useDisclosure,
 } from "@nextui-org/react";
 
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { getUsers } from "@/users/api-adapter/getUsers";
 import OrganizationMemberModal from "@/organizations/ui-adapter/organization-member-modal";
 import { getOrganizationMemberData } from "@/organizations/api-adapter/create-organization";
+import IntegrationForm from "@/integration/ui-adapter/integration-form";
 
 const statusColorMap = {
   CUSTOMER: "success",
@@ -101,56 +100,57 @@ export default function OrganizationPageRoute({ params }: any) {
   }, []);
   if (loading) return <p>Loading...</p>;
   return (
-    <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
+    <div className=" p-6 bg-gray-100 flex items-center justify-center">
       <div className="container max-w-screen-lg mx-auto">
-        <div>
-          <div className="flex flex-col gap-4">
-            <div className="flex justify-between gap-3 items-end">
-              <div className="flex gap-3">
-                <Button
-                  onPress={() => handleOpenModal("add", userId)}
-                  color="primary"
-                  endContent={<Icon icon="ph:plus-bold" />}
-                >
-                  Add New
-                </Button>
-                <OrganizationMemberModal
-                  isOpen={isOpen}
-                  userId={userId}
-                  onOpenChange={onOpenChange}
-                  modalVersion={modalVersion}
-                  organizationName={organizationName}
-                />
-              </div>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-default-400 text-small pb-2">
-                Total {userData?.length} users
-              </span>
+        <IntegrationForm />
+
+        <div className="flex flex-col gap-4" style={{ paddingTop: "20px" }}>
+          <h2 className="font-semibold text-xl text-gray-600">Manage users</h2>
+          <div className="flex justify-between gap-3 items-end">
+            <div className="flex gap-3">
+              <Button
+                onPress={() => handleOpenModal("add", userId)}
+                color="primary"
+                endContent={<Icon icon="ph:plus-bold" />}
+              >
+                Add New
+              </Button>
+              <OrganizationMemberModal
+                isOpen={isOpen}
+                userId={userId}
+                onOpenChange={onOpenChange}
+                modalVersion={modalVersion}
+                organizationName={organizationName}
+              />
             </div>
           </div>
-          <Table aria-label="Example table with custom cells">
-            <TableHeader columns={columns}>
-              {(column) => (
-                <TableColumn
-                  key={column.uid}
-                  align={column.uid === "actions" ? "center" : "start"}
-                >
-                  {column.name}
-                </TableColumn>
-              )}
-            </TableHeader>
-            <TableBody items={userData}>
-              {(item) => (
-                <TableRow>
-                  {(columnKey) => (
-                    <TableCell>{renderCell(item, columnKey)}</TableCell>
-                  )}
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+          <div className="flex justify-between items-center">
+            <span className="text-default-400 text-small pb-2">
+              Total {userData?.length} users
+            </span>
+          </div>
         </div>
+        <Table aria-label="Example table with custom cells">
+          <TableHeader columns={columns}>
+            {(column) => (
+              <TableColumn
+                key={column.uid}
+                align={column.uid === "actions" ? "center" : "start"}
+              >
+                {column.name}
+              </TableColumn>
+            )}
+          </TableHeader>
+          <TableBody items={userData}>
+            {(item) => (
+              <TableRow>
+                {(columnKey) => (
+                  <TableCell>{renderCell(item, columnKey)}</TableCell>
+                )}
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
       </div>
     </div>
   );

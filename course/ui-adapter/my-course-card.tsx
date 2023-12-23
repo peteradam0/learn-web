@@ -46,6 +46,12 @@ export default function MyCourseCard({ course }: any) {
                         {!course.published && (
                           <Chip color="warning">Unpublished</Chip>
                         )}
+                        {"  "}
+                        {course.organization && (
+                          <Chip color="success">
+                            {course.organization.name}
+                          </Chip>
+                        )}
                       </div>
                     </div>
                     <p

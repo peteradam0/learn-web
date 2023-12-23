@@ -57,7 +57,8 @@ export default function CourseInProgressCardBody({
                 <div className="font-medium text-gray-500">
                   <div className="text-sm">{course.title}</div>
                   <div className="text-sm text-gray-500 dark:text-gray-400">
-                    John Doe
+                    {course.courseAuthorData.firstName}{" "}
+                    {course.courseAuthorData.lastName}
                   </div>
                 </div>
               </div>

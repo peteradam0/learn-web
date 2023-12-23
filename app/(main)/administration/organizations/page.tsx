@@ -29,7 +29,7 @@ const statusColorMap = {
 
 const columns = [
   { name: "NAME", uid: "name" },
-  { name: "MEMBERS", uid: "members" },
+  { name: "EDIT", uid: "edit" },
   { name: "ACTIONS", uid: "actions" },
 ];
 
@@ -86,24 +86,15 @@ export default function OrganizationsPageRoute() {
             name={organization.name}
           ></User>
         );
-      case "members":
+      case "edit":
         return (
           <Button onClick={() => handleRedirectToOrganization(organization)}>
-            Members
+            Edit
           </Button>
         );
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
-            <Tooltip content="Edit user">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                <Icon
-                  width={13}
-                  icon="uiw:edit"
-                  onClick={() => handleOpenModal("edit", organization)}
-                />
-              </span>
-            </Tooltip>
             <Tooltip color="danger" content="Delete user">
               <span className="text-lg text-danger cursor-pointer active:opacity-50">
                 <Icon
@@ -125,12 +116,6 @@ export default function OrganizationsPageRoute() {
         <div>
           <div className="flex flex-col gap-4">
             <div className="flex justify-between gap-3 items-end">
-              <Input
-                isClearable
-                className="w-full sm:max-w-[44%]"
-                placeholder="Search by name..."
-                startContent={"search"}
-              />
               <div className="flex gap-3">
                 <Button
                   onPress={() => handleOpenModal("create", currentOrganization)}

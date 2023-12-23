@@ -41,6 +41,7 @@ export default function CourseCard({ course }: any) {
       try {
         const res = await getCoursePartitipation(course?.id, token);
         setParticipationData(res?.data.courseId);
+
         setIsLoading(false);
       } catch (e) {
         console.log(e);
@@ -65,9 +66,9 @@ export default function CourseCard({ course }: any) {
                     src={course.imageUrl}
                     alt="waves"
                     style={{
-                      height: "170px",
+                      height: "200px",
                       paddingTop: "15px",
-                      width: "350px",
+                      width: "405px",
                     }}
                   />
                 </div>
@@ -82,7 +83,9 @@ export default function CourseCard({ course }: any) {
                           course.courseAuthorData.lastName}
                       </div>
                       <div className="text-sm text-gray-500 dark:text-gray-400">
-                        Snowflake
+                        {course.organization && (
+                          <div>{course.organization.name}</div>
+                        )}
                       </div>
                     </div>
                   </div>

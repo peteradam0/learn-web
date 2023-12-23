@@ -27,16 +27,7 @@ export default function CourseHeadline(data: any) {
               }}
               className="pt-1"
             >
-              <span className="text-sm">Topics:</span>
-              <span className="inline-block bg-gray-200 rounded-full px-1 py-1 text-sm font-semibold text-gray-700 mr-1 mb-1">
-                #photography
-              </span>
-              <span className="inline-block bg-gray-200 rounded-full px-1 py-1 text-sm font-semibold text-gray-700 mr-1 mb-1">
-                #travel
-              </span>
-              <span className="inline-block bg-gray-200 rounded-full px-1 py-1 text-sm font-semibold text-gray-700 mr-1 mb-1">
-                #winter
-              </span>
+              <div className="text-sm">{course.description}</div>
             </div>
           </div>
           <div className="flex items-center gap-4 pt-2">
@@ -48,7 +39,7 @@ export default function CourseHeadline(data: any) {
                   course?.courseAuthorData?.lastName}
               </div>
               <div className="text-sm text-gray-500 dark:text-gray-400">
-                Snowflake
+                {course.organization && <div>{course.organization.name}</div>}
               </div>
             </div>
           </div>

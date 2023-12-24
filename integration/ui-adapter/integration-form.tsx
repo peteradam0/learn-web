@@ -5,10 +5,13 @@ import { getUserToken } from "@/course/domain/get-user-token";
 import { Button, Input, Link } from "@nextui-org/react";
 import { redirect, useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { createRedirectUrl } from "../domain/canvas";
+import { createRedirectUrl, removeCanvasToken } from "../domain/canvas";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 export default function IntegrationForm() {
   const router = useRouter();
+  const [token, setToken] = useState(false);
   const processForm: SubmitHandler<CanvasAuth> = async (data) => {
     const token = await getUserToken();
 
@@ -21,6 +24,11 @@ export default function IntegrationForm() {
 
     router.push(createRedirectUrl(domain, clientId));
   };
+
+  useEffect(() => {
+    const t = Cookies.get("canvas_token");
+    if (t) return setToken(true);
+  }, []);
 
   const {
     register,
@@ -55,6 +63,16 @@ export default function IntegrationForm() {
               needed that can be created under in the Developer Keys section.
             </p>
             <p className="pt-2">
+              The authentication process with the Canvas LMS is a{" "}
+              <Link
+                className="font-medium"
+                size="sm"
+                href="https://canvas.instructure.com/doc/api/file.oauth_endpoints.html"
+              >
+                two step process.
+              </Link>
+            </p>
+            <p className="pt-2">
               More about the{" "}
               <Link
                 className="font-medium"
@@ -67,7 +85,31 @@ export default function IntegrationForm() {
           </div>
           <form className="lg:col-span-2" onSubmit={handleSubmit(processForm)}>
             <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+              <h2 className="font-semibold text-xl text-gray-600">
+                Get Canvas Code
+              </h2>
+
               <div className="p-1 md:col-span-5">
+                {!token && (
+                  <p className="font-semibold text-gray-600 pb-2">
+                    Got stuck, no worries check out the{" "}
+                    <Link
+                      className="font-medium"
+                      size="sm"
+                      href="https://community.canvaslms.com/t5/Admin-Guide/How-do-I-add-a-developer-API-key-for-an-account/ta-p/259"
+                    >
+                      documentation
+                    </Link>{" "}
+                    on developer keys
+                  </p>
+                )}
+                {token && (
+                  <p className="font-semibold text-gray-600 pb-2">
+                    You are already logged on on Canvas side, to remove your
+                    token you can use the remove button from bellow.
+                  </p>
+                )}
+
                 <h3 className="text-default-500 text-small pb-1">
                   An example for a client id is '10000000000002'
                 </h3>
@@ -76,6 +118,7 @@ export default function IntegrationForm() {
                   {...register("clientId", {
                     required: "Client id is required",
                   })}
+                  isDisabled={token}
                 />
                 {errors.clientId?.message && (
                   <p className="text-sm text-red-400">
@@ -92,6 +135,7 @@ export default function IntegrationForm() {
                   {...register("domain", {
                     required: "Domain is required",
                   })}
+                  isDisabled={token}
                 />
                 {errors.domain?.message && (
                   <p className="text-sm text-red-400">
@@ -101,7 +145,19 @@ export default function IntegrationForm() {
               </div>
               <div className="md:col-span-5 text-right">
                 <div className="inline-flex items-end">
-                  <Button type="submit">Connect</Button>
+                  {!token ? (
+                    <Button type="submit">Fetch</Button>
+                  ) : (
+                    <Button
+                      onClick={() => {
+                        removeCanvasToken();
+                        setToken(false);
+                      }}
+                      color="danger"
+                    >
+                      Remove token
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>

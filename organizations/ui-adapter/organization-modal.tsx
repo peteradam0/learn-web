@@ -4,6 +4,7 @@ import React from "react";
 
 import OrganizationDeleteModal from "./organization-delete-modal";
 import OrganizationCreateModal from "./organization-create-modal";
+import OrganizationAuthModal from "./organization-auth-modal";
 export default function OrganizationModal({
   isOpen,
   onOpenChange,
@@ -27,6 +28,9 @@ export default function OrganizationModal({
         </>
       )}
       {modalVersion === "edit" && <></>}
+      {modalVersion === "auth" && (
+        <OrganizationAuthModal isOpen={isOpen} onOpenChange={onOpenChange} />
+      )}
     </div>
   );
 }

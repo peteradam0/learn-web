@@ -14,7 +14,7 @@ export async function POST(req: Request) {
       },
       {
         headers: {
-          "Set-Cookie": `canvas_token=${access_token}`,
+          "Set-Cookie": `canvas_token=${access_token}; Path=/`,
         },
       }
     );

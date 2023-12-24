@@ -3,13 +3,15 @@ import { getUserToken } from "@/course/domain/get-user-token";
 import { CanvasAuthToken } from "@/integration/domain/canvas";
 import { Button, Input, Link } from "@nextui-org/react";
 import axios from "axios";
-import { redirect, useSearchParams } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 export default function OrganizationPageRoute({ params }: any) {
   const searchParams = useSearchParams();
   const code = searchParams.get("code");
-
+  const [error, setError] = useState("");
+  const router = useRouter();
   const processForm: SubmitHandler<CanvasAuthToken> = async (res) => {
     const token = await getUserToken();
 
@@ -21,14 +23,20 @@ export default function OrganizationPageRoute({ params }: any) {
     const { domain } = res;
     const { clientSecret } = res;
 
-    await axios.post("/api/canvas", {
+    const { data } = await axios.post("/api/canvas", {
       code,
       clientId,
       domain,
       clientSecret,
     });
 
-    cookies().set("name", "lee");
+    if (data.message) {
+      setError(
+        "An error occured wihle requesting the token. Please restart the process"
+      );
+    } else {
+      router.push("/administration/organizations?canvasAuth=true");
+    }
   };
 
   const {
@@ -45,8 +53,8 @@ export default function OrganizationPageRoute({ params }: any) {
   });
 
   return (
-    <div>
-      <div>
+    <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
+      <div className="container max-w-screen-lg mx-auto">
         <div style={{ paddingBottom: "10px" }}>
           <h2 className="font-semibold text-xl text-gray-600">
             Integrate with Canvas LMS
@@ -81,7 +89,14 @@ export default function OrganizationPageRoute({ params }: any) {
               onSubmit={handleSubmit(processForm)}
             >
               <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+                <h2 className="font-semibold text-xl text-gray-600">
+                  Get Canvas Token
+                </h2>
                 <div className="p-1 md:col-span-5">
+                  <p className="font-semibold text-gray-600 pb-2">
+                    Whith the code fetched from the previous step, now a token
+                    can be requested.
+                  </p>
                   <h3 className="text-default-500 text-small pb-1">
                     An example for a client id is '10000000000002'
                   </h3>
@@ -129,6 +144,7 @@ export default function OrganizationPageRoute({ params }: any) {
                       {errors.domain.message}
                     </p>
                   )}
+                  {error && <p className="text-sm text-red-400">{error}</p>}
                 </div>
                 <div className="md:col-span-5 text-right">
                   <div className="inline-flex items-end">
@@ -142,7 +158,4 @@ export default function OrganizationPageRoute({ params }: any) {
       </div>
     </div>
   );
-}
-function cookies() {
-  throw new Error("Function not implemented.");
 }

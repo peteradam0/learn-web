@@ -19,7 +19,8 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 
 import { getOrganizations } from "@/organizations/api-adapter/get-organizations";
 import OrganizationModal from "@/organizations/ui-adapter/organization-modal";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import Cookies from "js-cookie";
 
 const statusColorMap = {
   CUSTOMER: "success",
@@ -37,6 +38,8 @@ export default function OrganizationsPageRoute() {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [loading, setLoading] = useState(false);
 
+  const searchParams = useSearchParams();
+
   const [organizationsData, setOrganizationsData] = useState([]);
   const [modalVersion, setModalVersion] = useState("");
   const [currentOrganization, setCurrentOrganization] = useState(Object);
@@ -50,6 +53,11 @@ export default function OrganizationsPageRoute() {
 
   useEffect(() => {
     getOrganizationData();
+    const canvasAuth = searchParams.get("canvasAuth");
+    console.log(Cookies.get());
+    if (canvasAuth && Cookies.get("canvas_token")) {
+      handleOpenModal("auth", organizationsData);
+    }
   }, []);
 
   const getOrganizationData = async () => {
@@ -113,6 +121,12 @@ export default function OrganizationsPageRoute() {
   return (
     <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
       <div className="container max-w-screen-lg mx-auto">
+        <h1
+          className="font-semibold text-xl text-gray-600"
+          style={{ marginBottom: "20px" }}
+        >
+          Manage Organizations
+        </h1>
         <div>
           <div className="flex flex-col gap-4">
             <div className="flex justify-between gap-3 items-end">

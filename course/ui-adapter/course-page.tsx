@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import CourseCard from "./course-card";
 import { getUserToken } from "../domain/get-user-token";
 import { redirect } from "next/navigation";
-import { getPublishedCourses } from "@/dashboard/api-adapter/get-published-courses";
+import { getSelfhedCourses } from "@/dashboard/api-adapter/get-published-courses";
 
 export default function CoursePage() {
   const [courseData, setCourseData] = useState([]);
@@ -22,7 +22,7 @@ export default function CoursePage() {
     }
 
     try {
-      const res = await getPublishedCourses(token);
+      const res = await getSelfhedCourses(token);
       setCourseData(res?.data);
       setLoading(false);
     } catch (e) {

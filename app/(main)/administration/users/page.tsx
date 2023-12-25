@@ -113,12 +113,6 @@ export default function UserPageRoute() {
         <div>
           <div className="flex flex-col gap-4">
             <div className="flex justify-between gap-3 items-end">
-              <Input
-                isClearable
-                className="w-full sm:max-w-[44%]"
-                placeholder="Search by name..."
-                startContent={"search"}
-              />
               <div className="flex gap-3">
                 <Button
                   onPress={() => handleOpenModal("add", userId)}

@@ -4,15 +4,30 @@ import { Button, Input } from "@nextui-org/react";
 
 import { SubmitHandler, useForm } from "react-hook-form";
 import { sendOrganizationMemberInvite } from "../api-adapter/create-organization";
-
-const EMAIL_REGEX = new RegExp(
-  "/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/"
-);
+import { OrganizationMember } from "../domain/organization";
+import { useEffect, useState } from "react";
+import { getOrganizationMemberSuggestions } from "../api-adapter/get-suggested-users";
+import Cookies from "js-cookie";
 
 export default function AddUserToOrganizationForm({
   onClose,
   organizationName,
 }: any) {
+  useEffect(() => {
+    const canvasToken = Cookies.get("canvas_token");
+    if (canvasToken) {
+      getData(canvasToken);
+    }
+  });
+
+  const getData = async (canvasToken: string) => {
+    try {
+      await getOrganizationMemberSuggestions(organizationName, canvasToken);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const processForm: SubmitHandler<OrganizationMember> = async (data) => {
     const { email } = data;
     await sendOrganizationMemberInvite({

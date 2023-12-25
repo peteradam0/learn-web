@@ -1,3 +1,5 @@
+"use client";
+
 import { Modal, ModalBody, ModalContent, ModalHeader } from "@nextui-org/react";
 import AddUserToOrganizationForm from "./add-user-to-organization-form";
 
@@ -20,6 +22,11 @@ export default function OrganizationMemberCreateModal({
                 <p>
                   By submiting this form with a valid email address, an
                   invitation will be sent out.
+                </p>
+                <p>
+                  In case you authenticate with your Canvas LMS account under
+                  the integration section, the canvas users will be
+                  automatically suggested.
                 </p>
                 <AddUserToOrganizationForm
                   onClose={onClose}

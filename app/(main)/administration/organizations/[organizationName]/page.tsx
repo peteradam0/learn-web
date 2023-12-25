@@ -17,19 +17,7 @@ import {
 import { Icon } from "@iconify/react/dist/iconify.js";
 import OrganizationMemberModal from "@/organizations/ui-adapter/organization-member-modal";
 import { getOrganizationMemberData } from "@/organizations/api-adapter/create-organization";
-import IntegrationForm from "@/integration/ui-adapter/integration-form";
-
-const statusColorMap = {
-  CUSTOMER: "success",
-  ADMIN: "danger",
-  TEACHER: "warning",
-};
-
-const columns = [
-  { name: "NAME", uid: "name" },
-  { name: "ROLE", uid: "role" },
-  { name: "ACTIONS", uid: "actions" },
-];
+import { columns, statusColorMap } from "@/organizations/domain/organization";
 
 export default function OrganizationPageRoute({ params }: any) {
   const { organizationName } = params;
@@ -154,9 +142,6 @@ export default function OrganizationPageRoute({ params }: any) {
               )}
             </TableBody>
           </Table>
-          <div style={{ paddingTop: "90px" }}>
-            <IntegrationForm />
-          </div>
         </div>
       </div>
     </>

@@ -4,6 +4,18 @@ export type Organization = {
   imageUrl: string;
 };
 
-type OrganizationMember = {
+export type OrganizationMember = {
   email: string;
+};
+
+export const columns = [
+  { name: "NAME", uid: "name" },
+  { name: "ROLE", uid: "role" },
+  { name: "ACTIONS", uid: "actions" },
+];
+
+export const statusColorMap = {
+  CUSTOMER: "success",
+  ADMIN: "danger",
+  TEACHER: "warning",
 };

@@ -21,6 +21,7 @@ import { getOrganizations } from "@/organizations/api-adapter/get-organizations"
 import OrganizationModal from "@/organizations/ui-adapter/organization-modal";
 import { useRouter, useSearchParams } from "next/navigation";
 import Cookies from "js-cookie";
+import IntegrationForm from "@/integration/ui-adapter/integration-form";
 
 const statusColorMap = {
   CUSTOMER: "success",
@@ -54,7 +55,6 @@ export default function OrganizationsPageRoute() {
   useEffect(() => {
     getOrganizationData();
     const canvasAuth = searchParams.get("canvasAuth");
-    console.log(Cookies.get());
     if (canvasAuth && Cookies.get("canvas_token")) {
       handleOpenModal("auth", organizationsData);
     }
@@ -175,6 +175,9 @@ export default function OrganizationsPageRoute() {
               )}
             </TableBody>
           </Table>
+          <div style={{ paddingTop: "90px" }}>
+            <IntegrationForm />
+          </div>
         </div>
       </div>
     </div>

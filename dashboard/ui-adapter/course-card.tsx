@@ -1,4 +1,4 @@
-import { CardBody, Divider } from "@nextui-org/react";
+import { CardBody, Chip, Divider } from "@nextui-org/react";
 import Link from "next/link";
 import React from "react";
 
@@ -20,6 +20,11 @@ export default function CourseCard({ course }: any) {
                   <div className="text-sm text-gray-500 dark:text-gray-400">
                     {course.courseAuthorData.firstName}{" "}
                     {course.courseAuthorData.lastName}
+                  </div>
+                  <div className="pt-1">
+                    <Chip size="sm" color="success">
+                      {course.organization.name}
+                    </Chip>
                   </div>
                 </div>
               </div>

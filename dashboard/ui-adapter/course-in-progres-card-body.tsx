@@ -1,7 +1,7 @@
 "use client";
 import { getCoursePartitipation } from "@/course/api-adapter/get-course-participation";
 import { getUserToken } from "@/course/domain/get-user-token";
-import { CardBody, Divider, Link, Progress } from "@nextui-org/react";
+import { CardBody, Chip, Divider, Link, Progress } from "@nextui-org/react";
 import { redirect } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { calculateProgressBar } from "../domain/calculate-progress-bar";
@@ -59,6 +59,11 @@ export default function CourseInProgressCardBody({
                   <div className="text-sm text-gray-500 dark:text-gray-400">
                     {course.courseAuthorData.firstName}{" "}
                     {course.courseAuthorData.lastName}
+                  </div>
+                  <div className="pt-1">
+                    <Chip size="sm" color="success">
+                      {course.organization.name}
+                    </Chip>
                   </div>
                 </div>
               </div>

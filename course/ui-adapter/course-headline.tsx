@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Avatar } from "@nextui-org/react";
+import { Avatar, Chip } from "@nextui-org/react";
 
 export default function CourseHeadline(data: any) {
   const course = data.courseData;
@@ -39,7 +39,11 @@ export default function CourseHeadline(data: any) {
                   course?.courseAuthorData?.lastName}
               </div>
               <div className="text-sm text-gray-500 dark:text-gray-400">
-                {course.organization && <div>{course.organization.name}</div>}
+                {course.organization && (
+                  <Chip size="sm" color="success">
+                    {course.organization.name}
+                  </Chip>
+                )}
               </div>
             </div>
           </div>

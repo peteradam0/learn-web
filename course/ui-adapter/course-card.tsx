@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar, Button, Card } from "@nextui-org/react";
+import { Avatar, Button, Card, Chip } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import { createCoursePartitipation } from "../api-adapter/create-course-participation";
 import { getUserToken } from "../domain/get-user-token";
@@ -82,9 +82,11 @@ export default function CourseCard({ course }: any) {
                           " " +
                           course.courseAuthorData.lastName}
                       </div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400">
+                      <div className="text-sm text-gray-500 dark:text-gray-400 pt-1">
                         {course.organization && (
-                          <div>{course.organization.name}</div>
+                          <Chip size="sm" color="success">
+                            {course.organization.name}
+                          </Chip>
                         )}
                       </div>
                     </div>

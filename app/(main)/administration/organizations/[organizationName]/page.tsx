@@ -90,7 +90,7 @@ export default function OrganizationPageRoute({ params }: any) {
   return (
     <>
       <div
-        className=" p-6 bg-gray-100 flex items-center justify-center"
+        className="min-h-screen p-6 bg-gray-100 flex items-center justify-center"
         style={{ height: "100%" }}
       >
         <div className="container max-w-screen-lg mx-auto">

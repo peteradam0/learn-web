@@ -8,13 +8,18 @@ export async function POST(req: Request) {
       createApiUrl(code, clientSecret, clientId, domain)
     );
     const { access_token } = data;
+    const { expires_in } = data;
+
     return Response.json(
       {
         ...data,
       },
       {
         headers: {
-          "Set-Cookie": `canvas_token=${access_token}; Path=/`,
+          "Set-Cookie": `canvas_token=${access_token}; Path=/; Expires=${calculateExpirationDate(
+            expires_in
+          )}
+          `,
         },
       }
     );
@@ -32,4 +37,9 @@ const createApiUrl = (
   domain: string
 ): string => {
   return `${domain}/login/oauth2/token?code=${code}&client_id=${client_id}&grant_type=authorization_code&client_secret=${client_sercret}&redirect_uri=http//:localhost:3000`;
+};
+
+const calculateExpirationDate = (expirationInSecounds: number): string => {
+  const currentTimestamp = Date.now().valueOf();
+  return new Date(currentTimestamp + expirationInSecounds * 1000).toUTCString();
 };

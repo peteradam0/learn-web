@@ -1,19 +1,18 @@
-import { getUserToken } from "@/course/domain/get-user-token";
-import axios from "axios";
-import { redirect } from "next/navigation";
-import qs from "query-string";
+//canvas.docker/api/v1/courses
 
-export const getOrganizationMemberSuggestions = async (
-  organizationName: string,
-  canvasToken: string
-) => {
+import { redirect } from "next/navigation";
+import { getUserToken } from "../domain/get-user-token";
+import qs from "query-string";
+import axios from "axios";
+
+export const getCourseSuggestions = async (canvasToken: string) => {
   const token = await getUserToken();
   if (!token) {
     redirect("/");
   }
 
   const url = qs.stringifyUrl({
-    url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/organization/${organizationName}/members/suggestions`,
+    url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/courses/suggestion`,
   });
   let res = undefined;
   try {

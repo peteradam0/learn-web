@@ -5,6 +5,8 @@ import { getUserToken } from "@/course/domain/get-user-token";
 import { redirect } from "next/navigation";
 import { SubmitHandler } from "react-hook-form";
 import {
+  Autocomplete,
+  AutocompleteItem,
   Badge,
   Button,
   Dropdown,
@@ -14,6 +16,7 @@ import {
   DropdownTrigger,
   Image,
   Input,
+  Link,
   Select,
   SelectItem,
   Textarea,
@@ -24,6 +27,8 @@ import { useForm } from "react-hook-form";
 import { UploadButton } from "@/common/api-adapter/uploadthing";
 import { CreateCourseProps } from "@/common/domain/types";
 import { getOrganizations } from "@/organizations/api-adapter/get-organizations";
+import Cookies from "js-cookie";
+import { getCourseSuggestions } from "@/course/api-adapter/get-course-suggestions";
 
 export default function AddCoursePageRoute() {
   const [url, setUrl] = useState("");
@@ -31,17 +36,30 @@ export default function AddCoursePageRoute() {
   const [category, setCategory] = useState("Frontend");
   const [organization, setOrganization] = useState("Public");
   const [organizationData, setOrganizationData] = useState([]);
+  const [courseSuggestions, setCourseSuggestions] = useState();
+  const [token, setToken] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     getOrganizationData();
+    const canvasToken = Cookies.get("canvas_token");
+    if (canvasToken) {
+      setToken(true);
+      getSuggestion(canvasToken);
+    }
   }, []);
+
+  const getSuggestion = async (canvasToken: string) => {
+    const res = await getCourseSuggestions(canvasToken);
+    setCourseSuggestions(res?.data);
+  };
 
   const getOrganizationData = async () => {
     setLoading(true);
     const res = await getOrganizations();
+
     setOrganizationData(res?.data);
     console.log(res?.data);
     setLoading(false);
@@ -109,6 +127,20 @@ export default function AddCoursePageRoute() {
               <div className="text-gray-600">
                 <p className="font-medium text-lg">Course details</p>
                 <p>Here you can start the creation process of a course.</p>
+                <p>
+                  In case you authanticate with your{" "}
+                  <Link
+                    size="sm"
+                    href="https://community.canvaslms.com/t5/Instructor-Guide/tkb-p/Instructor"
+                  >
+                    Canvas LMS
+                  </Link>{" "}
+                  account under
+                  <Link size="sm" href="/administration/organizations">
+                    Organizations
+                  </Link>{" "}
+                  the system will automatically suggest you courses to create.
+                </p>
               </div>
               <form
                 className="lg:col-span-2"
@@ -120,10 +152,35 @@ export default function AddCoursePageRoute() {
                       The first thing that you will have to specify is the name
                       of the course
                     </h3>
-                    <Input
-                      label="Title"
-                      {...register("title", { required: "Title is required" })}
-                    />
+                    {token ? (
+                      <Autocomplete
+                        label="Title"
+                        placeholder="Search from Canvas or add new"
+                        defaultSelectedKey="cat"
+                        defaultItems={courseSuggestions}
+                        className="max-w-xs"
+                        scrollShadowProps={{
+                          isEnabled: false,
+                        }}
+                        {...register("title", {
+                          required: "Title is required",
+                        })}
+                      >
+                        {(item: any) => (
+                          <AutocompleteItem key={item?.title}>
+                            {item?.title}
+                          </AutocompleteItem>
+                        )}
+                      </Autocomplete>
+                    ) : (
+                      <Input
+                        label="Title"
+                        {...register("title", {
+                          required: "Title is required",
+                        })}
+                      />
+                    )}
+
                     {errors.title?.message && (
                       <p className="text-sm text-red-400">
                         {errors.title.message}

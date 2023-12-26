@@ -69,22 +69,31 @@ export default function AddUserToOrganizationForm({
             <h3 className="text-default-500 text-small pb-1">
               Please provide the eamil address of the new member
             </h3>
-            <Autocomplete
-              allowsCustomValue
-              className="max-w-xs"
-              defaultItems={suggestedUsers}
-              label="Search or type in email"
-              variant="bordered"
-              {...register("email", {
-                required: "Email is required",
-              })}
-            >
-              {(item: any) => (
-                <AutocompleteItem key={item?.email}>
-                  {item?.email}
-                </AutocompleteItem>
-              )}
-            </Autocomplete>
+            {suggestedUsers.length > 0 ? (
+              <Autocomplete
+                allowsCustomValue
+                className="max-w-xs"
+                defaultItems={suggestedUsers}
+                label="Search or type in email"
+                variant="bordered"
+                {...register("email", {
+                  required: "Email is required",
+                })}
+              >
+                {(item: any) => (
+                  <AutocompleteItem key={item?.email}>
+                    {item?.email}
+                  </AutocompleteItem>
+                )}
+              </Autocomplete>
+            ) : (
+              <Input
+                label="Email"
+                {...register("email", {
+                  required: "Email is required",
+                })}
+              />
+            )}
 
             {errors.email?.message && (
               <p className="text-sm text-red-400">{errors.email.message}</p>

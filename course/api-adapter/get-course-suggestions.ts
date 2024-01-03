@@ -12,7 +12,7 @@ export const getCourseSuggestions = async (canvasToken: string) => {
   }
 
   const url = qs.stringifyUrl({
-    url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/courses/suggestion`,
+    url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/courses/suggestions`,
   });
   let res = undefined;
   try {

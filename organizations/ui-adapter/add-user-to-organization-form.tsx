@@ -36,7 +36,8 @@ export default function AddUserToOrganizationForm({
         organizationName,
         canvasToken
       );
-      setSuggestedUsers(res?.data);
+      console.log(res?.data);
+      if (res?.data) setSuggestedUsers(res?.data);
     } catch (e) {
       console.log(e);
     }
@@ -67,7 +68,7 @@ export default function AddUserToOrganizationForm({
         <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
           <div className="p-1 md:col-span-5">
             <h3 className="text-default-500 text-small pb-1">
-              Please provide the eamil address of the new member
+              Please provide the email address of the new member
             </h3>
             {suggestedUsers.length > 0 ? (
               <Autocomplete
@@ -115,64 +116,3 @@ export default function AddUserToOrganizationForm({
     </>
   );
 }
-
-const animals = [
-  {
-    label: "Cat",
-    value: "cat",
-    description: "The second most popular pet in the world",
-  },
-  {
-    label: "Dog",
-    value: "dog",
-    description: "The most popular pet in the world",
-  },
-  {
-    label: "Elephant",
-    value: "elephant",
-    description: "The largest land animal",
-  },
-  { label: "Lion", value: "lion", description: "The king of the jungle" },
-  { label: "Tiger", value: "tiger", description: "The largest cat species" },
-  {
-    label: "Giraffe",
-    value: "giraffe",
-    description: "The tallest land animal",
-  },
-  {
-    label: "Dolphin",
-    value: "dolphin",
-    description: "A widely distributed and diverse group of aquatic mammals",
-  },
-  {
-    label: "Penguin",
-    value: "penguin",
-    description: "A group of aquatic flightless birds",
-  },
-  {
-    label: "Zebra",
-    value: "zebra",
-    description: "A several species of African equids",
-  },
-  {
-    label: "Shark",
-    value: "shark",
-    description:
-      "A group of elasmobranch fish characterized by a cartilaginous skeleton",
-  },
-  {
-    label: "Whale",
-    value: "whale",
-    description: "Diverse group of fully aquatic placental marine mammals",
-  },
-  {
-    label: "Otter",
-    value: "otter",
-    description: "A carnivorous mammal in the subfamily Lutrinae",
-  },
-  {
-    label: "Crocodile",
-    value: "crocodile",
-    description: "A large semiaquatic reptile",
-  },
-];

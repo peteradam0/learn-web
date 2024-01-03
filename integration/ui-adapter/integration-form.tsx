@@ -5,23 +5,27 @@ import { getUserToken } from "@/course/domain/get-user-token";
 import { Button, Input, Link } from "@nextui-org/react";
 import { redirect, useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { createRedirectUrl, removeCanvasToken } from "../domain/canvas";
+import {
+  createLocalStorageCanvasData,
+  createRedirectUrl,
+  removeCanvasLocalStorageData,
+  removeCanvasToken,
+} from "../domain/canvas";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
 export default function IntegrationForm() {
   const router = useRouter();
   const [token, setToken] = useState(false);
-  const processForm: SubmitHandler<CanvasAuth> = async (data) => {
+  const processForm: SubmitHandler<CanvasAuth> = async (canvasData) => {
     const token = await getUserToken();
 
     if (!token) {
       redirect("/");
     }
+    const { domain, clientId } = canvasData;
 
-    const { clientId } = data;
-    const { domain } = data;
-
+    createLocalStorageCanvasData(canvasData);
     router.push(createRedirectUrl(domain, clientId));
   };
 
@@ -39,6 +43,7 @@ export default function IntegrationForm() {
     defaultValues: {
       clientId: "",
       domain: "",
+      clientSecret: "",
     },
   });
 
@@ -86,7 +91,7 @@ export default function IntegrationForm() {
           <form className="lg:col-span-2" onSubmit={handleSubmit(processForm)}>
             <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
               <h2 className="font-semibold text-xl text-gray-600">
-                Get Canvas Code
+                Authenticate
               </h2>
 
               <div className="p-1 md:col-span-5">
@@ -105,7 +110,7 @@ export default function IntegrationForm() {
                 )}
                 {token && (
                   <p className="font-semibold text-gray-600 pb-2">
-                    You are already logged on on Canvas side, to remove your
+                    You are already logged in on Canvas side, to remove your
                     token you can use the remove button from bellow.
                   </p>
                 )}
@@ -123,6 +128,23 @@ export default function IntegrationForm() {
                 {errors.clientId?.message && (
                   <p className="text-sm text-red-400">
                     {errors.clientId.message}
+                  </p>
+                )}
+              </div>
+              <div className="p-1 md:col-span-5">
+                <h3 className="text-default-500 text-small pb-1">
+                  The client secret should contain 64 characters
+                </h3>
+                <Input
+                  label="Client Secret"
+                  {...register("clientSecret", {
+                    required: "Client secret is required",
+                  })}
+                  isDisabled={token}
+                />
+                {errors.clientSecret?.message && (
+                  <p className="text-sm text-red-400">
+                    {errors.clientSecret.message}
                   </p>
                 )}
               </div>
@@ -151,6 +173,7 @@ export default function IntegrationForm() {
                     <Button
                       onClick={() => {
                         removeCanvasToken();
+                        removeCanvasLocalStorageData();
                         setToken(false);
                       }}
                       color="danger"

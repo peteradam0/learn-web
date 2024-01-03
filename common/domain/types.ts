@@ -8,10 +8,10 @@ export type CreateCourseProps = {
 };
 
 export type CanvasAuth = {
-  clientId:string
-  domain:string
-
-}
+  clientId: string;
+  domain: string;
+  clientSecret: string;
+};
 
 export type CourseData = {
   id: string;

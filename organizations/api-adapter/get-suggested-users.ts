@@ -13,7 +13,7 @@ export const getOrganizationMemberSuggestions = async (
   }
 
   const url = qs.stringifyUrl({
-    url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/organization/${organizationName}/members/suggestions`,
+    url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/organizations/${organizationName}/members/suggestion`,
   });
   let res = undefined;
   try {

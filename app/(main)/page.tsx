@@ -1,5 +1,6 @@
 "use client";
 import { getUserData } from "@/common/api-adapter/get-user-data";
+import { useSocket } from "@/common/socket/socket-provider";
 import { getUserToken } from "@/course/domain/get-user-token";
 import CoursesInProgressCard from "@/dashboard/ui-adapter/courses-in-progress-card";
 import NewCoursesCard from "@/dashboard/ui-adapter/new-courses-card";

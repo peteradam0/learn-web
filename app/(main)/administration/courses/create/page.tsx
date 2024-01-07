@@ -29,7 +29,6 @@ import { CreateCourseProps } from "@/common/domain/types";
 import { getOrganizations } from "@/organizations/api-adapter/get-organizations";
 import Cookies from "js-cookie";
 import { getCourseSuggestions } from "@/course/api-adapter/get-course-suggestions";
-import { useSocket } from "@/common/socket/socket-provider";
 
 export default function AddCoursePageRoute() {
   const [url, setUrl] = useState("");
@@ -42,10 +41,8 @@ export default function AddCoursePageRoute() {
 
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { isConnected } = useSocket();
 
   useEffect(() => {
-    console.log("SocketConnection: " + isConnected);
     getOrganizationData();
     const canvasToken = Cookies.get("canvas_token");
     if (canvasToken) {

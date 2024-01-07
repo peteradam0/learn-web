@@ -10,12 +10,6 @@ const useMediaStream = () => {
     if (isStreamSet.current) return;
     isStreamSet.current = true;
     (async function initStream() {
-      console.log(
-        await navigator.mediaDevices.getUserMedia({
-          audio: false,
-          video: true,
-        })
-      );
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
           audio: true,

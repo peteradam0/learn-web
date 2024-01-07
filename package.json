@@ -28,6 +28,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.48.2",
+    "react-player": "^2.14.1",
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",
     "uploadthing": "^6.0.1",

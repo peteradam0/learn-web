@@ -36,7 +36,6 @@ export default function AddUserToOrganizationForm({
         organizationName,
         canvasToken
       );
-      console.log(res?.data);
       if (res?.data) setSuggestedUsers(res?.data);
     } catch (e) {
       console.log(e);

@@ -26,6 +26,14 @@ const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
       addTrailingSlash: false,
     });
     res.socket.server.io = io;
+
+    io.on('connection', (socket) => {
+      socket.on('join-room', ({userId},roomId) => {
+        console.log(`a new user with id ${userId} joined room ${roomId}`)
+        socket.join(roomId)
+        socket.broadcast.to(roomId).emit('user-connected', userId)
+      })
+    })
   }
 
   res.end();

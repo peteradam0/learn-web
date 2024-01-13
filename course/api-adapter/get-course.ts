@@ -15,7 +15,6 @@ export const getCourse = async (token: string, courseId: string) => {
   } catch (e) {
     console.log(e);
   }
-  console.log(res);
   return res;
 };
 
@@ -33,6 +32,5 @@ export const getInProgressCourses = async (token: string) => {
   } catch (e) {
     console.log(e);
   }
-  console.log(res);
   return res;
 };

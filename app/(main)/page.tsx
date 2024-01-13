@@ -18,7 +18,7 @@ export default function WelcomePage() {
 
   const createRoomAndJoin = () => {
     const roomId = uuidv4();
-    router.push(`/room/${roomId}`);
+    router.push(`/test/${roomId}`);
   };
   const getData = async () => {
     const token = await getUserToken();

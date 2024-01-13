@@ -1,21 +1,25 @@
-import { useEffect, useRef, useState } from "react";
-import { useSocket } from "../socket/socket-provider";
-const usePeer = (roomId: string | string[] | undefined) => {
-  const [peer, setPeer] = useState<any>();
+import { useSocket } from "@/context/socket";
+
+const { useState, useEffect, useRef } = require("react");
+
+const usePeer = (roomId: string) => {
+  const socket = useSocket();
+  const [peer, setPeer] = useState(null);
   const [myId, setMyId] = useState("");
   const isPeerSet = useRef(false);
-  const { socket } = useSocket();
 
   useEffect(() => {
     if (isPeerSet.current || !roomId || !socket) return;
     isPeerSet.current = true;
+    let myPeer;
     (async function initPeer() {
-      const myPeer = new (await import("peerjs")).default();
+      myPeer = new (await import("peerjs")).default();
       setPeer(myPeer);
+
       myPeer.on("open", (id) => {
         console.log(`your peer id is ${id}`);
         setMyId(id);
-        socket.emit("join-room", { userId: id }, roomId);
+        socket?.emit("join-room", roomId, id);
       });
     })();
   }, [roomId, socket]);

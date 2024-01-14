@@ -1,8 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { cloneDeep } from "lodash";
-import styles from "@/styles/room.module.css";
-
 import useMediaStream from "@/common/media-streem/useMediaStream";
 import usePeer from "@/common/peer/usePeer";
 import { useSocket } from "@/room/context/socket";
@@ -135,39 +133,49 @@ const Room = ({ params }: any) => {
   }, [myId, setPlayers, stream]);
 
   return (
-    <>
-      <div className={styles.activePlayerContainer}>
-        {playerHighlighted && (
-          <Player
-            url={playerHighlighted.url}
-            muted={playerHighlighted.muted}
-            playing={playerHighlighted.playing}
-            isActive
-          />
-        )}
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className="container max-w-screen-lg mx-auto">
+        <div
+          style={{
+            width: "40%",
+            paddingLeft: "1%",
+            float: "right",
+          }}
+        >
+          {Object.keys(nonHighlightedPlayers).map((playerId) => {
+            const { url, muted, playing } = nonHighlightedPlayers[playerId];
+            return (
+              <Player
+                key={playerId}
+                url={url}
+                muted={muted}
+                playing={playing}
+                isActive={false}
+              />
+            );
+          })}
+        </div>
+        <div style={{ width: "60%", paddingLeft: "10%" }}>
+          {playerHighlighted && (
+            <>
+              <Player
+                url={playerHighlighted.url}
+                muted={playerHighlighted.muted}
+                playing={playerHighlighted.playing}
+                isActive
+              />
+              <Bottom
+                muted={playerHighlighted?.muted}
+                playing={playerHighlighted?.playing}
+                toggleAudio={toggleAudio}
+                toggleVideo={toggleVideo}
+                leaveRoom={leaveRoom}
+              />
+            </>
+          )}
+        </div>
       </div>
-      <div className={styles.inActivePlayerContainer}>
-        {Object.keys(nonHighlightedPlayers).map((playerId) => {
-          const { url, muted, playing } = nonHighlightedPlayers[playerId];
-          return (
-            <Player
-              key={playerId}
-              url={url}
-              muted={muted}
-              playing={playing}
-              isActive={false}
-            />
-          );
-        })}
-      </div>
-      <Bottom
-        muted={playerHighlighted?.muted}
-        playing={playerHighlighted?.playing}
-        toggleAudio={toggleAudio}
-        toggleVideo={toggleVideo}
-        leaveRoom={leaveRoom}
-      />
-    </>
+    </div>
   );
 };
 

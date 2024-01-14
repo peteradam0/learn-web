@@ -1,5 +1,5 @@
 .playerContainer {
-  @apply relative overflow-hidden mb-5 h-full;
+  @apply relative overflow-hidden mb-3 h-full;
 }
 
 .active {

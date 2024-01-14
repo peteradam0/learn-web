@@ -5,18 +5,26 @@ const Bottom = (props: any) => {
   const { muted, playing, toggleAudio, toggleVideo, leaveRoom } = props;
 
   return (
-    <div>
+    <div
+      className="flex gap-3 items-center"
+      style={{
+        width: "100%",
+        background: "grey",
+
+        paddingRight: "10%",
+      }}
+    >
       {muted ? (
-        <MicOff size={55} onClick={toggleAudio} />
+        <MicOff size={30} onClick={toggleAudio} />
       ) : (
-        <Mic size={55} onClick={toggleAudio} />
+        <Mic size={30} onClick={toggleAudio} />
       )}
       {playing ? (
-        <Video size={55} onClick={toggleVideo} />
+        <Video size={30} onClick={toggleVideo} />
       ) : (
-        <VideoOff size={55} onClick={toggleVideo} />
+        <VideoOff size={30} onClick={toggleVideo} />
       )}
-      <PhoneOff size={55} onClick={leaveRoom} />
+      <PhoneOff size={30} onClick={leaveRoom} />
     </div>
   );
 };

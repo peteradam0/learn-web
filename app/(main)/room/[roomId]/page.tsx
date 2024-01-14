@@ -5,11 +5,10 @@ import styles from "@/styles/room.module.css";
 
 import useMediaStream from "@/common/media-streem/useMediaStream";
 import usePeer from "@/common/peer/usePeer";
-import { useSocket } from "@/context/socket";
+import { useSocket } from "@/room/context/socket";
 import usePlayer from "@/common/ui-adapter/video-player/usePlayer";
-import Player from "@/components/Player";
-import CopySection from "@/components/CopySection";
-import Bottom from "@/components/Bottom";
+import Player from "@/room/ui-adapter/Player";
+import Bottom from "@/room/ui-adapter/Bottom";
 
 const Room = ({ params }: any) => {
   const socket = useSocket();
@@ -161,7 +160,6 @@ const Room = ({ params }: any) => {
           );
         })}
       </div>
-      <CopySection roomId={roomId} />
       <Bottom
         muted={playerHighlighted?.muted}
         playing={playerHighlighted?.playing}

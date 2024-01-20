@@ -23,6 +23,8 @@ import UserListBox from "@/event/ui-adapter/user-listbox";
 import { UploadButton } from "@/common/api-adapter/uploadthing";
 import { getUsers } from "@/users/api-adapter/getUsers";
 import { getOrganizationMemberData } from "@/organizations/api-adapter/create-organization";
+import { createVideoEvent } from "@/event/api-adapter/create-event";
+import { useRouter } from "next/navigation";
 
 export default function EventsPageRoute() {
   const [url, setUrl] = useState();
@@ -33,6 +35,7 @@ export default function EventsPageRoute() {
   const [users, setUsers] = useState([]);
 
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     getOrganizationData();
@@ -90,8 +93,19 @@ export default function EventsPageRoute() {
         type: "required",
         message: "Users are limeted but no users are selected",
       });
+    } else {
+      console.log(data, selectedUsers);
+      await createVideoEvent({
+        videoData: {
+          name: data.name,
+          description: data.description,
+          imageUrl: url,
+          organization: data.organization,
+          users: Array.from(selectedUsers),
+        },
+      });
+      router.push("/");
     }
-    console.log(selectedUsers);
   };
 
   if (loading) return <p>Loading...</p>;

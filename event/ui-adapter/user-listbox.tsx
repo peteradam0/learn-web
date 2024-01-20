@@ -1,4 +1,5 @@
 import { ListboxWrapper } from "@/event/ui-adapter/user-list-wrapper";
+import { useUser } from "@clerk/nextjs";
 import {
   Avatar,
   Chip,
@@ -10,11 +11,10 @@ import React, { useEffect } from "react";
 
 export default function UserListBox({ users, setSelectedUsers }: any) {
   const [values, setValues] = React.useState<Selection>(new Set([]));
-
+  const currentUserEmail = useUser().user?.emailAddresses[0].emailAddress;
   const arrayValues = Array.from(values);
 
   useEffect(() => {
-    console.log(values);
     setSelectedUsers(values);
   }, [values]);
 
@@ -46,7 +46,7 @@ export default function UserListBox({ users, setSelectedUsers }: any) {
           base: "max-w-xs",
           list: "max-h-[300px] overflow-scroll",
         }}
-        items={users}
+        items={users.filter((user: any) => user.email !== currentUserEmail)}
         label="Assigned to"
         selectionMode="multiple"
         onSelectionChange={setValues}

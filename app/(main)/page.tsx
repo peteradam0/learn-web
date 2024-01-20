@@ -1,12 +1,11 @@
 "use client";
 import { getUserData } from "@/common/api-adapter/get-user-data";
-import { getUserToken } from "@/course/domain/get-user-token";
 import CoursesInProgressCard from "@/dashboard/ui-adapter/courses-in-progress-card";
 import NewCoursesCard from "@/dashboard/ui-adapter/new-courses-card";
 
 import { Button, Divider } from "@nextui-org/react";
 import { v4 as uuidv4 } from "uuid";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 export default function WelcomePage() {

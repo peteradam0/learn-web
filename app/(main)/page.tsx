@@ -21,14 +21,8 @@ export default function WelcomePage() {
     router.push(`/room/${roomId}`);
   };
   const getData = async () => {
-    const token = await getUserToken();
-
-    if (!token) {
-      redirect("/");
-    }
-
     try {
-      const res = await getUserData(token);
+      const res = await getUserData();
       setUserData(res?.data);
     } catch (e) {
       console.log(e);

@@ -27,12 +27,23 @@ export default function SidebarContent({ isAdmin }: SidebarContetProp) {
       <nav>
         <ul className="space-y-2">
           <li className="opcion-con-desplegable">
-            <div className="flex items-center justify-between p-2 hover:bg-gray-700">
-              <div className="flex items-center">
-                <span>Home</span>
-              </div>
-            </div>
             <ul className="desplegable ml-4 ">
+              <li>
+                <Link
+                  href="/administration/events"
+                  className=" p-2 hover:bg-gray-700 flex items-center"
+                >
+                  Events
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/"
+                  className=" p-2 hover:bg-gray-700 flex items-center"
+                >
+                  Explore Courses
+                </Link>
+              </li>
               <li>
                 <Link
                   href="/administration/courses"
@@ -41,14 +52,7 @@ export default function SidebarContent({ isAdmin }: SidebarContetProp) {
                   MyCourses
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/"
-                  className=" p-2 hover:bg-gray-700 flex items-center"
-                >
-                  Explore
-                </Link>
-              </li>
+
               <li>
                 <Link
                   href="/administration/users"

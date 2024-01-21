@@ -1,12 +1,14 @@
+import { removeVideoEvent } from "@/event/api-adapter/remove-event";
 import { Button, Card, CardBody, Chip, Tooltip } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-export default function EventCard({ event }: any) {
+export default function EventCard({ eventData }: any) {
   const [members, setMembers] = useState<string>();
-
+  const router = useRouter();
   useEffect(() => {
-    if (event.users) {
-      event.users.map((user: any) => {
+    if (eventData.users) {
+      eventData.users.map((user: any) => {
         if (members) {
           setMembers(...members, user.email);
         } else {
@@ -16,6 +18,16 @@ export default function EventCard({ event }: any) {
     }
   }, []);
 
+  const removeEvent = async (eventData: any) => {
+    await removeVideoEvent({
+      videoData: {
+        name: eventData.name,
+        organization: eventData.organization,
+      },
+    });
+    window.location.reload(false);
+  };
+
   return (
     <Card>
       <CardBody>
@@ -23,20 +35,20 @@ export default function EventCard({ event }: any) {
           <div className="text-gray-900 font-bold mb-1 ml-1 p-2">
             <div className="flex items-center gap-4 pt-2">
               <img
-                src={event?.imageUrl}
+                src={eventData?.imageUrl}
                 style={{ height: "100px", width: "150px" }}
               />
               <div className="font-medium text-gray-500">
-                <div className="text-lg">{event.name}</div>
+                <div className="text-lg">{eventData.name}</div>
                 <div className="text-sm text-gray-500 dark:text-gray-400 pt-3">
-                  {event.description}
+                  {eventData.description}
                 </div>
                 <div className="flex flex-wrap gap-4 items-center pt-3">
                   <Chip size="sm" color="success">
-                    {event.organization}
+                    {eventData.organization}
                   </Chip>
 
-                  {event.active ? (
+                  {eventData.active ? (
                     <Chip size="sm" color="success">
                       Active
                     </Chip>
@@ -70,7 +82,13 @@ export default function EventCard({ event }: any) {
                   Members
                 </Button>
               </Tooltip>
-              <Button size="md" color="danger">
+              <Button
+                size="md"
+                color="danger"
+                onClick={() => {
+                  removeEvent(eventData);
+                }}
+              >
                 Delete
               </Button>
             </div>

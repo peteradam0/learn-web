@@ -94,7 +94,6 @@ export default function EventsPageRoute() {
         message: "Users are limeted but no users are selected",
       });
     } else {
-      console.log(data, selectedUsers);
       await createVideoEvent({
         videoData: {
           name: data.name,
@@ -104,7 +103,7 @@ export default function EventsPageRoute() {
           users: Array.from(selectedUsers),
         },
       });
-      router.push("/");
+      router.push("/administration/events");
     }
   };
 

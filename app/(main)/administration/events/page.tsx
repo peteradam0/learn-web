@@ -17,7 +17,6 @@ export default function EventsPage() {
     try {
       const res = await getVideoEvents();
       setEventsData(res?.data);
-      console.log(res?.data);
     } catch (e) {
       console.log(e);
     }
@@ -42,9 +41,9 @@ export default function EventsPage() {
         <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
           <div className="container mx-auto py-46 px-8">
             <div className="grid lg:grid-cols-3 gap-4">
-              {eventsData.map((event) => (
+              {eventsData.map((ev) => (
                 <>
-                  <EventCard key={event.description} event={event} />
+                  <EventCard key={ev.description} eventData={ev} />
                 </>
               ))}
             </div>

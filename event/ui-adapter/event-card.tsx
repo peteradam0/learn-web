@@ -1,7 +1,9 @@
+import { startVideoEvent } from "@/event/api-adapter/create-event";
 import { removeVideoEvent } from "@/event/api-adapter/remove-event";
 import { Button, Card, CardBody, Chip, Tooltip } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export default function EventCard({ eventData }: any) {
   const [members, setMembers] = useState<string>();
@@ -25,7 +27,18 @@ export default function EventCard({ eventData }: any) {
         organization: eventData.organization,
       },
     });
-    window.location.reload(false);
+    window.location.reload();
+  };
+
+  const startEvent = async () => {
+    const roomId = uuidv4();
+    await startVideoEvent({
+      videoData: {
+        name: eventData.name,
+        organization: eventData.organization,
+        roomId: roomId,
+      },
+    });
   };
 
   return (
@@ -61,7 +74,7 @@ export default function EventCard({ eventData }: any) {
               </div>
             </div>
             <div className="flex flex-wrap gap-4 items-center pt-3">
-              <Button size="md" color="default">
+              <Button size="md" color="default" onClick={() => startEvent()}>
                 Start
               </Button>
               <Tooltip
@@ -69,7 +82,6 @@ export default function EventCard({ eventData }: any) {
                 content={
                   members ? members : "No specific members were selected"
                 }
-                placement="right"
                 classNames={{
                   base: [
                     // arrow color

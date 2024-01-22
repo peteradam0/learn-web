@@ -13,7 +13,7 @@ export default function EventCard({ eventData }: any) {
     if (eventData.users) {
       eventData.users.map((user: any) => {
         if (members) {
-          setMembers(...members, user.email);
+          setMembers(members + " " + user.email);
         } else {
           setMembers("Members: " + user.email);
         }

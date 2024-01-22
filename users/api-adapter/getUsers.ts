@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 import qs from "query-string";
 
 export const getUsers = async () => {
-    
   const token = await getUserToken();
 
   if (!token) {

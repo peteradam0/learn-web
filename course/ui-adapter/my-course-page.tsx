@@ -50,7 +50,7 @@ export default function MyCoursePage() {
         <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
           <div className="container mx-auto py-46 px-8">
             <div className="grid lg:grid-cols-3 gap-4">
-              {courseData.map((course) => (
+              {courseData.map((course: any) => (
                 <>
                   <CourseCard key={course.id} course={course} />
                 </>

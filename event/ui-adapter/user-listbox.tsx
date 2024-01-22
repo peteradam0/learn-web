@@ -10,8 +10,10 @@ import {
 import React, { useEffect } from "react";
 
 export default function UserListBox({ users, setSelectedUsers }: any) {
+  //@ts-ignore
   const [values, setValues] = React.useState<Selection>(new Set([]));
   const currentUserEmail = useUser().user?.emailAddresses[0].emailAddress;
+  //@ts-ignore
   const arrayValues = Array.from(values);
 
   useEffect(() => {
@@ -49,6 +51,7 @@ export default function UserListBox({ users, setSelectedUsers }: any) {
         items={users.filter((user: any) => user.email !== currentUserEmail)}
         label="Assigned to"
         selectionMode="multiple"
+        //@ts-ignore
         onSelectionChange={setValues}
         variant="flat"
       >

@@ -1,9 +1,7 @@
 "use clien";
-import { getVideLengthInMin } from "@/common/domain/course-domain";
+
 import { Divider } from "@nextui-org/react";
 import Link from "next/link";
-
-import React, { useEffect, useState } from "react";
 
 export default function CourseSection(props: any) {
   const chapterData = props.data;

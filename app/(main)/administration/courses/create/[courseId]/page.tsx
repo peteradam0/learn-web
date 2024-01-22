@@ -32,7 +32,7 @@ export default function EditCoursePage({
 }) {
   const [url, setUrl] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
-  const [courseData, setCourseData] = useState();
+  const [courseData, setCourseData] = useState<any>();
   const [isLoading, setLoading] = useState(true);
   const [category, setCategory] = useState("Frontend");
   const [chapterList, setChapterList] = useState([] as any);

@@ -19,7 +19,7 @@ const usePeer = (roomId: string) => {
       myPeer.on("open", (id) => {
         console.log(`your peer id is ${id}`);
         setMyId(id);
-        socket?.emit("join-room", roomId, id);
+        socket?.emit("join-room", roomId, id, id);
       });
     })();
   }, [roomId, socket]);

@@ -8,9 +8,7 @@ import {
   TableRow,
   TableCell,
   User,
-  Chip,
   Tooltip,
-  Input,
   Button,
   useDisclosure,
 } from "@nextui-org/react";
@@ -22,12 +20,6 @@ import OrganizationModal from "@/organizations/ui-adapter/organization-modal";
 import { useRouter, useSearchParams } from "next/navigation";
 import Cookies from "js-cookie";
 import IntegrationForm from "@/integration/ui-adapter/integration-form";
-
-const statusColorMap = {
-  CUSTOMER: "success",
-  ADMIN: "danger",
-  TEACHER: "warning",
-};
 
 const columns = [
   { name: "NAME", uid: "name" },
@@ -54,7 +46,7 @@ export default function OrganizationsPageRoute() {
 
   useEffect(() => {
     getOrganizationData();
-    const canvasAuth = searchParams.get("canvasAuth");
+    const canvasAuth = searchParams?.get("canvasAuth");
     if (canvasAuth && Cookies.get("canvas_token")) {
       handleOpenModal("auth", organizationsData);
     }

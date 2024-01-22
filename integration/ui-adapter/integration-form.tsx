@@ -116,7 +116,7 @@ export default function IntegrationForm() {
                 )}
 
                 <h3 className="text-default-500 text-small pb-1">
-                  An example for a client id is '10000000000002'
+                  An example for a client id is 10000000000002
                 </h3>
                 <Input
                   label="ClientId"
@@ -150,7 +150,7 @@ export default function IntegrationForm() {
               </div>
               <div className="p-1 md:col-span-5">
                 <h3 className="text-default-500 text-small pb-1">
-                  An example for the domain is 'http://canvas.docker'
+                  An example for the domain is http://canvas.docker
                 </h3>
                 <Input
                   label="Domain"

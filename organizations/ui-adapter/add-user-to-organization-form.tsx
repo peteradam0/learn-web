@@ -3,11 +3,8 @@
 import {
   Autocomplete,
   AutocompleteItem,
-  Avatar,
   Button,
   Input,
-  Select,
-  SelectItem,
 } from "@nextui-org/react";
 
 import { SubmitHandler, useForm } from "react-hook-form";

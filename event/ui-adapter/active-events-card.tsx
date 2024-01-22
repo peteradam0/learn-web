@@ -1,12 +1,9 @@
 import { getActiveVideoEvents } from "@/event/api-adapter/get-video-events";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import {
-  Button,
   Card,
   CardBody,
   CardFooter,
-  CardHeader,
-  Chip,
   Divider,
   Link,
   ScrollShadow,
@@ -27,7 +24,6 @@ export default function ActiveCourseCard() {
       const res = await getActiveVideoEvents();
       setEventData(res?.data);
       setLoading(false);
-      console.log(res.data);
     } catch (e) {
       console.log(e);
     }
@@ -41,7 +37,7 @@ export default function ActiveCourseCard() {
       orientation="horizontal"
       className="max-w-[400px] max-h-[300px]"
     >
-      {eventData.map((activeEvent) => (
+      {eventData.map((activeEvent: any) => (
         <>
           <Card key={activeEvent.imageUrl} className="max-w-none ">
             <CardBody>

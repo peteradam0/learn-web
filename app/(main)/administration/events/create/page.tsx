@@ -27,7 +27,7 @@ import { createVideoEvent } from "@/event/api-adapter/create-event";
 import { useRouter } from "next/navigation";
 
 export default function EventsPageRoute() {
-  const [url, setUrl] = useState();
+  const [url, setUrl] = useState<any>();
   const [organization, setOrganization] = useState("Public");
   const [organizationData, setOrganizationData] = useState([]);
   const [limitUsers, setLimitUsers] = useState(false);

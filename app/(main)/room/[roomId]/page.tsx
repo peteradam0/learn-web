@@ -23,7 +23,7 @@ import { getUserData } from "@/common/api-adapter/get-user-data";
 
 const Room = ({ params }: any) => {
   const { roomId } = params;
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState<any>();
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -57,6 +57,7 @@ const Room = ({ params }: any) => {
 
   useEffect(() => {
     if (!socket || !peer || !stream) return;
+    console.log(socket);
     const handleUserConnected = (newUser: any) => {
       connectNewUser(peer, stream, newUser, setPlayers, setUsers);
     };
@@ -146,7 +147,11 @@ const Room = ({ params }: any) => {
                 url={playerHighlighted.url}
                 muted={playerHighlighted.muted}
                 playing={playerHighlighted.playing}
-                userName={currentUser.firstName + " " + currentUser.lastName}
+                userName={
+                  currentUser
+                    ? currentUser.firstName + " " + currentUser.lastName
+                    : ""
+                }
                 isActive
               />
 

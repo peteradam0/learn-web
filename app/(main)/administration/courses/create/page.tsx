@@ -212,11 +212,7 @@ export default function AddCoursePageRoute() {
                       <Select
                         label="Organization"
                         className="max-w-xs"
-                        onChange={(key) => {
-                          setOrganization(key.target.value);
-                        }}
                         {...register("organization", {
-                          value: organization,
                           required: "Organization is required",
                         })}
                       >

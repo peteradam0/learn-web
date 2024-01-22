@@ -25,3 +25,26 @@ export const getVideoEvents = async () => {
   }
   return res;
 };
+
+export const getActiveVideoEvents = async () => {
+  const token = await getUserToken();
+  if (!token) {
+    redirect("/");
+  }
+
+  const url = qs.stringifyUrl({
+    url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/active`,
+  });
+  let res = undefined;
+
+  try {
+    res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (e) {
+    console.log(e);
+  }
+  return res;
+};

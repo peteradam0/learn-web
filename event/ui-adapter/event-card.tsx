@@ -4,6 +4,7 @@ import { Button, Card, CardBody, Chip, Tooltip } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 export default function EventCard({ eventData }: any) {
   const [members, setMembers] = useState<string>();
@@ -14,7 +15,7 @@ export default function EventCard({ eventData }: any) {
         if (members) {
           setMembers(...members, user.email);
         } else {
-          setMembers(user.email);
+          setMembers("Members: " + user.email);
         }
       });
     }
@@ -73,29 +74,15 @@ export default function EventCard({ eventData }: any) {
                 </div>
               </div>
             </div>
-            <div className="flex flex-wrap gap-4 items-center pt-3">
-              <Button size="md" color="default" onClick={() => startEvent()}>
+            <div
+              className="flex flex-wrap gap-4 items-center"
+              style={{ paddingTop: "1.5rem" }}
+            >
+              <Button size="sm" color="default" onClick={() => startEvent()}>
                 Start
               </Button>
-              <Tooltip
-                showArrow
-                content={
-                  members ? members : "No specific members were selected"
-                }
-                classNames={{
-                  base: [
-                    // arrow color
-                    "before:bg-neutral-400 dark:before:bg-white",
-                  ],
-                  content: ["py-2 px-4 shadow-xl"],
-                }}
-              >
-                <Button size="md" color="secondary">
-                  Members
-                </Button>
-              </Tooltip>
               <Button
-                size="md"
+                size="sm"
                 color="danger"
                 onClick={() => {
                   removeEvent(eventData);
@@ -103,6 +90,24 @@ export default function EventCard({ eventData }: any) {
               >
                 Delete
               </Button>
+              <div style={{ paddingLeft: "7rem" }}>
+                <Tooltip
+                  showArrow
+                  size="sm"
+                  content={
+                    members ? members : "No specific members were selected"
+                  }
+                  classNames={{
+                    base: [
+                      // arrow color
+                      "before:bg-neutral-400 dark:before:bg-white",
+                    ],
+                    content: ["py-2 px-4 shadow-xl"],
+                  }}
+                >
+                  <Icon icon={"material-symbols:info-outline"} width={25} />
+                </Tooltip>
+              </div>
             </div>
           </div>
         </div>

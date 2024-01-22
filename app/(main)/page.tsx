@@ -7,6 +7,8 @@ import { Button, Divider } from "@nextui-org/react";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import ActiveEventsCardBody from "@/event/ui-adapter/active-events-card-body";
+import ActiveEventsCard from "@/event/ui-adapter/active-events-card";
 
 export default function WelcomePage() {
   const [userData, setUserData] = useState();
@@ -51,6 +53,12 @@ export default function WelcomePage() {
             <h1>Upcomming courses</h1>
             <div className="pt-5">
               <Button onClick={createRoomAndJoin}>Create room</Button>
+            </div>
+          </div>
+          <div>
+            <h1>Active events</h1>
+            <div className="pt-5">
+              <ActiveEventsCard />
             </div>
           </div>
         </div>

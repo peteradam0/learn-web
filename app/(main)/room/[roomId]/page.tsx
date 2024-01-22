@@ -19,11 +19,15 @@ import {
   videoToggle,
 } from "@/event/video-player/video-pannel";
 import { ScrollShadow, Tab, Tabs } from "@nextui-org/react";
+import { getUserData } from "@/common/api-adapter/get-user-data";
 
 const Room = ({ params }: any) => {
-  const socket = useSocket();
   const { roomId } = params;
+  const [currentUser, setCurrentUser] = useState();
+  const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
+  const socket = useSocket();
   const { peer, myId } = usePeer(roomId);
   const { stream } = useMediaStream();
   const {
@@ -36,7 +40,20 @@ const Room = ({ params }: any) => {
     leaveRoom,
   } = usePlayer(myId, roomId, peer);
 
-  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    const getUser = async () => {
+      setIsLoading(true);
+      const res = await getUserData();
+      setCurrentUser(res?.data);
+      setIsLoading(false);
+    };
+
+    try {
+      getUser();
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
 
   useEffect(() => {
     if (!socket || !peer || !stream) return;
@@ -89,6 +106,8 @@ const Room = ({ params }: any) => {
     setCurrentStream(myId, setPlayers, stream);
   }, [myId, setPlayers, stream]);
 
+  if (isLoading) return <div>Loading..</div>;
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="container max-w-screen-lg mx-auto">
@@ -127,8 +146,10 @@ const Room = ({ params }: any) => {
                 url={playerHighlighted.url}
                 muted={playerHighlighted.muted}
                 playing={playerHighlighted.playing}
+                userName={currentUser.firstName + " " + currentUser.lastName}
                 isActive
               />
+
               <Bottom
                 muted={playerHighlighted?.muted}
                 playing={playerHighlighted?.playing}

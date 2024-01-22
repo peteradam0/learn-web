@@ -18,6 +18,7 @@ import {
   userLeave,
   videoToggle,
 } from "@/event/video-player/video-pannel";
+import { ScrollShadow, Tab, Tabs } from "@nextui-org/react";
 
 const Room = ({ params }: any) => {
   const socket = useSocket();
@@ -98,19 +99,26 @@ const Room = ({ params }: any) => {
             float: "right",
           }}
         >
-          {Object.keys(nonHighlightedPlayers).map((playerId) => {
-            //@ts-ignore
-            const { url, muted, playing } = nonHighlightedPlayers[playerId];
-            return (
-              <Player
-                key={playerId}
-                url={url}
-                muted={muted}
-                playing={playing}
-                isActive={false}
-              />
-            );
-          })}
+          <ScrollShadow
+            offset={100}
+            hideScrollBar
+            orientation="horizontal"
+            className="max-w-[250px] max-h-[500px]"
+          >
+            {Object.keys(nonHighlightedPlayers).map((playerId) => {
+              //@ts-ignore
+              const { url, muted, playing } = nonHighlightedPlayers[playerId];
+              return (
+                <Player
+                  key={playerId}
+                  url={url}
+                  muted={muted}
+                  playing={playing}
+                  isActive={false}
+                />
+              );
+            })}
+          </ScrollShadow>
         </div>
         <div style={{ width: "60%", paddingLeft: "10%" }}>
           {playerHighlighted && (

@@ -3,15 +3,14 @@ import { getUserData } from "@/common/api-adapter/get-user-data";
 import CoursesInProgressCard from "@/dashboard/ui-adapter/courses-in-progress-card";
 import NewCoursesCard from "@/dashboard/ui-adapter/new-courses-card";
 
-import { Button, Divider } from "@nextui-org/react";
+import { Divider } from "@nextui-org/react";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import ActiveEventsCardBody from "@/event/ui-adapter/active-events-card-body";
 import ActiveEventsCard from "@/event/ui-adapter/active-events-card";
 
 export default function WelcomePage() {
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState<any>();
   const router = useRouter();
   useEffect(() => {
     getData();

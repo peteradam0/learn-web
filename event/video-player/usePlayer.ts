@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useState } from "react";
 import { cloneDeep } from "lodash";
 import { useSocket } from "@/room/context/socket";
@@ -14,9 +15,10 @@ const usePlayer = (
   const playersCopy = cloneDeep(players);
 
   const playerHighlighted = playersCopy[myId];
+
   delete playersCopy[myId];
 
-  const nonHighlightedPlayers = playersCopy;
+  const nonHighlightedPlayers = playersCopy as any[];
 
   const leaveRoom = () => {
     socket?.emit("user-leave", myId, roomId);

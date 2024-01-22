@@ -61,7 +61,6 @@ export default function AddCoursePageRoute() {
     const res = await getOrganizations();
 
     setOrganizationData(res?.data);
-    console.log(res?.data);
     setLoading(false);
   };
 

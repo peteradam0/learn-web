@@ -1,29 +1,29 @@
 "use client";
 import { getUserData } from "@/common/api-adapter/get-user-data";
-import { getUserToken } from "@/course/domain/get-user-token";
 import CoursesInProgressCard from "@/dashboard/ui-adapter/courses-in-progress-card";
 import NewCoursesCard from "@/dashboard/ui-adapter/new-courses-card";
 
-import { Divider } from "@nextui-org/react";
-import { redirect } from "next/navigation";
+import { Button, Divider } from "@nextui-org/react";
+import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import ActiveEventsCardBody from "@/event/ui-adapter/active-events-card-body";
+import ActiveEventsCard from "@/event/ui-adapter/active-events-card";
 
 export default function WelcomePage() {
   const [userData, setUserData] = useState();
-
+  const router = useRouter();
   useEffect(() => {
     getData();
   }, []);
 
+  const createRoomAndJoin = () => {
+    const roomId = uuidv4();
+    router.push(`/room/${roomId}`);
+  };
   const getData = async () => {
-    const token = await getUserToken();
-
-    if (!token) {
-      redirect("/");
-    }
-
     try {
-      const res = await getUserData(token);
+      const res = await getUserData();
       setUserData(res?.data);
     } catch (e) {
       console.log(e);
@@ -49,9 +49,11 @@ export default function WelcomePage() {
               <NewCoursesCard />
             </div>
           </div>
-          <div className="pt-5">
-            <h1>Upcomming courses</h1>
-            <div className="pt-5"></div>
+          <div>
+            <h1>Active events</h1>
+            <div className="pt-5">
+              <ActiveEventsCard />
+            </div>
           </div>
         </div>
       </div>

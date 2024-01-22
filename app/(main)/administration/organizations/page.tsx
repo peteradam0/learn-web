@@ -65,7 +65,6 @@ export default function OrganizationsPageRoute() {
       setLoading(true);
       const res = await getOrganizations();
       setOrganizationsData(res?.data);
-      console.log(res?.data);
       setLoading(false);
     } catch (e) {
       console.log(e);

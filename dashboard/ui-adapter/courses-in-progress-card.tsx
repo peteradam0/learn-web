@@ -40,7 +40,7 @@ export default function CoursesInProgressCard() {
       {inProgressCourses.length === 0 && (
         <CardHeader>
           <p>
-            Haven't started watching courses, no worries!
+            Have not started watching courses, no worries!
             <br />
             <span className="text-small text-default-500 pt-1">
               Below are some great courses to check out:
@@ -52,7 +52,7 @@ export default function CoursesInProgressCard() {
       {inProgressCourses.length !== 0
         ? inProgressCourses
             ?.slice(0, 2)
-            .map((course) => (
+            .map((course: any) => (
               <CourseInProgressCardBody
                 key={course.id}
                 course={course}
@@ -61,7 +61,7 @@ export default function CoursesInProgressCard() {
             ))
         : courseData
             ?.slice(0, 2)
-            .map((course) => (
+            .map((course: any) => (
               <CourseInProgressCardBody key={course.id} course={course} />
             ))}
       <CardFooter>

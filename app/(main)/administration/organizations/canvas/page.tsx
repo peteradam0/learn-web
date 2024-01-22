@@ -1,17 +1,14 @@
 "use client";
-import { getUserToken } from "@/course/domain/get-user-token";
-import {
-  CanvasAuthToken,
-  getLocalStorageCanvasData,
-} from "@/integration/domain/canvas";
+import { getLocalStorageCanvasData } from "@/integration/domain/canvas";
 
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function OrganizationPageRoute({ params }: any) {
+export default function OrganizationPageRoute() {
   const searchParams = useSearchParams();
-  const code = searchParams.get("code");
+
+  const code = searchParams?.get("code");
   const router = useRouter();
 
   useEffect(() => {

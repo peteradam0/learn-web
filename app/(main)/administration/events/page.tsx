@@ -41,7 +41,7 @@ export default function EventsPage() {
         <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
           <div className="container mx-auto py-46 px-8">
             <div className="grid lg:grid-cols-3 gap-4">
-              {eventsData.map((ev) => (
+              {eventsData.map((ev: any) => (
                 <>
                   <EventCard key={ev.description} eventData={ev} />
                 </>

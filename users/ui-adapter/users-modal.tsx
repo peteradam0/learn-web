@@ -1,14 +1,4 @@
 "use client";
-import { useClerk } from "@clerk/nextjs";
-import {
-  Button,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-} from "@nextui-org/react";
-import { useRouter } from "next/navigation";
 
 import React from "react";
 import UsersAddModal from "./user-add-modal";
@@ -19,7 +9,7 @@ export default function UsersModal({
   isOpen,
   onOpenChange,
   modalVersion,
-  userId
+  userId,
 }: any) {
   return (
     <div>
@@ -30,7 +20,11 @@ export default function UsersModal({
         <UserEditModal isOpen={isOpen} onOpenChange={onOpenChange} />
       )}
       {modalVersion === "delete" && (
-        <UserDeleteModal isOpen={isOpen} onOpenChange={onOpenChange} userId={userId}/>
+        <UserDeleteModal
+          isOpen={isOpen}
+          onOpenChange={onOpenChange}
+          userId={userId}
+        />
       )}
     </div>
   );

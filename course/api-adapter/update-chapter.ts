@@ -1,4 +1,3 @@
-import { CreateChapterProps } from "@/common/domain/types";
 import axios from "axios";
 import qs from "query-string";
 import { getUserToken } from "../domain/get-user-token";

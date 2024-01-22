@@ -1,5 +1,4 @@
 import { Tab, Tabs, Tooltip } from "@nextui-org/react";
-import cx from "classnames";
 import { Mic, Video, PhoneOff, MicOff, VideoOff } from "lucide-react";
 
 const Bottom = (props: any) => {

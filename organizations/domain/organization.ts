@@ -14,7 +14,7 @@ export const columns = [
   { name: "ACTIONS", uid: "actions" },
 ];
 
-export const statusColorMap = {
+export const statusColorMap: any = {
   CUSTOMER: "success",
   ADMIN: "danger",
   TEACHER: "warning",

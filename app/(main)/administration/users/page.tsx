@@ -10,7 +10,6 @@ import {
   User,
   Chip,
   Tooltip,
-  Input,
   Button,
   useDisclosure,
 } from "@nextui-org/react";
@@ -19,7 +18,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { getUsers } from "@/users/api-adapter/getUsers";
 import UsersModal from "@/users/ui-adapter/users-modal";
 
-const statusColorMap = {
+const statusColorMap: any = {
   CUSTOMER: "success",
   ADMIN: "danger",
   TEACHER: "warning",

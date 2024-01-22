@@ -12,7 +12,7 @@ const SocketHandler = (req: any, res: any) => {
       console.log("server is connected");
 
       socket.on("join-room", (roomId, userId) => {
-        console.log(`a new user ${userId} joined room ${roomId}`);
+        console.log(`a new user ${userId} joined room ${roomId} `);
         socket.join(roomId);
         socket.broadcast.to(roomId).emit("user-connected", userId);
       });

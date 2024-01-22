@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 
 export default function ChapterPageRoute({ params }: any) {
   const [loading, setLoading] = useState(false);
-  const [courseData, setCourseData] = useState({});
+  const [courseData, setCourseData] = useState<any>({});
   const { courseId, chapterId } = params;
 
   const getCurrentVideoUrl = (courseData: any, chapterId: string) => {

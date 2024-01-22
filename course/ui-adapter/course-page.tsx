@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import { getSelfhedCourses } from "@/dashboard/api-adapter/get-published-courses";
 
 export default function CoursePage() {
-  const [courseData, setCourseData] = useState([]);
+  const [courseData, setCourseData] = useState<any>([]);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export default function CoursePage() {
         <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
           <div className="container mx-auto py-46 px-8">
             <div className="grid lg:grid-cols-3 gap-3">
-              {courseData.map((course) => (
+              {courseData.map((course: any) => (
                 <CourseCard key={course.id} course={course} />
               ))}
             </div>

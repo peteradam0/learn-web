@@ -1,4 +1,5 @@
 import { getActiveVideoEvents } from "@/event/api-adapter/get-video-events";
+import { Icon } from "@iconify/react/dist/iconify.js";
 import {
   Button,
   Card,
@@ -26,6 +27,7 @@ export default function ActiveCourseCard() {
       const res = await getActiveVideoEvents();
       setEventData(res?.data);
       setLoading(false);
+      console.log(res.data);
     } catch (e) {
       console.log(e);
     }
@@ -70,10 +72,9 @@ export default function ActiveCourseCard() {
                 <Link
                   className="text-small"
                   isExternal
-                  showAnchorIcon
-                  href="/courses"
+                  href={`room/${activeEvent.roomId}`}
                 >
-                  Join
+                  <Icon icon={"mdi:video-outline"} width={25} /> Join
                 </Link>
               </div>
             </CardFooter>

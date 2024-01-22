@@ -49,12 +49,6 @@ export default function WelcomePage() {
               <NewCoursesCard />
             </div>
           </div>
-          <div className="pt-5">
-            <h1>Upcomming courses</h1>
-            <div className="pt-5">
-              <Button onClick={createRoomAndJoin}>Create room</Button>
-            </div>
-          </div>
           <div>
             <h1>Active events</h1>
             <div className="pt-5">

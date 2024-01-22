@@ -40,6 +40,7 @@ export default function EventCard({ eventData }: any) {
         roomId: roomId,
       },
     });
+    router.push(`/room/${roomId}`);
   };
 
   return (
@@ -78,9 +79,12 @@ export default function EventCard({ eventData }: any) {
               className="flex flex-wrap gap-4 items-center"
               style={{ paddingTop: "1.5rem" }}
             >
-              <Button size="sm" color="default" onClick={() => startEvent()}>
-                Start
-              </Button>
+              {!eventData.active && (
+                <Button size="sm" color="default" onClick={() => startEvent()}>
+                  Start
+                </Button>
+              )}
+
               <Button
                 size="sm"
                 color="danger"
@@ -88,7 +92,7 @@ export default function EventCard({ eventData }: any) {
                   removeEvent(eventData);
                 }}
               >
-                Delete
+                Close
               </Button>
               <div style={{ paddingLeft: "7rem" }}>
                 <Tooltip

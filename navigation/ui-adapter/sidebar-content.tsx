@@ -38,7 +38,7 @@ export default function SidebarContent({ isAdmin }: SidebarContetProp) {
               </li>
               <li>
                 <Link
-                  href="/"
+                  href="/courses"
                   className=" p-2 hover:bg-gray-700 flex items-center"
                 >
                   Explore Courses

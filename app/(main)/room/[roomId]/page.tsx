@@ -42,10 +42,6 @@ const Room = ({ params }: any) => {
   const { user } = useUser();
 
   useEffect(() => {
-    console.log(players);
-  }, [players, users]);
-
-  useEffect(() => {
     const getUser = async () => {
       setIsLoading(true);
       const res = await getUserData();
@@ -63,7 +59,15 @@ const Room = ({ params }: any) => {
   useEffect(() => {
     if (!socket || !peer || !stream) return;
     const handleUserConnected = (newUser: any, email: string) => {
-      connectNewUser(peer, stream, newUser, setPlayers, setUsers, email);
+      connectNewUser(
+        peer,
+        stream,
+        newUser,
+        setPlayers,
+        setUsers,
+        user?.emailAddresses[0].emailAddress || "",
+        email
+      );
     };
     socket.on("user-connected", handleUserConnected);
 

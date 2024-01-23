@@ -31,8 +31,8 @@ const Room = ({ params }: any) => {
   const { peer, myId } = usePeer(roomId);
   const { stream } = useMediaStream();
   const {
-    players,
-    setPlayers,
+    videoPlayersDetails,
+    setVideoPlayersDetails,
     playerHighlighted,
     nonHighlightedPlayers,
     toggleAudio,
@@ -63,7 +63,7 @@ const Room = ({ params }: any) => {
         peer,
         stream,
         newUser,
-        setPlayers,
+        setVideoPlayersDetails,
         setUsers,
         user?.emailAddresses[0].emailAddress || "",
         email
@@ -74,20 +74,20 @@ const Room = ({ params }: any) => {
     return () => {
       socket.off("user-connected", handleUserConnected);
     };
-  }, [peer, setPlayers, socket, stream]);
+  }, [peer, setVideoPlayersDetails, socket, stream]);
 
   useEffect(() => {
     if (!socket) return;
     const handleToggleAudio = (userId: any) => {
-      audioToggle(userId, setPlayers);
+      audioToggle(userId, setVideoPlayersDetails);
     };
 
     const handleToggleVideo = (userId: any) => {
-      videoToggle(userId, setPlayers);
+      videoToggle(userId, setVideoPlayersDetails);
     };
 
     const handleUserLeave = (userId: any) => {
-      userLeave(userId, users, players, setPlayers);
+      userLeave(userId, users, videoPlayersDetails, setVideoPlayersDetails);
     };
     setUpSocketEvents(
       socket,
@@ -103,22 +103,22 @@ const Room = ({ params }: any) => {
         handleUserLeave
       );
     };
-  }, [players, setPlayers, socket, users]);
+  }, [videoPlayersDetails, setVideoPlayersDetails, socket, users]);
 
   useEffect(() => {
     if (!peer || !stream) return;
-    createConnection(peer, stream, setPlayers, setUsers);
-  }, [peer, setPlayers, stream]);
+    createConnection(peer, stream, setVideoPlayersDetails, setUsers);
+  }, [peer, setVideoPlayersDetails, stream]);
 
   useEffect(() => {
     if (!stream || !myId) return;
     setCurrentStream(
       myId,
-      setPlayers,
+      setVideoPlayersDetails,
       stream,
       user?.emailAddresses[0].emailAddress || ""
     );
-  }, [myId, setPlayers, stream]);
+  }, [myId, setVideoPlayersDetails, stream]);
 
   const removePlayerIfBrowserIsClosed = () => {
     window.addEventListener("beforeunload", (ev) => {

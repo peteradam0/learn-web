@@ -1,8 +1,8 @@
 import { cloneDeep } from "lodash";
 
-export const audioToggle = (userId: string, setPlayers: any) => {
+export const audioToggle = (userId: string, setVideoPlayersDetails: any) => {
   console.log(`user with id ${userId} toggled audio`);
-  setPlayers((prev: any) => {
+  setVideoPlayersDetails((prev: any) => {
     const copy = cloneDeep(prev);
     copy[userId].muted = !copy[userId].muted;
     return { ...copy };
@@ -13,18 +13,18 @@ export const userLeave = (
   userId: number,
   users: any[],
   players: any,
-  setPlayers: any
+  setVideoPlayersDetails: any
 ) => {
   console.log(`user ${userId} is leaving the room`);
   users[userId]?.close();
   const playersCopy = cloneDeep(players);
   delete playersCopy[userId];
-  setPlayers(playersCopy);
+  setVideoPlayersDetails(playersCopy);
 };
 
-export const videoToggle = (userId: any, setPlayers: any) => {
+export const videoToggle = (userId: any, setVideoPlayersDetails: any) => {
   console.log(`user with id ${userId} toggled video`);
-  setPlayers((prev: any) => {
+  setVideoPlayersDetails((prev: any) => {
     const copy = cloneDeep(prev);
     copy[userId].playing = !copy[userId].playing;
     return { ...copy };

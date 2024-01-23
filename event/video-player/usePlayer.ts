@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState } from "react";
 import { cloneDeep } from "lodash";
 import { useSocket } from "@/room/context/socket";
@@ -10,9 +9,9 @@ const usePlayer = (
   peer: any
 ) => {
   const socket = useSocket();
-  const [players, setPlayers] = useState({});
+  const [videoPlayersDetails, setVideoPlayersDetails] = useState({});
   const router = useRouter();
-  const playersCopy = cloneDeep(players);
+  const playersCopy: any = cloneDeep(videoPlayersDetails);
 
   const playerHighlighted = playersCopy[myId];
 
@@ -22,15 +21,13 @@ const usePlayer = (
 
   const leaveRoom = () => {
     socket?.emit("user-leave", myId, roomId);
-    console.log("leaving room", roomId);
     peer?.disconnect();
     router.push("/");
   };
 
   const toggleAudio = () => {
-    console.log("I toggled my audio");
-    setPlayers((prev) => {
-      const copy = cloneDeep(prev);
+    setVideoPlayersDetails((prev) => {
+      const copy: any = cloneDeep(prev);
       copy[myId].muted = !copy[myId].muted;
       return { ...copy };
     });
@@ -38,9 +35,8 @@ const usePlayer = (
   };
 
   const toggleVideo = () => {
-    console.log("I toggled my video");
-    setPlayers((prev) => {
-      const copy = cloneDeep(prev);
+    setVideoPlayersDetails((prev) => {
+      const copy: any = cloneDeep(prev);
       copy[myId].playing = !copy[myId].playing;
       return { ...copy };
     });
@@ -48,8 +44,8 @@ const usePlayer = (
   };
 
   return {
-    players,
-    setPlayers,
+    videoPlayersDetails,
+    setVideoPlayersDetails,
     playerHighlighted,
     nonHighlightedPlayers,
     toggleAudio,

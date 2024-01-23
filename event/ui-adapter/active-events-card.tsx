@@ -38,8 +38,8 @@ export default function ActiveCourseCard() {
       className="max-w-[400px] max-h-[300px]"
     >
       {eventData.map((activeEvent: any) => (
-        <>
-          <Card key={activeEvent.imageUrl} className="max-w-none ">
+        <div key={activeEvent.imageUrl}>
+          <Card className="max-w-none ">
             <CardBody>
               <div className="text-sm text-gray-600 flex items-center">
                 <div className="text-gray-900 font-bold mb-1 ml-1 p-1">
@@ -76,7 +76,7 @@ export default function ActiveCourseCard() {
             </CardFooter>
           </Card>
           <div style={{ paddingTop: "20px" }}></div>
-        </>
+        </div>
       ))}
     </ScrollShadow>
   );

@@ -3,7 +3,8 @@ export const connectNewUser = (
   stream: any,
   newUser: any,
   setPlayers: any,
-  setUsers: any
+  setUsers: any,
+  email: string
 ) => {
   console.log(`user connected in room with userId ${newUser}`);
 
@@ -17,6 +18,8 @@ export const connectNewUser = (
         url: incomingStream,
         muted: true,
         playing: true,
+        status: "a new user is connected",
+        email,
       },
     }));
 
@@ -35,16 +38,19 @@ export const createConnection = (
 ) => {
   peer.on("call", (call: any) => {
     const { peer: callerId } = call;
+
     call.answer(stream);
 
     call.on("stream", (incomingStream: any) => {
       console.log(`incoming stream from ${callerId}`);
+
       setPlayers((prev: any) => ({
         ...prev,
         [callerId]: {
           url: incomingStream,
           muted: true,
           playing: true,
+          status: "answaring the call",
         },
       }));
 
@@ -59,7 +65,8 @@ export const createConnection = (
 export const setCurrentStream = (
   myId: string,
   setPlayers: any,
-  stream: any
+  stream: any,
+  email: string
 ) => {
   console.log(`setting my stream ${myId}`);
   setPlayers((prev: any) => ({
@@ -68,6 +75,8 @@ export const setCurrentStream = (
       url: stream,
       muted: true,
       playing: true,
+      email: email,
+      status: "set my current stream",
     },
   }));
 };

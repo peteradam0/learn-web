@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { cloneDeep } from "lodash";
 import useMediaStream from "@/common/media-streem/useMediaStream";
 import usePeer from "@/common/peer/usePeer";
 import { useSocket } from "@/room/context/socket";
@@ -18,8 +17,9 @@ import {
   userLeave,
   videoToggle,
 } from "@/event/video-player/video-pannel";
-import { ScrollShadow, Tab, Tabs } from "@nextui-org/react";
+import { ScrollShadow } from "@nextui-org/react";
 import { getUserData } from "@/common/api-adapter/get-user-data";
+import { useUser } from "@clerk/nextjs";
 
 const Room = ({ params }: any) => {
   const { roomId } = params;
@@ -39,6 +39,11 @@ const Room = ({ params }: any) => {
     toggleVideo,
     leaveRoom,
   } = usePlayer(myId, roomId, peer);
+  const { user } = useUser();
+
+  useEffect(() => {
+    console.log(players);
+  }, [players, users]);
 
   useEffect(() => {
     const getUser = async () => {
@@ -57,9 +62,8 @@ const Room = ({ params }: any) => {
 
   useEffect(() => {
     if (!socket || !peer || !stream) return;
-    console.log(socket);
-    const handleUserConnected = (newUser: any) => {
-      connectNewUser(peer, stream, newUser, setPlayers, setUsers);
+    const handleUserConnected = (newUser: any, email: string) => {
+      connectNewUser(peer, stream, newUser, setPlayers, setUsers, email);
     };
     socket.on("user-connected", handleUserConnected);
 
@@ -104,9 +108,22 @@ const Room = ({ params }: any) => {
 
   useEffect(() => {
     if (!stream || !myId) return;
-    setCurrentStream(myId, setPlayers, stream);
+    setCurrentStream(
+      myId,
+      setPlayers,
+      stream,
+      user?.emailAddresses[0].emailAddress || ""
+    );
   }, [myId, setPlayers, stream]);
 
+  const removePlayerIfBrowserIsClosed = () => {
+    window.addEventListener("beforeunload", (ev) => {
+      ev.preventDefault();
+      leaveRoom();
+    });
+  };
+
+  removePlayerIfBrowserIsClosed();
   if (isLoading) return <div>Loading..</div>;
 
   return (
@@ -126,16 +143,21 @@ const Room = ({ params }: any) => {
             className="max-w-[250px] max-h-[500px]"
           >
             {Object.keys(nonHighlightedPlayers).map((playerId) => {
-              //@ts-ignore
-              const { url, muted, playing } = nonHighlightedPlayers[playerId];
+              const { url, muted, playing, email } =
+                //@ts-ignore
+                nonHighlightedPlayers[playerId];
               return (
-                <Player
-                  key={playerId}
-                  url={url}
-                  muted={muted}
-                  playing={playing}
-                  isActive={false}
-                />
+                <div key={playerId}>
+                  {url && (
+                    <Player
+                      url={url}
+                      muted={muted}
+                      playing={playing}
+                      isActive={false}
+                      userName={email ? email : ""}
+                    />
+                  )}
+                </div>
               );
             })}
           </ScrollShadow>
@@ -147,11 +169,7 @@ const Room = ({ params }: any) => {
                 url={playerHighlighted.url}
                 muted={playerHighlighted.muted}
                 playing={playerHighlighted.playing}
-                userName={
-                  currentUser
-                    ? currentUser.firstName + " " + currentUser.lastName
-                    : ""
-                }
+                userName={currentUser ? currentUser.email : ""}
                 isActive
               />
 

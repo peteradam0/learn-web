@@ -23,7 +23,7 @@ export default function CourseInProgressCardBody({
     const token = await getUserToken();
 
     if (!token) {
-      redirect("/");
+      redirect("/sign-in");
     }
 
     try {

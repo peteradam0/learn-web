@@ -11,10 +11,11 @@ const SocketHandler = (req: any, res: any) => {
     io.on("connection", (socket) => {
       console.log("server is connected");
 
-      socket.on("join-room", (roomId, userId) => {
-        console.log(`a new user ${userId} joined room ${roomId} `);
+      socket.on("join-room", (roomId, userId, email) => {
+        console.log(`a new user ${email} joined room ${roomId}`);
+        //add the user to the room in db
         socket.join(roomId);
-        socket.broadcast.to(roomId).emit("user-connected", userId);
+        socket.broadcast.to(roomId).emit("user-connected", userId, email);
       });
 
       socket.on("user-toggle-audio", (userId, roomId) => {

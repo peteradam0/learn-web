@@ -3,7 +3,7 @@
 import DemoMeetingTab from "@/livekit/ui-adapter/meeting-tab";
 import styles from "../../../styles/home.module.css";
 
-const Home = () => {
+const EventsPageRoute = () => {
   return (
     <>
       <main className={styles.main} data-lk-theme="default">
@@ -13,4 +13,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default EventsPageRoute;

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import React from "react";
-import useNavigation from "./hooks/use-navigation";
+import useNavigation from "./use-navigation";
 import { usePathname, useRouter } from "next/navigation";
 
 type SidebarContetProp = {

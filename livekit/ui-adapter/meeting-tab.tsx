@@ -6,6 +6,7 @@ import {
 import { useRouter } from "next/navigation";
 
 import { useState } from "react";
+import styles from "../../styles/home.module.css";
 
 function DemoMeetingTab({ label }: { label: string }) {
   const router = useRouter();
@@ -21,7 +22,7 @@ function DemoMeetingTab({ label }: { label: string }) {
     }
   };
   return (
-    <div>
+    <div className={styles.tabContent}>
       <p style={{ margin: 0 }}>
         Try LiveKit Meet for free with our live demo project.
       </p>

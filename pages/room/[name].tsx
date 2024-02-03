@@ -3,6 +3,7 @@ import { useRoomOptions } from "@/livekit/domain/roomOptions";
 import { decodePassphrase, useServerUrl } from "@/livekit/technical/client";
 import "@livekit/components-styles";
 import "@livekit/components-styles/prefabs";
+
 import {
   LiveKitRoom,
   VideoConference,
@@ -21,21 +22,49 @@ import { useRouter } from "next/router";
 import * as React from "react";
 import { PreJoinNoSSR } from "@/livekit/ui-adapter/pre-join-component";
 import { ActiveRoomProps } from "@/livekit/domain/room";
+import { GetServerSideProps } from "next";
 
-const RoomPageContent = () => {
+import MainHeader from "@/navigation/ui-adapter/main-navigation";
+
+export type TokenProps = {
+  clerkToken: string;
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return { props: { clerkToken: context.req.cookies.__session } };
+};
+
+const RoomPageContent = ({ clerkToken }: TokenProps) => {
   const router = useRouter();
   const { name: roomName } = router.query;
+  const [userData, setUserData] = React.useState();
 
   const [preJoinChoices, setPreJoinChoices] = React.useState<
     LocalUserChoices | undefined
   >(undefined);
 
-  function handlePreJoinSubmit(values: LocalUserChoices) {
-    setPreJoinChoices(values);
-  }
+  React.useEffect(() => {
+    if (!clerkToken) router.push("/sign-in");
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${roomName}`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${clerkToken}` },
+    }).then((data: any) => {
+      if (!data) router.push("/sign-in");
+      console.log(data);
+      setUserData(userData);
+    });
+  }, []);
+
   return (
-    <>
-      <main data-lk-theme="default">
+    <main
+      data-lk-theme="default"
+      lang="en"
+      className="dark"
+      style={{ colorScheme: "dark" }}
+    >
+      <div style={{ maxHeight: "800px" }}>
+        <MainHeader isAdmin={false} />
+
         {roomName && !Array.isArray(roomName) && preJoinChoices ? (
           <ActiveRoom
             roomName={roomName}
@@ -46,7 +75,12 @@ const RoomPageContent = () => {
           ></ActiveRoom>
         ) : (
           <div
-            style={{ display: "grid", placeItems: "center", height: "100%" }}
+            style={{
+              display: "grid",
+              placeItems: "center",
+              height: "100%",
+              paddingTop: "5%",
+            }}
           >
             <PreJoinNoSSR
               onError={(err) =>
@@ -57,12 +91,12 @@ const RoomPageContent = () => {
                 videoEnabled: true,
                 audioEnabled: true,
               }}
-              onSubmit={handlePreJoinSubmit}
+              onSubmit={(values: LocalUserChoices) => setPreJoinChoices(values)}
             ></PreJoinNoSSR>
           </div>
         )}
-      </main>
-    </>
+      </div>
+    </main>
   );
 };
 

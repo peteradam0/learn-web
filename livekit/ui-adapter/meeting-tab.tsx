@@ -15,7 +15,7 @@ function DemoMeetingTab({ label }: { label: string }) {
   const startMeeting = () => {
     if (e2ee) {
       router.push(
-        `/testlive/${generateRoomId()}#${encodePassphrase(sharedPassphrase)}`
+        `/room/${generateRoomId()}#${encodePassphrase(sharedPassphrase)}`
       );
     } else {
       router.push(`/testlive/${generateRoomId()}`);

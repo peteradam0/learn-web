@@ -4,22 +4,17 @@ import CoursesInProgressCard from "@/dashboard/ui-adapter/courses-in-progress-ca
 import NewCoursesCard from "@/dashboard/ui-adapter/new-courses-card";
 
 import { Divider } from "@nextui-org/react";
-import { v4 as uuidv4 } from "uuid";
-import { useRouter } from "next/navigation";
+
 import React, { useEffect, useState } from "react";
 import ActiveEventsCard from "@/event/ui-adapter/active-events-card";
 
 export default function WelcomePage() {
   const [userData, setUserData] = useState<any>();
-  const router = useRouter();
+
   useEffect(() => {
     getData();
   }, []);
 
-  const createRoomAndJoin = () => {
-    const roomId = uuidv4();
-    router.push(`/room/${roomId}`);
-  };
   const getData = async () => {
     try {
       const res = await getUserData();

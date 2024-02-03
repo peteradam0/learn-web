@@ -9,11 +9,11 @@ type SidebarContetProp = {
   isAdmin: boolean;
 };
 
-export default function SidebarContent({ isAdmin }: SidebarContetProp) {
+export default function EventSidebar({ isAdmin }: SidebarContetProp) {
   return (
     <aside
-      className="text-white w-30 sidebarheight p-4 float-left bg-slate-50"
-      style={{ backgroundColor: "#1f1414", width: "20%" }}
+      className="text-white sidebarheight p-4 float-left bg-slate-50"
+      style={{ backgroundColor: "#000000", width: "20%" }}
     >
       <nav>
         <ul className="space-y-2">

@@ -25,6 +25,8 @@ import { ActiveRoomProps } from "@/livekit/domain/room";
 import { GetServerSideProps } from "next";
 
 import MainHeader from "@/navigation/ui-adapter/main-navigation";
+import SidebarContent from "@/navigation/ui-adapter/sidebar-content";
+import EventSidebar from "@/navigation/ui-adapter/event-sidebar";
 
 export type TokenProps = {
   clerkToken: string;
@@ -37,23 +39,30 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const RoomPageContent = ({ clerkToken }: TokenProps) => {
   const router = useRouter();
   const { name: roomName } = router.query;
-  const [userData, setUserData] = React.useState();
+  const [userData, setUserData] = React.useState<any>();
+  const [loading, setLoading] = React.useState<boolean>();
 
   const [preJoinChoices, setPreJoinChoices] = React.useState<
     LocalUserChoices | undefined
   >(undefined);
 
   React.useEffect(() => {
+    setLoading(true);
     if (!clerkToken) router.push("/sign-in");
     fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${roomName}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${clerkToken}` },
-    }).then((data: any) => {
-      if (!data) router.push("/sign-in");
-      console.log(data);
-      setUserData(userData);
-    });
+    })
+      .then((res) => res.json())
+      .then((data: any) => {
+        if (!data) router.push("/sign-in");
+        console.log(data);
+        setUserData(data);
+      });
+    setLoading(false);
   }, []);
+
+  if (loading) return <div>Loading...</div>;
 
   return (
     <main
@@ -63,7 +72,6 @@ const RoomPageContent = ({ clerkToken }: TokenProps) => {
       style={{ colorScheme: "dark" }}
     >
       <MainHeader isAdmin={false} />
-
       {roomName && !Array.isArray(roomName) && preJoinChoices ? (
         <ActiveRoom
           roomName={roomName}
@@ -81,17 +89,19 @@ const RoomPageContent = ({ clerkToken }: TokenProps) => {
             paddingTop: "5%",
           }}
         >
-          <PreJoinNoSSR
-            onError={(err) =>
-              console.log("error while setting up prejoin", err)
-            }
-            defaults={{
-              username: "",
-              videoEnabled: true,
-              audioEnabled: true,
-            }}
-            onSubmit={(values: LocalUserChoices) => setPreJoinChoices(values)}
-          ></PreJoinNoSSR>
+          {userData && (
+            <PreJoinNoSSR
+              onError={(err) =>
+                console.log("error while setting up prejoin", err)
+              }
+              defaults={{
+                username: userData.username,
+                videoEnabled: true,
+                audioEnabled: true,
+              }}
+              onSubmit={(values: LocalUserChoices) => setPreJoinChoices(values)}
+            />
+          )}
         </div>
       )}
     </main>
@@ -162,17 +172,23 @@ const ActiveRoom = ({ roomName, userChoices, onLeave }: ActiveRoomProps) => {
   return (
     <>
       {liveKitUrl && (
-        <LiveKitRoom
-          room={room}
-          token={token}
-          serverUrl={liveKitUrl}
-          connectOptions={connectOptions}
-          video={userChoices.videoEnabled}
-          audio={userChoices.audioEnabled}
-          onDisconnected={onLeave}
-        >
-          <VideoConference chatMessageFormatter={formatChatMessageLinks} />
-        </LiveKitRoom>
+        <div>
+          <EventSidebar isAdmin={false} />
+          <div style={{ marginLeft: "15%" }}>
+            <LiveKitRoom
+              style={{ width: "75%" }}
+              room={room}
+              token={token}
+              serverUrl={liveKitUrl}
+              connectOptions={connectOptions}
+              video={userChoices.videoEnabled}
+              audio={userChoices.audioEnabled}
+              onDisconnected={onLeave}
+            >
+              <VideoConference chatMessageFormatter={formatChatMessageLinks} />
+            </LiveKitRoom>
+          </div>
+        </div>
       )}
     </>
   );

@@ -22,7 +22,7 @@ export default function EventsPage() {
     }
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>...</p>;
 
   return (
     <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">

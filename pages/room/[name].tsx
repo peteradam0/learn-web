@@ -62,40 +62,38 @@ const RoomPageContent = ({ clerkToken }: TokenProps) => {
       className="dark"
       style={{ colorScheme: "dark" }}
     >
-      <div style={{ maxHeight: "800px" }}>
-        <MainHeader isAdmin={false} />
+      <MainHeader isAdmin={false} />
 
-        {roomName && !Array.isArray(roomName) && preJoinChoices ? (
-          <ActiveRoom
-            roomName={roomName}
-            userChoices={preJoinChoices}
-            onLeave={() => {
-              router.push("/");
+      {roomName && !Array.isArray(roomName) && preJoinChoices ? (
+        <ActiveRoom
+          roomName={roomName}
+          userChoices={preJoinChoices}
+          onLeave={() => {
+            router.push("/");
+          }}
+        ></ActiveRoom>
+      ) : (
+        <div
+          style={{
+            display: "grid",
+            placeItems: "center",
+            height: "100%",
+            paddingTop: "5%",
+          }}
+        >
+          <PreJoinNoSSR
+            onError={(err) =>
+              console.log("error while setting up prejoin", err)
+            }
+            defaults={{
+              username: "",
+              videoEnabled: true,
+              audioEnabled: true,
             }}
-          ></ActiveRoom>
-        ) : (
-          <div
-            style={{
-              display: "grid",
-              placeItems: "center",
-              height: "100%",
-              paddingTop: "5%",
-            }}
-          >
-            <PreJoinNoSSR
-              onError={(err) =>
-                console.log("error while setting up prejoin", err)
-              }
-              defaults={{
-                username: "",
-                videoEnabled: true,
-                audioEnabled: true,
-              }}
-              onSubmit={(values: LocalUserChoices) => setPreJoinChoices(values)}
-            ></PreJoinNoSSR>
-          </div>
-        )}
-      </div>
+            onSubmit={(values: LocalUserChoices) => setPreJoinChoices(values)}
+          ></PreJoinNoSSR>
+        </div>
+      )}
     </main>
   );
 };

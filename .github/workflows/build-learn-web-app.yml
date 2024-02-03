@@ -16,6 +16,10 @@ jobs:
       - name: Insatall NPM dependencies
         run: npm install
 
+      - name: Setup .env file
+        shell: sh
+        run: cp .env.example .env
+
       - name: Build project assets
         run: npm run build
   deploy:

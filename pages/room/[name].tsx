@@ -23,9 +23,9 @@ import * as React from "react";
 import { PreJoinNoSSR } from "@/livekit/ui-adapter/pre-join-component";
 import { ActiveRoomProps } from "@/livekit/domain/room";
 import { GetServerSideProps } from "next";
+import "../../styles/room.css";
 
 import MainHeader from "@/navigation/ui-adapter/main-navigation";
-import SidebarContent from "@/navigation/ui-adapter/sidebar-content";
 import EventSidebar from "@/navigation/ui-adapter/event-sidebar";
 
 export type TokenProps = {
@@ -94,12 +94,17 @@ const RoomPageContent = ({ clerkToken }: TokenProps) => {
               onError={(err) =>
                 console.log("error while setting up prejoin", err)
               }
+              userLabel="test"
+              aria-readonly="true"
               defaults={{
                 username: userData.username,
                 videoEnabled: true,
                 audioEnabled: true,
               }}
-              onSubmit={(values: LocalUserChoices) => setPreJoinChoices(values)}
+              onSubmit={(values: LocalUserChoices) => {
+                values.username = userData.username;
+                setPreJoinChoices(values);
+              }}
             />
           )}
         </div>

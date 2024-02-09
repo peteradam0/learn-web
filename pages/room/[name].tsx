@@ -16,6 +16,7 @@ import {
   ExternalE2EEKeyProvider,
   Room,
   RoomConnectOptions,
+  RoomEvent,
 } from "livekit-client";
 
 import { useRouter } from "next/router";
@@ -27,6 +28,8 @@ import "../../styles/room.css";
 
 import MainHeader from "@/navigation/ui-adapter/main-navigation";
 import EventSidebar from "@/navigation/ui-adapter/event-sidebar";
+import { cookies } from "next/headers";
+import { useCookies } from "react-cookie";
 
 export type TokenProps = {
   clerkToken: string;
@@ -115,7 +118,7 @@ const RoomPageContent = ({ clerkToken }: TokenProps) => {
 
 export default RoomPageContent;
 
-const ActiveRoom = ({ roomName, userChoices, onLeave }: ActiveRoomProps) => {
+const ActiveRoom = ({ roomName, userChoices, onLeave }: any) => {
   const tokenOptions = React.useMemo(() => {
     return {
       userInfo: {
@@ -155,7 +158,53 @@ const ActiveRoom = ({ roomName, userChoices, onLeave }: ActiveRoomProps) => {
     worker
   ) as any;
 
+  const [cookies] = useCookies();
+
+  const [participants, setParticipants] = React.useState<any[]>([]);
   const room = React.useMemo(() => new Room(roomOptions), []);
+
+  room.on(RoomEvent.ParticipantConnected, (participant) => {
+    if (
+      !(
+        participants.filter((e) => e.username === participant.identity).length >
+        0
+      )
+    ) {
+      const newArray: any = participants;
+      newArray.push({ username: participant.identity });
+      console.log(newArray);
+      setParticipants(newArray);
+    }
+  });
+
+  React.useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${cookies["__session"]}` },
+    })
+      .then((res) => res.json())
+      .then((data: any) => {
+        if (!data) router.push("/sign-in");
+        const newArray: any = participants;
+        newArray.push({ username: data.username });
+        setParticipants(newArray);
+      });
+  }, []);
+
+  React.useEffect(() => {
+    console.log(participants);
+  }, [participants]);
+
+  room.on(RoomEvent.ParticipantDisconnected, (participant) => {
+    if (
+      participants.filter((e) => e.username === participant.identity).length > 0
+    ) {
+      const newArray: any = participants.filter(
+        (part: any) => part.username !== participant.identity
+      );
+      setParticipants(newArray);
+    }
+  });
 
   if (e2eeEnabled) {
     keyProvider.setKey(decodePassphrase(e2eePassphrase));
@@ -178,7 +227,7 @@ const ActiveRoom = ({ roomName, userChoices, onLeave }: ActiveRoomProps) => {
     <>
       {liveKitUrl && (
         <div>
-          <EventSidebar isAdmin={false} />
+          <EventSidebar participants={participants} />
           <div style={{ marginLeft: "15%" }}>
             <LiveKitRoom
               style={{ width: "75%" }}

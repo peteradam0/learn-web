@@ -1,4 +1,5 @@
 import { NextUIProvider } from "@nextui-org/react";
+import { CookiesProvider } from "react-cookie";
 
 import { ClerkProvider } from "@clerk/nextjs";
 import "modern-normalize/modern-normalize.css";
@@ -10,7 +11,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     // Use at the root of our app
     <ClerkProvider>
       <NextUIProvider>
-        <Component {...pageProps} />
+        <CookiesProvider>
+          <Component {...pageProps} />
+        </CookiesProvider>
       </NextUIProvider>
     </ClerkProvider>
   );

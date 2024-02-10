@@ -215,7 +215,7 @@ const ActiveRoom = ({ roomName, userChoices, onLeave }: any) => {
   return (
     <>
       {liveKitUrl && (
-        <div>
+        <div style={{ paddingTop: "2%" }}>
           <EventSidebar
             roomName={roomName}
             participants={participants}

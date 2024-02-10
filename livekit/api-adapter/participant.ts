@@ -11,7 +11,6 @@ export const currentParticipant = (
     .then((res) => res.json())
     .then((data: any) => {
       if (!data) router.push("/sign-in");
-
       setUserData(data);
     });
 };

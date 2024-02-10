@@ -22,14 +22,19 @@ import {
 import { useRouter } from "next/router";
 import * as React from "react";
 import { PreJoinNoSSR } from "@/livekit/ui-adapter/pre-join-component";
-import { ActiveRoomProps } from "@/livekit/domain/room";
+
 import { GetServerSideProps } from "next";
 import "../../styles/room.css";
 
 import MainHeader from "@/navigation/ui-adapter/main-navigation";
 import EventSidebar from "@/navigation/ui-adapter/event-sidebar";
-import { cookies } from "next/headers";
+
 import { useCookies } from "react-cookie";
+
+import {
+  currentParticipant,
+  setCurrentParticipant,
+} from "@/livekit/api-adapter/participant";
 
 export type TokenProps = {
   clerkToken: string;
@@ -52,16 +57,7 @@ const RoomPageContent = ({ clerkToken }: TokenProps) => {
   React.useEffect(() => {
     setLoading(true);
     if (!clerkToken) router.push("/sign-in");
-    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${roomName}`, {
-      method: "GET",
-      headers: { Authorization: `Bearer ${clerkToken}` },
-    })
-      .then((res) => res.json())
-      .then((data: any) => {
-        if (!data) router.push("/sign-in");
-        console.log(data);
-        setUserData(data);
-      });
+    currentParticipant(roomName, clerkToken, router, setUserData);
     setLoading(false);
   }, []);
 
@@ -172,43 +168,21 @@ const ActiveRoom = ({ roomName, userChoices, onLeave }: any) => {
       )
     ) {
       const newArray: any = participants;
-      newArray.push({ username: participant.identity });
-      console.log(newArray);
+      newArray.push({ username: participant.identity, current: false });
       setParticipants(newArray);
     }
   });
 
   React.useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${roomName}`, {
-      method: "GET",
-      headers: { Authorization: `Bearer ${cookies["__session"]}` },
-    })
-      .then((res) => res.json())
-      .then((data: any) => {
-        if (!data) router.push("/sign-in");
-        const newArray: any = participants;
-        newArray.push({ username: data.username });
-        setCurrentUserAdmin(data.admin);
-        setParticipants(newArray);
-      });
-    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/events/room/${roomName}`, {
-      method: "GET",
-      headers: { Authorization: `Bearer ${cookies["__session"]}` },
-    })
-      .then((res) => res.json())
-      .then((data: any) => {
-        if (data.length === 0) return;
-        const newArray: any = participants;
-        data.map((participant: any) => {
-          newArray.push({ username: participant.username });
-        });
-        setParticipants(newArray);
-      });
+    setCurrentParticipant(
+      roomName,
+      cookies,
+      router,
+      participants,
+      setCurrentUserAdmin,
+      setParticipants
+    );
   }, []);
-
-  React.useEffect(() => {
-    console.log("here", participants);
-  }, [participants]);
 
   room.on(RoomEvent.ParticipantDisconnected, (participant) => {
     if (
@@ -243,10 +217,11 @@ const ActiveRoom = ({ roomName, userChoices, onLeave }: any) => {
       {liveKitUrl && (
         <div>
           <EventSidebar
+            roomName={roomName}
             participants={participants}
             currentUserAdmin={currentUserAdmin}
           />
-          <div style={{ marginLeft: "15%" }}>
+          <div style={{ marginLeft: "17%" }}>
             <LiveKitRoom
               style={{ width: "75%" }}
               room={room}

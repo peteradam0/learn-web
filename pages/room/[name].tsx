@@ -161,6 +161,7 @@ const ActiveRoom = ({ roomName, userChoices, onLeave }: any) => {
   const [cookies] = useCookies();
 
   const [participants, setParticipants] = React.useState<any[]>([]);
+  const [currentUserAdmin, setCurrentUserAdmin] = React.useState();
   const room = React.useMemo(() => new Room(roomOptions), []);
 
   room.on(RoomEvent.ParticipantConnected, (participant) => {
@@ -178,7 +179,7 @@ const ActiveRoom = ({ roomName, userChoices, onLeave }: any) => {
   });
 
   React.useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${roomName}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${cookies["__session"]}` },
     })
@@ -187,12 +188,26 @@ const ActiveRoom = ({ roomName, userChoices, onLeave }: any) => {
         if (!data) router.push("/sign-in");
         const newArray: any = participants;
         newArray.push({ username: data.username });
+        setCurrentUserAdmin(data.admin);
+        setParticipants(newArray);
+      });
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/events/room/${roomName}`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${cookies["__session"]}` },
+    })
+      .then((res) => res.json())
+      .then((data: any) => {
+        if (data.length === 0) return;
+        const newArray: any = participants;
+        data.map((participant: any) => {
+          newArray.push({ username: participant.username });
+        });
         setParticipants(newArray);
       });
   }, []);
 
   React.useEffect(() => {
-    console.log(participants);
+    console.log("here", participants);
   }, [participants]);
 
   room.on(RoomEvent.ParticipantDisconnected, (participant) => {
@@ -227,7 +242,10 @@ const ActiveRoom = ({ roomName, userChoices, onLeave }: any) => {
     <>
       {liveKitUrl && (
         <div>
-          <EventSidebar participants={participants} />
+          <EventSidebar
+            participants={participants}
+            currentUserAdmin={currentUserAdmin}
+          />
           <div style={{ marginLeft: "15%" }}>
             <LiveKitRoom
               style={{ width: "75%" }}

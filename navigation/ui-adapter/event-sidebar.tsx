@@ -1,9 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import React from "react";
 
-export default function EventSidebar({ participants }: any) {
+export default function EventSidebar({ participants, currentUserAdmin }: any) {
   console.log("123", participants);
   return (
     <aside
@@ -14,6 +13,7 @@ export default function EventSidebar({ participants }: any) {
         <ul className="space-y-2">
           <li className="opcion-con-desplegable">
             <ul className="desplegable ml-4 ">
+              {currentUserAdmin && " the current user is an admin user"}
               {participants &&
                 Object.entries(participants).map(([key, value]: any) => (
                   <li key={key}>

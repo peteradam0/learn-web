@@ -8,7 +8,7 @@ export default function MainLayout({
 }) {
   return (
     <div>
-      <MainHeader isAdmin={false} />
+      <MainHeader />
       <div>{children}</div>
     </div>
   );

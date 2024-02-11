@@ -14,27 +14,24 @@ import {
 import { UserButton } from "@clerk/nextjs";
 
 import Image from "next/image";
-import { getUserData } from "@/common/api-adapter/get-user-data";
 
-export default function MainHeader() {
+export default function MainHeader({ router, token }: any) {
   const [userData, setUserData] = useState<any>();
   const [loading, setLoading] = useState<boolean>();
 
   useEffect(() => {
     setLoading(true);
-    getData();
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user/`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => res.json())
+      .then((data: any) => {
+        if (!data) router.push("/sign-in");
+        setUserData(data);
+      });
     setLoading(false);
   }, []);
-
-  const getData = async () => {
-    try {
-      const res = await getUserData();
-      setUserData(res?.data);
-      console.log(res?.data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 

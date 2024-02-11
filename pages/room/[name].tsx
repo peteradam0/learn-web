@@ -26,7 +26,6 @@ import { PreJoinNoSSR } from "@/livekit/ui-adapter/pre-join-component";
 import { GetServerSideProps } from "next";
 import "../../styles/room.css";
 
-import MainHeader from "@/navigation/ui-adapter/main-navigation";
 import EventSidebar from "@/navigation/ui-adapter/event-sidebar";
 
 import { useCookies } from "react-cookie";
@@ -35,6 +34,7 @@ import {
   currentParticipant,
   setCurrentParticipant,
 } from "@/livekit/api-adapter/participant";
+import MainHeader from "@/livekit/ui-adapter/main-navigation";
 
 export type TokenProps = {
   clerkToken: string;
@@ -70,7 +70,7 @@ const RoomPageContent = ({ clerkToken }: TokenProps) => {
       className="dark"
       style={{ colorScheme: "dark" }}
     >
-      <MainHeader isAdmin={false} />
+      <MainHeader token={clerkToken} router={router} />
       {roomName && !Array.isArray(roomName) && preJoinChoices ? (
         <ActiveRoom
           roomName={roomName}

@@ -25,7 +25,12 @@ export default function WelcomePage() {
   };
   return (
     <div
-      style={{ marginLeft: "255px", marginRight: "255px", paddingTop: "30px" }}
+      style={{
+        marginLeft: "255px",
+        marginRight: "255px",
+        paddingTop: "30px",
+        background: "	#12181f",
+      }}
     >
       <h1 className="text-xl pb-7">Welcome Back, {userData?.username} </h1>
       <Divider />

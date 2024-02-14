@@ -1,6 +1,12 @@
 "use client";
 
-import { Avatar, Button, Card, Chip } from "@nextui-org/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+} from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import { createCoursePartitipation } from "../api-adapter/create-course-participation";
 import { getUserToken } from "../domain/get-user-token";
@@ -56,67 +62,41 @@ export default function CourseCard({ course }: any) {
       <div className="relative flex flex-col min-w-0 break-wordsshadow-soft-xl rounded-2xl bg-clip-border ">
         <div className="flex-auto p-4">
           <div className="flex flex-wrap -mx-3">
-            <div className="max-w-full px-3 lg:w-1/2 lg:flex-none ">
-              <div className="flex flex-col h-full bg-black">
-                <p className="pt-2 font-semibold text-gray-600">
-                  {course.title}
-                </p>
-                <div className="max-w-full ml-auto text-center lg:w-5/12 lg:flex-none">
-                  <img
-                    src={course.imageUrl}
-                    alt="waves"
-                    style={{
-                      height: "200px",
-                      paddingTop: "15px",
-                      width: "405px",
-                    }}
-                  />
-                </div>
+            <CardHeader>
+              <p className=" font-semibold text-white">{course.title}</p>
+            </CardHeader>
+            <CardBody>
+              <div className="max-w-full ml-auto text-center lg:w-5/12 lg:flex-none">
+                <img
+                  src={course.imageUrl}
+                  alt="waves"
+                  style={{
+                    height: "100%",
 
-                <div style={{ paddingTop: "15px" }}>
-                  <div className="flex items-center gap-4">
-                    <Avatar src={course.courseAuthorData.imageUrl} size="md" />
-                    <div className="font-medium text-gray-500">
-                      <div>
-                        {course.courseAuthorData.firstName +
-                          " " +
-                          course.courseAuthorData.lastName}
-                      </div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400 pt-1">
-                        {course.organization && (
-                          <Chip size="sm" color="success">
-                            {course.organization.name}
-                          </Chip>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                  <p
-                    style={{ paddingTop: "15px", paddingBottom: "15px" }}
-                    className="mb-12 text-gray-600"
-                  >
-                    {course.description}
-                  </p>
-                  <a className="" href="javascript:;"></a>
-                  <div className="flex gap-4 items-center pt-1">
-                    {participationData && (
-                      <Button
-                        color="secondary"
-                        variant="bordered"
-                        onClick={() => handleRedirect()}
-                      >
-                        Continue
-                      </Button>
-                    )}
-                    {!participationData && (
-                      <Button color="primary" onClick={() => handleEnroll()}>
-                        Enroll
-                      </Button>
-                    )}
-                  </div>
-                </div>
+                    width: "100%",
+                  }}
+                />
               </div>
-            </div>
+              <p className="mb-12 text-gray-600 pt-2 pb-2">
+                {course.description}
+              </p>
+            </CardBody>
+            <CardFooter>
+              {participationData && (
+                <Button
+                  color="secondary"
+                  variant="bordered"
+                  onClick={() => handleRedirect()}
+                >
+                  Continue
+                </Button>
+              )}
+              {!participationData && (
+                <Button color="primary" onClick={() => handleEnroll()}>
+                  Enroll
+                </Button>
+              )}
+            </CardFooter>
           </div>
         </div>
       </div>

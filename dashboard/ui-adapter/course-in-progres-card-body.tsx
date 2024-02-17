@@ -12,7 +12,7 @@ export default function CourseInProgressCardBody({
 }: any) {
   const [progressBarNumber, setProgressBarNumber] = useState(0);
   const [loading, setLoading] = useState(false);
-  const url = `/courses/${course?.id}`;
+  const url = `/courses/${btoa(course?.id)}`;
 
   useEffect(() => {
     setLoading(true);

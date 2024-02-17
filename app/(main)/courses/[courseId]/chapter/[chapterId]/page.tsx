@@ -12,6 +12,8 @@ export default function ChapterPageRoute({ params }: any) {
   const [courseData, setCourseData] = useState<any>({});
   const { courseId, chapterId } = params;
 
+  const decodedCourseId = atob(courseId)
+  const decodedChapterId = atob(chapterId)
   const getCurrentVideoUrl = (courseData: any, chapterId: string) => {
     const currentChapter = courseData?.chapterData?.find((chapter: any) => {
       return chapter.id === chapterId;
@@ -32,7 +34,7 @@ export default function ChapterPageRoute({ params }: any) {
     }
 
     try {
-      const course = await getCourse(token, courseId);
+      const course = await getCourse(token, decodedCourseId);
       setCourseData(course?.data);
       setLoading(false);
     } catch (e) {
@@ -46,15 +48,15 @@ export default function ChapterPageRoute({ params }: any) {
   return (
     <div>
       <VidePlayerSidebar
-        currentChapterId={chapterId}
+        currentChapterId={decodedChapterId}
         chapterData={courseData.chapterData}
-        courseId={courseId}
+        courseId={decodedCourseId}
       />
       <div style={{ marginLeft: "255px" }}>
         <CourseVideoPage
-          chapterId={chapterId}
-          courseId={courseId}
-          videoUrl={getCurrentVideoUrl(courseData, chapterId)}
+          chapterId={decodedChapterId}
+          courseId={decodedCourseId}
+          videoUrl={getCurrentVideoUrl(courseData, decodedChapterId)}
         />
       </div>
     </div>

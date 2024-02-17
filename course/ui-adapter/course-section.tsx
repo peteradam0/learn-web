@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function CourseSection(props: any) {
   const chapterData = props.data;
   const courseId = props.courseId;
-  const url = `/courses/${courseId}/chapter/${chapterData.id}`;
+  const url = `/courses/${btoa(courseId)}/chapter/${btoa(chapterData.id)}`;
 
   return (
     <div style={{ paddingTop: "30px" }}>

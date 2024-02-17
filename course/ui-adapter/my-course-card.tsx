@@ -8,10 +8,10 @@ export default function MyCourseCard({ course }: any) {
   const router = useRouter();
 
   const handleRedirect = (courseId: string) => {
-    router.push(`/administration/courses/create/${courseId}`);
+    router.push(`/administration/courses/create/${btoa(courseId)}`);
   };
   const handleRedirectToPreview = (courseId: string) => {
-    router.push(`/administration/courses/preview/${courseId}`);
+    router.push(`/administration/courses/preview/${btoa(courseId)}`);
   };
 
   return (

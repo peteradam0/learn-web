@@ -30,6 +30,7 @@ export default function EditCoursePage({
 }: {
   params: { courseId: string };
 }) {
+  const decodedId = atob(params.courseId)
   const [url, setUrl] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
   const [courseData, setCourseData] = useState<any>();
@@ -44,7 +45,7 @@ export default function EditCoursePage({
     setChapterList(
       chapterList.concat(
         <EditChapters
-          courseId={params.courseId}
+          courseId={decodedId}
           key={id}
           uuid={id}
           displayRemoveBadge="true"
@@ -62,7 +63,7 @@ export default function EditCoursePage({
     chapterSet.forEach((chapter) => {
       list.push(
         <EditChapters
-          courseId={params.courseId}
+          courseId={decodedId}
           key={chapter.id}
           handleRemoveChapter={handleRemoveChapter}
           chapterData={chapter}
@@ -77,7 +78,7 @@ export default function EditCoursePage({
   };
 
   const handlePublication = async () => {
-    await updateChapter(params.courseId);
+    await updateChapter(decodedId);
     setIsPublished(!publish);
   };
 
@@ -97,7 +98,7 @@ export default function EditCoursePage({
     }
 
     try {
-      const course = await getCourse(token, params.courseId);
+      const course = await getCourse(token, decodedId);
       setCourseData(course?.data);
 
       setUrl(course?.data.imageUrl);

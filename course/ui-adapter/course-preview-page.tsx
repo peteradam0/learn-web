@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 import { getCourse } from "../api-adapter/get-course";
 
 export default function CoursePreviewPage(params: { courseId: string }) {
+  const decodedId = atob(params.courseId);
   const [courseData, setCourseData] = useState({});
   const [isLoading, setLoading] = useState(false);
 
@@ -24,7 +25,7 @@ export default function CoursePreviewPage(params: { courseId: string }) {
     }
 
     try {
-      const course = await getCourse(token, params.courseId);
+      const course = await getCourse(token, decodedId);
       setCourseData(course?.data);
       setLoading(false);
     } catch (e) {

@@ -5,7 +5,7 @@ export default function CourseDetailsPageRoute({ params }: any) {
   const { courseId } = params;
   return (
     <div>
-      <CourseDetailsPage courseId={courseId} />
+      <CourseDetailsPage courseId={atob(courseId)} />
     </div>
   );
 }

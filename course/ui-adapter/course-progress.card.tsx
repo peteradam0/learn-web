@@ -27,7 +27,7 @@ export default function CourseProgressCard({ course }: any) {
   }, []);
 
   const handleRedirect = () => {
-    router.push(`/courses/${course?.id}`);
+    router.push(`/courses/${btoa(course?.id)}`);
   };
 
   const handleEnroll = async () => {

@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 
 export default function CourseCard({ course }: any) {
-  const url = `/courses/${course?.id}`;
+  const url = `/courses/${btoa(course?.id)}`;
   return (
     <>
       <CardBody>

@@ -40,6 +40,7 @@ export default function MainHeader() {
   const menuItems = [
     { name: "Home", url: "/" },
     { name: "Courses", url: "/courses" },
+    { name: "My Courses", url: "/courses/mycourses" },
     { name: "Admin", url: "/administration/courses" },
   ];
 

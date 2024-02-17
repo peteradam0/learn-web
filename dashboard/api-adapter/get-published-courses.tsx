@@ -1,7 +1,7 @@
 import axios from "axios";
 import qs from "query-string";
 
-export const getSelfhedCourses = async (token: string) => {
+export const getSelfCourses = async (token: string) => {
   const url = qs.stringifyUrl({
     url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/courses/self`,
   });

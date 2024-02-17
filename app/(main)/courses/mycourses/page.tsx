@@ -1,16 +1,16 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import CourseCard from "./course-card";
-import { getUserToken } from "../domain/get-user-token";
-import { redirect } from "next/navigation";
-import { getSelfhedCourses } from "@/dashboard/api-adapter/get-published-courses";
-import { SearchBar } from "@/course/ui-adapter/searchbar";
+import { useEffect, useState } from "react";
 
-export default function CoursePage() {
+import { getInProgressCourses } from "@/course/api-adapter/get-course";
+import { getUserToken } from "@/course/domain/get-user-token";
+import CourseProgressCard from "@/course/ui-adapter/course-progress.card";
+import { SearchBar } from "@/course/ui-adapter/searchbar";
+import { redirect } from "next/navigation";
+
+export default function MyCoursesPageRoute() {
   const [courseData, setCourseData] = useState<any>([]);
   const [isLoading, setLoading] = useState(true);
-  const [displayData, setDisplayData] = useState<any>([]);
   const [search, setSerach] = useState("");
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function CoursePage() {
     }
 
     try {
-      const res = await getSelfhedCourses(token);
+      const res = await getInProgressCourses(token);
       setCourseData(res?.data);
       setLoading(false);
     } catch (e) {
@@ -42,17 +42,15 @@ export default function CoursePage() {
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="container max-w-screen-lg mx-auto">
-        <div style={{ marginBottom: "3%" }}>
-          <h2 className="font-semibold text-xl text-white  pb-1">
-            Frontend & Fullstack Engineering Courses
-          </h2>
+        <div style={{ marginBottom: "3%", marginTop: "3%" }}>
+          <h2 className="font-semibold text-xl text-white  pb-1">My Courses</h2>
           <p className="text-gray-500 mb-6">
             ed ut perspiciatis unde omnis iste natus error sit voluptatem
             accusantium doloremque laudantium.
           </p>
         </div>
         <SearchBar setSearch={setSerach} />
-        <div className="grid grid-cols-4  pb-2" style={{ gap: "1.6rem" }}>
+        <div className="grid grid-cols-4 pb-2" style={{ gap: "1.6rem" }}>
           {courseData
             .filter((course: any) => {
               return search.toLocaleLowerCase() === ""
@@ -60,7 +58,7 @@ export default function CoursePage() {
                 : course.title.toLocaleLowerCase().includes(search);
             })
             .map((course: any) => (
-              <CourseCard key={course.id} course={course} />
+              <CourseProgressCard key={course.id} course={course} />
             ))}
         </div>
       </div>

@@ -33,7 +33,7 @@ export default function CoursePage() {
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <div className="min-h-screen p-6  flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center">
       <div className="container max-w-screen-lg mx-auto">
         <h2 className="font-semibold text-xl text-white  pb-1">
           Frontend & Fullstack Engineering Courses
@@ -43,7 +43,7 @@ export default function CoursePage() {
           accusantium doloremque laudantium.
         </p>
 
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-4 gap-4 pb-2">
           {courseData.map((course: any) => (
             <CourseCard key={course.id} course={course} />
           ))}

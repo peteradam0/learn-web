@@ -59,7 +59,10 @@ export default function CourseCard({ course }: any) {
 
   return (
     <Card>
-      <div className="relative flex flex-col min-w-0 break-wordsshadow-soft-xl rounded-2xl bg-clip-border ">
+      <div
+        className="relative flex flex-col min-w-0 break-wordsshadow-soft-xl rounded-2xl bg-clip-border"
+        style={{ height: "100%" }}
+      >
         <div className="flex-auto p-4">
           <div className="flex flex-wrap -mx-3">
             <CardHeader>
@@ -71,13 +74,12 @@ export default function CourseCard({ course }: any) {
                   src={course.imageUrl}
                   alt="waves"
                   style={{
-                    height: "100%",
-
-                    width: "100%",
+                    height: "100px",
+                    width: "170px",
                   }}
                 />
               </div>
-              <p className="mb-12 text-gray-600 pt-2 pb-2">
+              <p className="mb-12 text-gray-600" style={{ paddingTop: "5%" }}>
                 {course.description}
               </p>
             </CardBody>

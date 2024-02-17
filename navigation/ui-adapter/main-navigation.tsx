@@ -30,7 +30,6 @@ export default function MainHeader() {
     try {
       const res = await getUserData();
       setUserData(res?.data);
-      console.log(res?.data);
     } catch (e) {
       console.log(e);
     }
@@ -69,14 +68,16 @@ export default function MainHeader() {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          <Button
-            as={Link}
-            color="warning"
-            href="/administration/courses"
-            variant="flat"
-          >
-            Admin
-          </Button>
+          {userData && userData.userRole === "ADMIN" && (
+            <Button
+              as={Link}
+              color="warning"
+              href="/administration/courses"
+              variant="flat"
+            >
+              Admin
+            </Button>
+          )}
         </NavbarItem>
         <NavbarItem className="p-4">
           <UserButton afterSignOutUrl="/" />

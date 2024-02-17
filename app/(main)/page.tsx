@@ -26,9 +26,9 @@ export default function WelcomePage() {
   return (
     <div
       style={{
-        marginLeft: "255px",
-        marginRight: "255px",
-        paddingTop: "30px",
+        marginLeft: "17%",
+        marginRight: "17%",
+        paddingTop: "2%",
         background: "	#12181f",
       }}
     >

@@ -2,18 +2,12 @@
 
 import Link from "next/link";
 import React from "react";
-import useNavigation from "./use-navigation";
-import { usePathname, useRouter } from "next/navigation";
 
-type SidebarContetProp = {
-  isAdmin: boolean;
-};
-
-export default function SidebarContent({ isAdmin }: SidebarContetProp) {
+export default function SidebarContent() {
   return (
     <aside
-      className="text-white w-30 sidebarheight p-4 float-left bg-slate-50"
-      style={{ backgroundColor: "#1f1414", width: "20%" }}
+      className="text-white w-30 sidebarheight p-4 float-left bg-slate-50 primaryBackGround"
+      style={{ width: "20%" }}
     >
       <nav>
         <ul className="space-y-2">
@@ -27,14 +21,7 @@ export default function SidebarContent({ isAdmin }: SidebarContetProp) {
                   Events
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/courses"
-                  className=" p-2 hover:bg-gray-700 flex items-center"
-                >
-                  Explore Courses
-                </Link>
-              </li>
+
               <li>
                 <Link
                   href="/administration/courses"

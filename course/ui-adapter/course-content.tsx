@@ -9,19 +9,23 @@ export default function CourseContent(data: any) {
   const course = data.courseData;
   const courseDate = new Date(course.createdAt).toDateString();
 
-  
   return (
     <div
       style={{
-        backgroundColor: "black",
         marginLeft: "105px",
         paddingTop: "50px",
       }}
     >
-      <div className="text-sm text-gray-600 flex items-center ">
+      <div
+        className="text-sm text-white flex items-center"
+        style={{ background: "#18191d" }}
+      >
         <video width="600" height="450" src={course.videoUrl} controls />
 
-        <div className="text-white  text-xl mb-2 ml-2 p-1">
+        <div
+          className="text-white text-xl mb-2  p-1"
+          style={{ marginLeft: "1rem" }}
+        >
           <p>{course.description}</p>
           <div className="pt-1 pb-2">
             <div
@@ -40,7 +44,7 @@ export default function CourseContent(data: any) {
       </div>
       <div
         style={{
-          paddingTop: "25px",
+          paddingTop: "3rem",
         }}
       >
         <CourseTableOfContents

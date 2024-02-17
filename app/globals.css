@@ -27,6 +27,10 @@
     width: 25%;
   
 }
+
+.primaryBackGround {
+  background: "#12181f";
+}
   
   body {
     color: rgb(var(--foreground-rgb));

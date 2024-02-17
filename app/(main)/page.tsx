@@ -29,8 +29,8 @@ export default function WelcomePage() {
         marginLeft: "17%",
         marginRight: "17%",
         paddingTop: "2%",
-        background: "	#12181f",
       }}
+      className="primaryBackGround"
     >
       <h1 className="text-xl pb-7">Welcome Back, {userData?.username} </h1>
       <Divider />

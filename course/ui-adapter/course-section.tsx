@@ -9,7 +9,7 @@ export default function CourseSection(props: any) {
   const url = `/courses/${btoa(courseId)}/chapter/${btoa(chapterData.id)}`;
 
   return (
-    <div style={{ paddingTop: "30px" }}>
+    <div style={{ paddingTop: "2rem" }}>
       <Link href={url}>
         <h2 className="font-semibold text-white pb-1 pt-2 mt-2">
           {chapterData.title}

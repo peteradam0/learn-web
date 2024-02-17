@@ -37,7 +37,7 @@ export default function CourseDetailsPage(params: { courseId: string }) {
 
   return (
     <>
-      <div className=" p-6 bg-gray-100 flex items-center justify-center">
+      <div className=" p-6 backgroundPrimary flex items-center justify-center">
         <div className="container mx-auto">
           <CourseHeadline courseData={courseData} />
         </div>

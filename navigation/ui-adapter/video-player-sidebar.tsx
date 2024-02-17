@@ -42,8 +42,8 @@ export default function VidePlayerSidebar({
   return (
     <div>
       <aside
-        className="text-white w-64 sidebarheight p-1 float-left bg-slate-50"
-        style={{ backgroundColor: "#14151f" }}
+        className="text-white sidebarheight p-1 float-left bg-slate-50"
+        style={{ backgroundColor: "#14151f", width: "20%" }}
       >
         <nav>
           <ul className="space-y-2">

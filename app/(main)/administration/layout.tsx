@@ -7,8 +7,8 @@ export default function MainLayout({
 }) {
   return (
     <div>
-      <SidebarContent isAdmin={false} />
-      <div style={{ marginLeft: "255px" }}>{children}</div>
+      <SidebarContent />
+      <div style={{ marginLeft: "20%" }}>{children}</div>
     </div>
   );
 }

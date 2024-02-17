@@ -8,7 +8,7 @@ export default function CourseVideoPage({
   courseId,
 }: any) {
   return (
-    <div style={{ width: "100%", height: "827px", overflow: "hidden" }}>
+    <div style={{ width: "90%", overflow: "hidden" }}>
       <video
         id={chapterId}
         style={{ width: "100%", height: "100%" }}

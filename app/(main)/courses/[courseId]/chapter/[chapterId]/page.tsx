@@ -12,8 +12,8 @@ export default function ChapterPageRoute({ params }: any) {
   const [courseData, setCourseData] = useState<any>({});
   const { courseId, chapterId } = params;
 
-  const decodedCourseId = atob(courseId)
-  const decodedChapterId = atob(chapterId)
+  const decodedCourseId = atob(courseId);
+  const decodedChapterId = atob(chapterId);
   const getCurrentVideoUrl = (courseData: any, chapterId: string) => {
     const currentChapter = courseData?.chapterData?.find((chapter: any) => {
       return chapter.id === chapterId;
@@ -52,7 +52,7 @@ export default function ChapterPageRoute({ params }: any) {
         chapterData={courseData.chapterData}
         courseId={decodedCourseId}
       />
-      <div style={{ marginLeft: "255px" }}>
+      <div style={{ marginLeft: "20%" }}>
         <CourseVideoPage
           chapterId={decodedChapterId}
           courseId={decodedCourseId}

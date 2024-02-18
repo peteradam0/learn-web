@@ -3,7 +3,9 @@
 import { CanvasAuth } from "@/common/domain/types";
 import { getUserToken } from "@/course/domain/get-user-token";
 import { Button, Input, Link } from "@nextui-org/react";
+import Cookies from "js-cookie";
 import { redirect, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
   createLocalStorageCanvasData,
@@ -11,8 +13,6 @@ import {
   removeCanvasLocalStorageData,
   removeCanvasToken,
 } from "../domain/canvas";
-import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
 
 export default function IntegrationForm() {
   const router = useRouter();
@@ -37,7 +37,6 @@ export default function IntegrationForm() {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<CanvasAuth>({
     defaultValues: {
@@ -48,26 +47,26 @@ export default function IntegrationForm() {
   });
 
   return (
-    <div>
+    <>
       <div style={{ paddingBottom: "10px" }}>
-        <h2 className="font-semibold text-xl text-gray-600">
+        <h2 className="font-semibold text-xl text-white">
           Integrate with Canvas LMS
         </h2>
-        <p className="text-gray-500 mb-6">
+        <p className="text-gray-400 mb-6">
           By Integrating with Canvas LMS, Learn-web will suggest the courses
           that are not yet created and the users that are not yet added to the
           organization
         </p>
       </div>
-      <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+      <div className="rounded shadow-lg p-4 px-4 md:p-8 mb-6">
         <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
           <div className="text-gray-600">
-            <p className="font-medium text-lg">Api details</p>
-            <p>
+            <p className="font-medium text-lg text-white">Api details</p>
+            <p className="text-gray-400">
               In order to access the desired Canvas LMS, a developer key is
               needed that can be created under in the Developer Keys section.
             </p>
-            <p className="pt-2">
+            <p className="pt-2 text-gray-400">
               The authentication process with the Canvas LMS is a{" "}
               <Link
                 className="font-medium"
@@ -77,7 +76,7 @@ export default function IntegrationForm() {
                 two step process.
               </Link>
             </p>
-            <p className="pt-2">
+            <p className="pt-2 text-gray-400">
               More about the{" "}
               <Link
                 className="font-medium"
@@ -90,13 +89,11 @@ export default function IntegrationForm() {
           </div>
           <form className="lg:col-span-2" onSubmit={handleSubmit(processForm)}>
             <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-              <h2 className="font-semibold text-xl text-gray-600">
-                Authenticate
-              </h2>
+              <h2 className="font-semibold text-xl text-white">Authenticate</h2>
 
               <div className="p-1 md:col-span-5">
                 {!token && (
-                  <p className="font-semibold text-gray-600 pb-2">
+                  <p className="font-semibold text-gray-400 pb-2">
                     Got stuck, no worries check out the{" "}
                     <Link
                       className="font-medium"
@@ -119,6 +116,7 @@ export default function IntegrationForm() {
                   An example for a client id is 10000000000002
                 </h3>
                 <Input
+                  variant="bordered"
                   label="ClientId"
                   {...register("clientId", {
                     required: "Client id is required",
@@ -136,6 +134,7 @@ export default function IntegrationForm() {
                   The client secret should contain 64 characters
                 </h3>
                 <Input
+                  variant="bordered"
                   label="Client Secret"
                   {...register("clientSecret", {
                     required: "Client secret is required",
@@ -153,6 +152,7 @@ export default function IntegrationForm() {
                   An example for the domain is http://canvas.docker
                 </h3>
                 <Input
+                  variant="bordered"
                   label="Domain"
                   {...register("domain", {
                     required: "Domain is required",
@@ -168,7 +168,7 @@ export default function IntegrationForm() {
               <div className="md:col-span-5 text-right">
                 <div className="inline-flex items-end">
                   {!token ? (
-                    <Button type="submit">Fetch</Button>
+                    <Button type="submit" color="success">Fetch</Button>
                   ) : (
                     <Button
                       onClick={() => {
@@ -187,6 +187,6 @@ export default function IntegrationForm() {
           </form>
         </div>
       </div>
-    </div>
+    </>
   );
 }

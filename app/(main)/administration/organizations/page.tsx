@@ -1,25 +1,25 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  User,
-  Tooltip,
   Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+  Tooltip,
+  User,
   useDisclosure,
 } from "@nextui-org/react";
+import React, { useEffect, useState } from "react";
 
 import { Icon } from "@iconify/react/dist/iconify.js";
 
+import IntegrationForm from "@/integration/ui-adapter/integration-form";
 import { getOrganizations } from "@/organizations/api-adapter/get-organizations";
 import OrganizationModal from "@/organizations/ui-adapter/organization-modal";
-import { useRouter, useSearchParams } from "next/navigation";
 import Cookies from "js-cookie";
-import IntegrationForm from "@/integration/ui-adapter/integration-form";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const columns = [
   { name: "NAME", uid: "name" },
@@ -83,11 +83,14 @@ export default function OrganizationsPageRoute() {
           <User
             avatarProps={{ radius: "lg", src: organization.imageUrl }}
             name={organization.name}
-          ></User>
+          />
         );
       case "edit":
         return (
-          <Button onClick={() => handleRedirectToOrganization(organization)}>
+          <Button
+            onClick={() => handleRedirectToOrganization(organization)}
+            variant="bordered"
+          >
             Edit
           </Button>
         );
@@ -110,22 +113,26 @@ export default function OrganizationsPageRoute() {
   }, []);
   if (loading) return <p>Loading...</p>;
   return (
-    <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
-      <div className="container max-w-screen-lg mx-auto">
-        <h1
-          className="font-semibold text-xl text-gray-600"
-          style={{ marginBottom: "20px" }}
-        >
+    <div className="min-h-screen p-6 bg-blackflex bg-black items-center justify-center">
+      <div
+        className="container max-w-screen-lg mx-auto p-6"
+        style={{ background: "#12181f", border: "solid #494949 0.0006em" }}
+      >
+        <h1 className="font-semibold text-xl text-white">
           Manage Organizations
         </h1>
+        <p className="text-gray-400 mb-4">
+          ed ut perspiciatis unde omnis iste natus error sit voluptatem
+          accusantium doloremque laudantium.
+        </p>
         <div>
           <div className="flex flex-col gap-4">
             <div className="flex justify-between gap-3 items-end">
               <div className="flex gap-3">
                 <Button
                   onPress={() => handleOpenModal("create", currentOrganization)}
-                  color="primary"
-                  endContent={<Icon icon="ph:plus-bold" />}
+                  size="md"
+                  color="success"
                 >
                   Create
                 </Button>

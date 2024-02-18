@@ -1,23 +1,23 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  User,
-  Chip,
-  Tooltip,
   Button,
+  Chip,
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+  Tooltip,
+  User,
   useDisclosure,
 } from "@nextui-org/react";
+import React, { useEffect, useState } from "react";
 
-import { Icon } from "@iconify/react/dist/iconify.js";
-import OrganizationMemberModal from "@/organizations/ui-adapter/organization-member-modal";
 import { getOrganizationMemberData } from "@/organizations/api-adapter/create-organization";
 import { columns, statusColorMap } from "@/organizations/domain/organization";
+import OrganizationMemberModal from "@/organizations/ui-adapter/organization-member-modal";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 export default function OrganizationPageRoute({ params }: any) {
   const { organizationName } = params;
@@ -90,19 +90,24 @@ export default function OrganizationPageRoute({ params }: any) {
   return (
     <>
       <div
-        className="min-h-screen p-6 bg-gray-100 flex items-center justify-center"
+        className="min-h-screen p-6 flex items-center justify-center"
         style={{ height: "100%" }}
       >
-        <div className="container max-w-screen-lg mx-auto">
+        <div
+          className="container max-w-screen-lg mx-auto p-6"
+          style={{ background: "#12181f", border: "solid #494949 0.0006em" }}
+        >
+          <h2 className="font-semibold text-xl text-white">Manage users</h2>
+          <p className="text-gray-400 mb-4">
+            ed ut perspiciatis unde omnis iste natus error sit voluptatem
+            accusantium doloremque laudantium.
+          </p>
           <div className="flex flex-col gap-4" style={{ paddingTop: "20px" }}>
-            <h2 className="font-semibold text-xl text-gray-600">
-              Manage users
-            </h2>
             <div className="flex justify-between gap-3 items-end">
               <div className="flex gap-3">
                 <Button
                   onPress={() => handleOpenModal("add", userId)}
-                  color="primary"
+                  color="success"
                 >
                   Add New
                 </Button>

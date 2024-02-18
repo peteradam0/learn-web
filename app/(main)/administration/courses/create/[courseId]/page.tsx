@@ -1,36 +1,36 @@
 "use client";
 
+import { UploadButton } from "@/common/api-adapter/uploadthing";
 import { CreateCourseProps } from "@/common/domain/types";
 import { getCourse } from "@/course/api-adapter/get-course";
+import { updateChapter } from "@/course/api-adapter/update-publication";
 import { getUserToken } from "@/course/domain/get-user-token";
-import { UUID } from "uuid-generator-ts";
+import EditChapters from "@/course/ui-adapter/edit-chapters";
 import {
   Badge,
   Button,
+  Divider,
   Dropdown,
   DropdownItem,
   DropdownMenu,
-  Image,
   DropdownTrigger,
+  Image,
   Input,
-  Divider,
-  Textarea,
   Switch,
+  Textarea,
   cn,
 } from "@nextui-org/react";
-import { UploadButton } from "@/common/api-adapter/uploadthing";
 import { redirect } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import EditChapters from "@/course/ui-adapter/edit-chapters";
-import { updateChapter } from "@/course/api-adapter/update-publication";
+import { UUID } from "uuid-generator-ts";
 
 export default function EditCoursePage({
   params,
 }: {
   params: { courseId: string };
 }) {
-  const decodedId = atob(params.courseId)
+  const decodedId = atob(params.courseId);
   const [url, setUrl] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
   const [courseData, setCourseData] = useState<any>();
@@ -118,22 +118,23 @@ export default function EditCoursePage({
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<CreateCourseProps>({});
 
   if (isLoading) return <p>Loading...</p>;
   return (
-    <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
-      <div className="container max-w-screen-lg mx-auto">
+    <div className="min-h-screen p-6 bg-black flex items-center justify-center">
+      <div
+        className="container max-w-screen-lg mx-auto p-3"
+        style={{ background: "#12181f", border: "solid #494949 0.0006em" }}
+      >
         <div>
-          <h2 className="font-semibold text-xl text-gray-600">
+          <h2 className="font-semibold text-xl text-white">
             Edit and Publish your course
           </h2>
 
           <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
-            <div className="text-gray-600">
-              <p className="font-medium text-lg">Course details</p>
+            <div className="text-gray-400 pt-1">
               <p>Here you can start the creation process of a course.</p>
               <div style={{ paddingTop: "20px", paddingBottom: "20px" }}>
                 <Switch
@@ -178,6 +179,8 @@ export default function EditCoursePage({
                   </h3>
                   <Input
                     label="Title"
+                    className="pt-1"
+                    variant="bordered"
                     defaultValue={courseData?.title}
                     {...register("title", {
                       required: "Title is required",
@@ -190,12 +193,14 @@ export default function EditCoursePage({
                     </p>
                   )}
                 </div>
-                <div className="p-1 md:col-span-5">
+                <div className="p-1 md:col-span-5 pt-1">
                   <h3 className="text-default-500 text-small pb-1">
                     Please enter the description of the course
                   </h3>
                   <Textarea
+                    className="pt-1"
                     label="Description"
+                    variant="bordered"
                     defaultValue={courseData?.description}
                     {...register("description", {
                       required: "Description is required",
@@ -211,30 +216,32 @@ export default function EditCoursePage({
                   <h3 className="text-default-500 text-small pb-1">
                     Please select the course category
                   </h3>
-                  <Dropdown backdrop="blur">
-                    <DropdownTrigger>
-                      <Button
-                        color="primary"
-                        variant="bordered"
-                        {...register("category", {
-                          value: category,
-                          required: "Category is required",
-                        })}
+                  <div className="pt-1">
+                    <Dropdown backdrop="blur">
+                      <DropdownTrigger>
+                        <Button
+                          color="success"
+                          variant="bordered"
+                          {...register("category", {
+                            value: category,
+                            required: "Category is required",
+                          })}
+                        >
+                          {category}
+                        </Button>
+                      </DropdownTrigger>
+                      <DropdownMenu
+                        variant="faded"
+                        aria-label="Static Actions"
+                        onAction={(key) => {
+                          setCategory(key.toString());
+                        }}
                       >
-                        {category}
-                      </Button>
-                    </DropdownTrigger>
-                    <DropdownMenu
-                      variant="faded"
-                      aria-label="Static Actions"
-                      onAction={(key) => {
-                        setCategory(key.toString());
-                      }}
-                    >
-                      <DropdownItem key="Frontend">Frontend</DropdownItem>
-                      <DropdownItem key="Backend">Backend</DropdownItem>
-                    </DropdownMenu>
-                  </Dropdown>
+                        <DropdownItem key="Frontend">Frontend</DropdownItem>
+                        <DropdownItem key="Backend">Backend</DropdownItem>
+                      </DropdownMenu>
+                    </Dropdown>
+                  </div>
                   {errors.category?.message && (
                     <p className="text-sm text-red-400">
                       {errors.category.message}
@@ -354,7 +361,9 @@ export default function EditCoursePage({
                 </div>
                 <div className="md:col-span-5 text-right">
                   <div className="inline-flex items-end">
-                    <Button type="submit">Update</Button>
+                    <Button type="submit" color="success">
+                      Update
+                    </Button>
                   </div>
                 </div>
               </div>

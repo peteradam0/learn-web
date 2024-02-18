@@ -2,6 +2,8 @@ import { CreateChapterProps } from "@/common/domain/types";
 
 import { SubmitHandler, useForm } from "react-hook-form";
 
+import { UploadButton } from "@/common/api-adapter/uploadthing";
+import { getVideLengthInMin } from "@/common/domain/course-domain";
 import {
   Badge,
   Button,
@@ -12,14 +14,12 @@ import {
   PopoverTrigger,
   Textarea,
 } from "@nextui-org/react";
-import { UploadButton } from "@/common/api-adapter/uploadthing";
+import { redirect } from "next/navigation";
 import { useState } from "react";
 import { createChapter } from "../api-adapter/create-chapter";
-import { getUserToken } from "../domain/get-user-token";
-import { redirect } from "next/navigation";
 import { removeChapter } from "../api-adapter/remove-chapter";
 import { updateChapter } from "../api-adapter/update-chapter";
-import { getVideLengthInMin } from "@/common/domain/course-domain";
+import { getUserToken } from "../domain/get-user-token";
 
 export default function EditChapters({
   courseId,
@@ -82,19 +82,18 @@ export default function EditChapters({
   return (
     <>
       <Divider className="bg-gray-600 my-4" />
-
       <div className="p-1">
-        <h2 className="font-semibold text-xl text-gray-600 p-1">
+        <h2 className="font-semibold text-xl text-white p-1">
           Edit your chapters
         </h2>
 
         <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
-          <div className="text-gray-600">
+          <div className="text-gray-400">
             <p className="p-1">
               By prssing the delete button the chapter will be removed
             </p>
             <div className="pt-2">
-              <Button color="danger" onClick={() => removeFromList()}>
+              <Button color="danger" size="sm" onClick={() => removeFromList()}>
                 Delete Chapter
               </Button>
             </div>
@@ -108,6 +107,8 @@ export default function EditChapters({
                   the chapter
                 </h3>
                 <Input
+                  className="pt-1"
+                  variant="bordered"
                   label="Title"
                   defaultValue={chapterData?.title}
                   {...register("title", {
@@ -124,6 +125,8 @@ export default function EditChapters({
                   Please enter the description of the course
                 </h3>
                 <Textarea
+                  className="pt-1"
+                  variant="bordered"
                   defaultValue={chapterData?.description}
                   label="Description"
                   {...register("description", {
@@ -202,16 +205,13 @@ export default function EditChapters({
                 <div className="inline-flex items-end">
                   <Popover placement="bottom" showArrow={true}>
                     <PopoverTrigger>
-                      <Button type="submit">
+                      <Button type="submit" color="success">
                         {chapterData ? "Update" : "Create"}
                       </Button>
                     </PopoverTrigger>
 
                     <PopoverContent>
                       <div className="px-1 py-2">
-                        <div className="text-small font-bold">
-                          Popover Content
-                        </div>
                         <div className="text-tiny">
                           {chapterData
                             ? "Successful update"

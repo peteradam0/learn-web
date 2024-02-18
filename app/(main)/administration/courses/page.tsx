@@ -1,12 +1,12 @@
 "use client";
 
 import { Button, Link } from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { redirect } from "next/navigation";
-import { getUserToken } from "@/course/domain/get-user-token";
 import { getCoursesForUser } from "@/course/api-adapter/get-courses-user";
-import CourseCard from "@/course/ui-adapter/course-card";
+import { getUserToken } from "@/course/domain/get-user-token";
+import MyCourseCreateCard from "@/course/ui-adapter/my-course-create-card";
+import { redirect } from "next/navigation";
 
 export default function MyCoursePage() {
   const [courseData, setCourseData] = useState([]);
@@ -53,7 +53,7 @@ export default function MyCoursePage() {
           <div className="grid lg:grid-cols-4 gap-4">
             {courseData.map((course: any) => (
               <>
-                <CourseCard key={course.id} course={course} />
+                <MyCourseCreateCard key={course.id} course={course} />
               </>
             ))}
           </div>

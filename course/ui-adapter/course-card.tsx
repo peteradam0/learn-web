@@ -7,11 +7,11 @@ import {
   CardFooter,
   CardHeader,
 } from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
-import { createCoursePartitipation } from "../api-adapter/create-course-participation";
-import { getUserToken } from "../domain/get-user-token";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { createCoursePartitipation } from "../api-adapter/create-course-participation";
 import { getCoursePartitipation } from "../api-adapter/get-course-participation";
+import { getUserToken } from "../domain/get-user-token";
 
 export default function CourseCard({ course }: any) {
   const [isLoading, setIsLoading] = useState(false);
@@ -58,7 +58,7 @@ export default function CourseCard({ course }: any) {
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <Card>
+    <Card style={{ background: "#12181f", border: "solid #494949 0.0006em" }}>
       <div
         className="relative flex flex-col min-w-0 break-wordsshadow-soft-xl rounded-2xl bg-clip-border"
         style={{ height: "100%" }}

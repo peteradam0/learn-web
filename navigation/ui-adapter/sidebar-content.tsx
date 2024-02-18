@@ -1,13 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
 
 export default function SidebarContent() {
   return (
     <aside
-      className="text-white w-30 sidebarheight p-4 float-left bg-slate-50 primaryBackGround"
-      style={{ width: "20%" }}
+      className="text-white w-30 sidebarheight p-4 float-left primaryBackGround"
+      style={{ width: "20%", borderRight: "solid #494949 0.0006em" }}
     >
       <nav>
         <ul className="space-y-2">

@@ -10,7 +10,6 @@ import {
 } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 
-import React from "react";
 
 export default function UserEditModal({
   isOpen,
@@ -38,7 +37,7 @@ export default function UserEditModal({
                 </Button>
 
                 <Button
-                  color="primary"
+                  color="success"
                   onClick={() => signOut(() => router.push("/sign-up"))}
                 >
                   Save

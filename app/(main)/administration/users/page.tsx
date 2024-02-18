@@ -1,22 +1,22 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  User,
-  Chip,
-  Tooltip,
   Button,
+  Chip,
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+  Tooltip,
+  User,
   useDisclosure,
 } from "@nextui-org/react";
+import React, { useEffect, useState } from "react";
 
-import { Icon } from "@iconify/react/dist/iconify.js";
 import { getUsers } from "@/users/api-adapter/getUsers";
 import UsersModal from "@/users/ui-adapter/users-modal";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 const statusColorMap: any = {
   CUSTOMER: "success",
@@ -107,16 +107,27 @@ export default function UserPageRoute() {
   }, []);
   if (loading) return <p>Loading...</p>;
   return (
-    <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
-      <div className="container max-w-screen-lg mx-auto">
+    <div className="min-h-screen p-6 bg-black flex items-center justify-center">
+      <div className="container max-w-screen-lg mx-auto p-3">
         <div>
+          <h2
+            className="font-semibold text-xl text-white"
+            style={{ paddingBottom: "1rem" }}
+          >
+            Manage Users
+          </h2>
+          <p className="text-gray-500 mb-6 pt-1">
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+            quae ab illo inventore veritatis et quasi architecto beatae vitae
+            dicta sunt explicabo
+          </p>
           <div className="flex flex-col gap-4">
             <div className="flex justify-between gap-3 items-end">
               <div className="flex gap-3">
                 <Button
                   onPress={() => handleOpenModal("add", userId)}
-                  color="primary"
-                  endContent={<Icon icon="ph:plus-bold" />}
+                  color="success"
                 >
                   Add New
                 </Button>

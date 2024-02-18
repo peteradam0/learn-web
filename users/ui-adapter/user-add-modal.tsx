@@ -10,7 +10,6 @@ import {
 } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 
-import React from "react";
 
 export default function UsersAddModal({
   isOpen,
@@ -44,7 +43,7 @@ export default function UsersAddModal({
                 </Button>
 
                 <Button
-                  color="primary"
+                  color="success"
                   onClick={() => signOut(() => router.push("/sign-up"))}
                 >
                   Continue

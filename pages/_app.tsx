@@ -3,8 +3,8 @@ import { CookiesProvider } from "react-cookie";
 
 import { ClerkProvider } from "@clerk/nextjs";
 import "modern-normalize/modern-normalize.css";
-import "../styles/globals.css";
 import { AppProps } from "next/app";
+import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

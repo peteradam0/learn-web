@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import CourseCard from "./course-card";
 import { getUserToken } from "@/course/domain/get-user-token";
 import { redirect } from "next/navigation";
-import { getSelfCourses } from "../api-adapter/get-published-courses";
+import { getSelfCourses } from "../api/get-published-courses";
 
 export default function NewCoursesCard() {
   const [courseData, setCourseData] = useState([]);

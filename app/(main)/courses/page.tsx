@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 
 import { redirect } from "next/navigation";
-import { getSelfCourses } from "@/dashboard/api-adapter/get-published-courses";
+import { getSelfCourses } from "@/dashboard/api/get-published-courses";
 import { SearchBar } from "@/course/ui-adapter/searchbar";
 import CourseCard from "@/course/ui-adapter/course-card";
 import { getUserToken } from "@/course/domain/get-user-token";

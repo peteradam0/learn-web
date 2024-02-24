@@ -1,7 +1,7 @@
 "use client";
 
-import { getVideoEvents } from "@/event/api-adapter/get-video-events";
-import EventCard from "@/event/ui-adapter/event-card";
+import { getVideoEvents } from "@/event/api/get-video-events";
+import EventCard from "@/event/ui/event-card";
 import { Button, Link } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 

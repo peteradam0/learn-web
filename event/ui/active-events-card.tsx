@@ -1,4 +1,4 @@
-import { getActiveVideoEvents } from "@/event/api-adapter/get-video-events";
+import { getActiveVideoEvents } from "@/event/api/get-video-events";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import {
   Card,

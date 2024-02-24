@@ -1,4 +1,4 @@
-import { ListboxWrapper } from "@/event/ui-adapter/user-list-wrapper";
+import { ListboxWrapper } from "@/event/ui/user-list-wrapper";
 import { useUser } from "@clerk/nextjs";
 import {
   Avatar,

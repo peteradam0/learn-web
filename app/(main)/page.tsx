@@ -1,12 +1,12 @@
 "use client";
 import { getUserData } from "@/common/api-adapter/get-user-data";
-import CoursesInProgressCard from "@/dashboard/ui-adapter/courses-in-progress-card";
-import NewCoursesCard from "@/dashboard/ui-adapter/new-courses-card";
+import CoursesInProgressCard from "@/dashboard/ui/courses-in-progress-card";
+import NewCoursesCard from "@/dashboard/ui/new-courses-card";
 
 import { Divider } from "@nextui-org/react";
 
 import React, { useEffect, useState } from "react";
-import ActiveEventsCard from "@/event/ui-adapter/active-events-card";
+import ActiveEventsCard from "@/event/ui/active-events-card";
 
 export default function WelcomePage() {
   const [userData, setUserData] = useState<any>();

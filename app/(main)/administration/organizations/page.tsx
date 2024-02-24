@@ -15,7 +15,7 @@ import React, { useEffect, useState } from "react";
 
 import { Icon } from "@iconify/react/dist/iconify.js";
 
-import IntegrationForm from "@/integration/ui-adapter/integration-form";
+import IntegrationForm from "@/integration/ui/integration-form";
 import { getOrganizations } from "@/organizations/api-adapter/get-organizations";
 import OrganizationModal from "@/organizations/ui-adapter/organization-modal";
 import Cookies from "js-cookie";

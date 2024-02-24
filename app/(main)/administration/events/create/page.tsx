@@ -19,11 +19,11 @@ import { useForm } from "react-hook-form";
 import { getOrganizations } from "@/organizations/api-adapter/get-organizations";
 
 import { EventFormProps } from "@/event/domain/event";
-import UserListBox from "@/event/ui-adapter/user-listbox";
+import UserListBox from "@/event/ui/user-listbox";
 import { UploadButton } from "@/common/api-adapter/uploadthing";
 import { getUsers } from "@/users/api-adapter/getUsers";
 import { getOrganizationMemberData } from "@/organizations/api-adapter/create-organization";
-import { createVideoEvent } from "@/event/api-adapter/create-event";
+import { createVideoEvent } from "@/event/api/create-event";
 import { useRouter } from "next/navigation";
 
 export default function EventsPageRoute() {

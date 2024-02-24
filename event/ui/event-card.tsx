@@ -1,5 +1,5 @@
-import { startVideoEvent } from "@/event/api-adapter/create-event";
-import { removeVideoEvent } from "@/event/api-adapter/remove-event";
+import { startVideoEvent } from "@/event/api/create-event";
+import { removeVideoEvent } from "@/event/api/remove-event";
 
 import {
   Card,

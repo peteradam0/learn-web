@@ -4,7 +4,7 @@ import CourseInProgressCardBody from "./course-in-progres-card-body";
 import { getUserToken } from "@/course/domain/get-user-token";
 import { redirect } from "next/navigation";
 import { getInProgressCourses } from "@/course/api-adapter/get-course";
-import { getSelfCourses } from "../api-adapter/get-published-courses";
+import { getSelfCourses } from "../api/get-published-courses";
 
 export default function CoursesInProgressCard() {
   const [inProgressCourses, setInProgressCourseData] = useState([]);

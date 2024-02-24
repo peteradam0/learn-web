@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import {
   Button,
   Chip,
@@ -10,43 +10,43 @@ import {
   TableRow,
   Tooltip,
   User,
-  useDisclosure,
-} from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
+  useDisclosure
+} from "@nextui-org/react"
+import React, { useEffect, useState } from "react"
 
-import { getOrganizationMemberData } from "@/organizations/api-adapter/create-organization";
-import { columns, statusColorMap } from "@/organizations/domain/organization";
-import OrganizationMemberModal from "@/organizations/ui-adapter/organization-member-modal";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { getOrganizationMemberData } from "@/organizations/api/create-organization"
+import { columns, statusColorMap } from "@/organizations/domain/organization"
+import OrganizationMemberModal from "@/organizations/ui/organization-member-modal"
+import { Icon } from "@iconify/react/dist/iconify.js"
 
 export default function OrganizationPageRoute({ params }: any) {
-  const { organizationName } = params;
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [loading, setLoading] = useState(false);
-  const [userData, setUserData] = useState([]);
-  const [modalVersion, setModalVersion] = useState("");
-  const [userId, setUserId] = useState("");
+  const { organizationName } = params
+  const { isOpen, onOpen, onOpenChange } = useDisclosure()
+  const [loading, setLoading] = useState(false)
+  const [userData, setUserData] = useState([])
+  const [modalVersion, setModalVersion] = useState("")
+  const [userId, setUserId] = useState("")
 
   const handleOpenModal = (modalVersion: string, userId: string) => {
-    setModalVersion(modalVersion);
-    setUserId(userId);
-    onOpen();
-  };
+    setModalVersion(modalVersion)
+    setUserId(userId)
+    onOpen()
+  }
 
   useEffect(() => {
-    getOrganizationUserData();
-  }, []);
+    getOrganizationUserData()
+  }, [])
 
   const getOrganizationUserData = async () => {
     try {
-      setLoading(true);
-      const res = await getOrganizationMemberData(organizationName);
-      setUserData(res?.data);
-      setLoading(false);
+      setLoading(true)
+      const res = await getOrganizationMemberData(organizationName)
+      setUserData(res?.data)
+      setLoading(false)
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  };
+  }
 
   const renderCell = React.useCallback((user: any, columnKey: any) => {
     switch (columnKey) {
@@ -57,7 +57,7 @@ export default function OrganizationPageRoute({ params }: any) {
             description={user.email}
             name={user.username}
           ></User>
-        );
+        )
       case "role":
         return (
           <Chip
@@ -68,7 +68,7 @@ export default function OrganizationPageRoute({ params }: any) {
           >
             {user.userRole}
           </Chip>
-        );
+        )
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
@@ -81,12 +81,12 @@ export default function OrganizationPageRoute({ params }: any) {
               </span>
             </Tooltip>
           </div>
-        );
+        )
       default:
-        return "";
+        return ""
     }
-  }, []);
-  if (loading) return <p>Loading...</p>;
+  }, [])
+  if (loading) return <p>Loading...</p>
   return (
     <>
       <div
@@ -128,7 +128,7 @@ export default function OrganizationPageRoute({ params }: any) {
           </div>
           <Table aria-label="Example table with custom cells">
             <TableHeader columns={columns}>
-              {(column) => (
+              {column => (
                 <TableColumn
                   key={column.uid}
                   align={column.uid === "actions" ? "center" : "start"}
@@ -138,9 +138,9 @@ export default function OrganizationPageRoute({ params }: any) {
               )}
             </TableHeader>
             <TableBody items={userData}>
-              {(item) => (
+              {item => (
                 <TableRow>
-                  {(columnKey) => (
+                  {columnKey => (
                     <TableCell>{renderCell(item, columnKey)}</TableCell>
                   )}
                 </TableRow>
@@ -150,5 +150,5 @@ export default function OrganizationPageRoute({ params }: any) {
         </div>
       </div>
     </>
-  );
+  )
 }

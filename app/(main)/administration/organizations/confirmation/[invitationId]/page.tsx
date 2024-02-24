@@ -1,28 +1,28 @@
-"use client";
+"use client"
 
-import { confirmInvite } from "@/organizations/api-adapter/create-organization";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import { confirmInvite } from "@/organizations/api/create-organization"
+import { useRouter } from "next/router"
+import React, { useEffect, useState } from "react"
 
 export default function OrganizationConfirmationPageRoute({ params }: any) {
-  const { invitationId } = params;
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const { invitationId } = params
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
-    getOrganizationUserData();
-  }, []);
+    getOrganizationUserData()
+  }, [])
 
   const getOrganizationUserData = async () => {
     try {
-      setLoading(true);
-      await confirmInvite(invitationId);
-      setLoading(false);
-      router.push("/courses");
+      setLoading(true)
+      await confirmInvite(invitationId)
+      setLoading(false)
+      router.push("/courses")
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  };
-  if (loading) return <p>Loading...</p>;
-  return <div>{invitationId}</div>;
+  }
+  if (loading) return <p>Loading...</p>
+  return <div>{invitationId}</div>
 }

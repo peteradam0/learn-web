@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import {
   Button,
   Chip,
@@ -10,53 +10,53 @@ import {
   TableRow,
   Tooltip,
   User,
-  useDisclosure,
-} from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
+  useDisclosure
+} from "@nextui-org/react"
+import React, { useEffect, useState } from "react"
 
-import { getUsers } from "@/users/api-adapter/getUsers";
-import UsersModal from "@/users/ui-adapter/users-modal";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { getUsers } from "@/users/api/getUsers"
+import UsersModal from "@/users/ui/users-modal"
+import { Icon } from "@iconify/react/dist/iconify.js"
 
 const statusColorMap: any = {
   CUSTOMER: "success",
   ADMIN: "danger",
-  TEACHER: "warning",
-};
+  TEACHER: "warning"
+}
 
 const columns = [
   { name: "NAME", uid: "name" },
   { name: "ROLE", uid: "role" },
-  { name: "ACTIONS", uid: "actions" },
-];
+  { name: "ACTIONS", uid: "actions" }
+]
 
 export default function UserPageRoute() {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [loading, setLoading] = useState(false);
-  const [userData, setUserData] = useState([]);
-  const [modalVersion, setModalVersion] = useState("");
-  const [userId, setUserId] = useState("");
+  const { isOpen, onOpen, onOpenChange } = useDisclosure()
+  const [loading, setLoading] = useState(false)
+  const [userData, setUserData] = useState([])
+  const [modalVersion, setModalVersion] = useState("")
+  const [userId, setUserId] = useState("")
 
   const handleOpenModal = (modalVersion: string, userId: string) => {
-    setModalVersion(modalVersion);
-    setUserId(userId);
-    onOpen();
-  };
+    setModalVersion(modalVersion)
+    setUserId(userId)
+    onOpen()
+  }
 
   useEffect(() => {
-    getCourseData();
-  }, []);
+    getCourseData()
+  }, [])
 
   const getCourseData = async () => {
     try {
-      setLoading(true);
-      const res = await getUsers();
-      setUserData(res?.data);
-      setLoading(false);
+      setLoading(true)
+      const res = await getUsers()
+      setUserData(res?.data)
+      setLoading(false)
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  };
+  }
 
   const renderCell = React.useCallback((user: any, columnKey: any) => {
     switch (columnKey) {
@@ -67,7 +67,7 @@ export default function UserPageRoute() {
             description={user.email}
             name={user.username}
           ></User>
-        );
+        )
       case "role":
         return (
           <Chip
@@ -78,7 +78,7 @@ export default function UserPageRoute() {
           >
             {user.userRole}
           </Chip>
-        );
+        )
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
@@ -100,12 +100,12 @@ export default function UserPageRoute() {
               </span>
             </Tooltip>
           </div>
-        );
+        )
       default:
-        return "";
+        return ""
     }
-  }, []);
-  if (loading) return <p>Loading...</p>;
+  }, [])
+  if (loading) return <p>Loading...</p>
   return (
     <div className="min-h-screen p-6 bg-black flex items-center justify-center">
       <div className="container max-w-screen-lg mx-auto p-3">
@@ -147,7 +147,7 @@ export default function UserPageRoute() {
           </div>
           <Table aria-label="Example table with custom cells">
             <TableHeader columns={columns}>
-              {(column) => (
+              {column => (
                 <TableColumn
                   key={column.uid}
                   align={column.uid === "actions" ? "center" : "start"}
@@ -157,9 +157,9 @@ export default function UserPageRoute() {
               )}
             </TableHeader>
             <TableBody items={userData}>
-              {(item) => (
+              {item => (
                 <TableRow>
-                  {(columnKey) => (
+                  {columnKey => (
                     <TableCell>{renderCell(item, columnKey)}</TableCell>
                   )}
                 </TableRow>
@@ -169,5 +169,5 @@ export default function UserPageRoute() {
         </div>
       </div>
     </div>
-  );
+  )
 }

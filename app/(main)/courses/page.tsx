@@ -1,43 +1,43 @@
-"use client";
+"use client"
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"
 
-import { redirect } from "next/navigation";
-import { getSelfCourses } from "@/dashboard/api/get-published-courses";
-import { SearchBar } from "@/course/ui-adapter/searchbar";
-import CourseCard from "@/course/ui-adapter/course-card";
-import { getUserToken } from "@/course/domain/get-user-token";
+import { redirect } from "next/navigation"
+import { getSelfCourses } from "@/dashboard/api/get-published-courses"
+import { SearchBar } from "@/course/ui/searchbar"
+import CourseCard from "@/course/ui/course-card"
+import { getUserToken } from "@/course/domain/get-user-token"
 
 export default function CoursePageRoute() {
-  const [courseData, setCourseData] = useState<any>([]);
-  const [isLoading, setLoading] = useState(true);
-  const [search, setSerach] = useState("");
+  const [courseData, setCourseData] = useState<any>([])
+  const [isLoading, setLoading] = useState(true)
+  const [search, setSerach] = useState("")
 
   useEffect(() => {
-    getCourseData();
-  }, []);
+    getCourseData()
+  }, [])
 
   useEffect(() => {
-    console.log(search);
-  }, [search]);
+    console.log(search)
+  }, [search])
 
   const getCourseData = async () => {
-    const token = await getUserToken();
+    const token = await getUserToken()
 
     if (!token) {
-      redirect("/");
+      redirect("/")
     }
 
     try {
-      const res = await getSelfCourses(token);
-      setCourseData(res?.data);
-      setLoading(false);
+      const res = await getSelfCourses(token)
+      setCourseData(res?.data)
+      setLoading(false)
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  };
+  }
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading...</p>
 
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -57,7 +57,7 @@ export default function CoursePageRoute() {
             .filter((course: any) => {
               return search.toLocaleLowerCase() === ""
                 ? course
-                : course.title.toLocaleLowerCase().includes(search);
+                : course.title.toLocaleLowerCase().includes(search)
             })
             .map((course: any) => (
               <CourseCard key={course.id} course={course} />
@@ -65,5 +65,5 @@ export default function CoursePageRoute() {
         </div>
       </div>
     </div>
-  );
+  )
 }

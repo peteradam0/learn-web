@@ -1,14 +1,14 @@
-import SidebarContent from "@/navigation/ui-adapter/sidebar-content";
+import SidebarContent from "@/navigation/ui/sidebar-content"
 
 export default function MainLayout({
-  children,
+  children
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <div>
       <SidebarContent />
       <div style={{ marginLeft: "20%" }}>{children}</div>
     </div>
-  );
+  )
 }

@@ -1,9 +1,9 @@
-import { CreateChapterProps } from "@/common/domain/types";
+import { CreateChapterProps } from "@/common/domain/types"
 
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form"
 
-import { UploadButton } from "@/common/api-adapter/uploadthing";
-import { getVideLengthInMin } from "@/common/domain/course-domain";
+import { UploadButton } from "@/common/api/uploadthing"
+import { getVideLengthInMin } from "@/common/domain/course-domain"
 import {
   Badge,
   Button,
@@ -12,23 +12,23 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-  Textarea,
-} from "@nextui-org/react";
-import { redirect } from "next/navigation";
-import { useState } from "react";
-import { createChapter } from "../api-adapter/create-chapter";
-import { removeChapter } from "../api-adapter/remove-chapter";
-import { updateChapter } from "../api-adapter/update-chapter";
-import { getUserToken } from "../domain/get-user-token";
+  Textarea
+} from "@nextui-org/react"
+import { redirect } from "next/navigation"
+import { useState } from "react"
+import { createChapter } from "../api/create-chapter"
+import { removeChapter } from "../api/remove-chapter"
+import { updateChapter } from "../api/update-chapter"
+import { getUserToken } from "../domain/get-user-token"
 
 export default function EditChapters({
   courseId,
   handleRemoveChapter,
-  chapterData,
+  chapterData
 }: any) {
-  const [url, setUrl] = useState(chapterData?.videoUrl);
-  const [chapterId, setChapterId] = useState(chapterData?.id);
-  const [duration, setDuration] = useState("00:00");
+  const [url, setUrl] = useState(chapterData?.videoUrl)
+  const [chapterId, setChapterId] = useState(chapterData?.id)
+  const [duration, setDuration] = useState("00:00")
 
   const processForm: SubmitHandler<any> = async (data: any) => {
     if (chapterId) {
@@ -40,11 +40,11 @@ export default function EditChapters({
           description: data.description,
           videoUrl: url,
           courseId: courseId,
-          videoDuration: duration,
+          videoDuration: duration
         },
         chapterId,
         courseId
-      );
+      )
     } else {
       //create chapter
       const chapter: any = await createChapter(
@@ -52,32 +52,32 @@ export default function EditChapters({
           title: data.title,
           description: data.description,
           videoUrl: url,
-          videoDuration: duration,
+          videoDuration: duration
         },
         courseId
-      );
-      setChapterId(chapter?.data.id);
+      )
+      setChapterId(chapter?.data.id)
     }
-  };
+  }
 
   const removeFromList = async () => {
     if (chapterId) {
-      const token = await getUserToken();
+      const token = await getUserToken()
       if (!token) {
-        redirect("/");
+        redirect("/")
       }
-      await removeChapter(courseId, chapterId, token);
-      handleRemoveChapter();
+      await removeChapter(courseId, chapterId, token)
+      handleRemoveChapter()
     } else {
     }
-  };
+  }
 
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
-  } = useForm<CreateChapterProps>({});
+    formState: { errors }
+  } = useForm<CreateChapterProps>({})
 
   return (
     <>
@@ -112,7 +112,7 @@ export default function EditChapters({
                   label="Title"
                   defaultValue={chapterData?.title}
                   {...register("title", {
-                    required: "Title is required",
+                    required: "Title is required"
                   })}
                 ></Input>
 
@@ -130,7 +130,7 @@ export default function EditChapters({
                   defaultValue={chapterData?.description}
                   label="Description"
                   {...register("description", {
-                    required: "Description is required",
+                    required: "Description is required"
                   })}
                 />
                 {errors.description?.message && (
@@ -163,7 +163,7 @@ export default function EditChapters({
                           src={url}
                           className="object-cover border-1 h-48 w-96"
                           onLoadedDataCapture={() => {
-                            setDuration(getVideLengthInMin(chapterId));
+                            setDuration(getVideLengthInMin(chapterId))
                           }}
                         />
                       </Badge>
@@ -178,15 +178,15 @@ export default function EditChapters({
                       <UploadButton
                         content={{
                           allowedContent() {
-                            return "";
-                          },
+                            return ""
+                          }
                         }}
                         endpoint="videoUploader"
-                        onClientUploadComplete={(res) => {
-                          setUrl(res?.[0].url);
+                        onClientUploadComplete={res => {
+                          setUrl(res?.[0].url)
                         }}
                         onUploadError={(error: Error) => {
-                          alert(`ERROR! ${error.message}`);
+                          alert(`ERROR! ${error.message}`)
                         }}
                       />
 
@@ -194,7 +194,7 @@ export default function EditChapters({
                         className="hidden"
                         value={url}
                         {...register("videoUrl", {
-                          required: "The video for this is required",
+                          required: "The video for this is required"
                         })}
                       />
                     </>
@@ -227,5 +227,5 @@ export default function EditChapters({
         </div>
       </div>
     </>
-  );
+  )
 }

@@ -1,11 +1,11 @@
-import CourseDetailsPage from "@/course/ui-adapter/course-details-page";
-import React from "react";
+import CourseDetailsPage from "@/course/ui/course-details-page"
+import React from "react"
 
 export default function CourseDetailsPageRoute({ params }: any) {
-  const { courseId } = params;
+  const { courseId } = params
   return (
     <div>
       <CourseDetailsPage courseId={atob(courseId)} />
     </div>
-  );
+  )
 }

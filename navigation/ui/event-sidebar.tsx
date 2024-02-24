@@ -1,22 +1,22 @@
-"use client";
+"use client"
 
-import { RemoveModal } from "@/livekit/ui-adapter/remove-modal";
-import { Tooltip, User, useDisclosure } from "@nextui-org/react";
-import React from "react";
+import { RemoveModal } from "@/livekit/ui/remove-modal"
+import { Tooltip, User, useDisclosure } from "@nextui-org/react"
+import React from "react"
 
 export default function EventSidebar({
   participants,
   currentUserAdmin,
-  roomName,
+  roomName
 }: any) {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
   return (
     <aside
       className="text-white sidebarheight p-4 float-left bg-slate-50"
-      style={{ backgroundColor: "#000000", width: "20%" }}
+      style={{ background: "#12181f", width: "30%" }}
     >
-      <nav style={{ paddingLeft: "5%", paddingTop: "2%" }}>
+      <nav style={{ paddingLeft: "5%" }}>
         <ul className="space-y-2">
           <li className="opcion-con-desplegable">
             <ul className="desplegable ml-4 ">
@@ -31,7 +31,7 @@ export default function EventSidebar({
                             description={value.email}
                             onClick={() => {
                               if (!value.current && currentUserAdmin) {
-                                onOpen();
+                                onOpen()
                               }
                             }}
                           ></User>
@@ -56,5 +56,5 @@ export default function EventSidebar({
         </ul>
       </nav>
     </aside>
-  );
+  )
 }

@@ -1,23 +1,23 @@
-import { removeUser } from "@/livekit/api-adapter/remove";
+import { removeUser } from "@/livekit/api/remove"
 import {
   Modal,
   ModalContent,
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Button,
-} from "@nextui-org/react";
+  Button
+} from "@nextui-org/react"
 
 export const RemoveModal = ({
   isOpen,
   onOpenChange,
   roomName,
-  username,
+  username
 }: any) => {
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
       <ModalContent>
-        {(onClose) => (
+        {onClose => (
           <>
             <ModalHeader className="flex flex-col gap-1">
               Remove from call user
@@ -35,8 +35,8 @@ export const RemoveModal = ({
               <Button
                 color="primary"
                 onPress={() => {
-                  removeUser(roomName, username);
-                  onClose();
+                  removeUser(roomName, username)
+                  onClose()
                 }}
               >
                 Remove
@@ -46,5 +46,5 @@ export const RemoveModal = ({
         )}
       </ModalContent>
     </Modal>
-  );
-};
+  )
+}

@@ -1,61 +1,61 @@
-"use client";
+"use client"
 
 import {
   Button,
   Card,
   CardBody,
   CardFooter,
-  CardHeader,
-} from "@nextui-org/react";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { createCoursePartitipation } from "../api-adapter/create-course-participation";
-import { getCoursePartitipation } from "../api-adapter/get-course-participation";
-import { getUserToken } from "../domain/get-user-token";
+  CardHeader
+} from "@nextui-org/react"
+import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
+import { createCoursePartitipation } from "../api/create-course-participation"
+import { getCoursePartitipation } from "../api/get-course-participation"
+import { getUserToken } from "../domain/get-user-token"
 
 export default function CourseCard({ course }: any) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [participationData, setParticipationData] = useState();
-  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false)
+  const [participationData, setParticipationData] = useState()
+  const router = useRouter()
 
   useEffect(() => {
-    getParticipationData();
-  }, []);
+    getParticipationData()
+  }, [])
 
   const handleRedirect = () => {
-    router.push(`/courses/${btoa(course?.id)}`);
-  };
+    router.push(`/courses/${btoa(course?.id)}`)
+  }
 
   const handleEnroll = async () => {
-    const token = await getUserToken();
+    const token = await getUserToken()
 
     if (token === null) {
-      router.push("/");
+      router.push("/")
     } else {
-      const res = await createCoursePartitipation(course?.id, token);
+      const res = await createCoursePartitipation(course?.id, token)
       if (res) {
-        handleRedirect();
+        handleRedirect()
       }
     }
-  };
+  }
 
   const getParticipationData = async () => {
-    const token = await getUserToken();
+    const token = await getUserToken()
     if (!token) {
-      router.push("/");
+      router.push("/")
     } else {
       try {
-        const res = await getCoursePartitipation(course?.id, token);
-        setParticipationData(res?.data.courseId);
+        const res = await getCoursePartitipation(course?.id, token)
+        setParticipationData(res?.data.courseId)
 
-        setIsLoading(false);
+        setIsLoading(false)
       } catch (e) {
-        console.log(e);
+        console.log(e)
       }
     }
-  };
+  }
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading...</p>
 
   return (
     <Card style={{ background: "#12181f", border: "solid #494949 0.0006em" }}>
@@ -75,7 +75,7 @@ export default function CourseCard({ course }: any) {
                   alt="waves"
                   style={{
                     height: "100px",
-                    width: "170px",
+                    width: "170px"
                   }}
                 />
               </div>
@@ -103,5 +103,5 @@ export default function CourseCard({ course }: any) {
         </div>
       </div>
     </Card>
-  );
+  )
 }

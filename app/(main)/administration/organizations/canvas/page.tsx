@@ -1,35 +1,35 @@
-"use client";
-import { getLocalStorageCanvasData } from "@/integration/domain/canvas";
+"use client"
 
-import axios from "axios";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { getLocalStorageCanvasData } from "@/canvaslms/domain/canvas"
+import axios from "axios"
+import { useRouter, useSearchParams } from "next/navigation"
+import { useEffect, useState } from "react"
 
 export default function OrganizationPageRoute() {
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams()
 
-  const code = searchParams?.get("code");
-  const router = useRouter();
+  const code = searchParams?.get("code")
+  const router = useRouter()
 
   useEffect(() => {
-    getToken();
-  }, []);
+    getToken()
+  }, [])
 
   const getToken = async () => {
-    const { clientId, clientSecret, domain } = getLocalStorageCanvasData();
+    const { clientId, clientSecret, domain } = getLocalStorageCanvasData()
     await axios.post("/api/canvas", {
       code,
       clientId,
       domain,
-      clientSecret,
-    });
+      clientSecret
+    })
 
     if (clientId && clientSecret && domain) {
-      router.push("/administration/organizations?canvasAuth=true");
+      router.push("/administration/organizations?canvasAuth=true")
     } else {
-      router.push("/administration/organizations");
+      router.push("/administration/organizations")
     }
-  };
+  }
 
-  return <div> Loading ...</div>;
+  return <div> Loading ...</div>
 }

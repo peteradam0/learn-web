@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import {
   Button,
   Table,
@@ -9,72 +9,72 @@ import {
   TableRow,
   Tooltip,
   User,
-  useDisclosure,
-} from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
+  useDisclosure
+} from "@nextui-org/react"
+import React, { useEffect, useState } from "react"
 
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify/react/dist/iconify.js"
 
-import IntegrationForm from "@/integration/ui/integration-form";
-import { getOrganizations } from "@/organizations/api-adapter/get-organizations";
-import OrganizationModal from "@/organizations/ui-adapter/organization-modal";
-import Cookies from "js-cookie";
-import { useRouter, useSearchParams } from "next/navigation";
+import { getOrganizations } from "@/organizations/api/get-organizations"
+import OrganizationModal from "@/organizations/ui/organization-modal"
+import Cookies from "js-cookie"
+import { useRouter, useSearchParams } from "next/navigation"
+import IntegrationForm from "@/canvaslms/ui/integration-form"
 
 const columns = [
   { name: "NAME", uid: "name" },
   { name: "EDIT", uid: "edit" },
-  { name: "ACTIONS", uid: "actions" },
-];
+  { name: "ACTIONS", uid: "actions" }
+]
 
 export default function OrganizationsPageRoute() {
-  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-  const [loading, setLoading] = useState(false);
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure()
+  const [loading, setLoading] = useState(false)
 
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams()
 
-  const [organizationsData, setOrganizationsData] = useState([]);
-  const [modalVersion, setModalVersion] = useState("");
-  const [currentOrganization, setCurrentOrganization] = useState(Object);
-  const router = useRouter();
+  const [organizationsData, setOrganizationsData] = useState([])
+  const [modalVersion, setModalVersion] = useState("")
+  const [currentOrganization, setCurrentOrganization] = useState(Object)
+  const router = useRouter()
 
   const handleOpenModal = (modalVersion: string, organization: object) => {
-    setModalVersion(modalVersion);
-    setCurrentOrganization(organization);
-    onOpen();
-  };
+    setModalVersion(modalVersion)
+    setCurrentOrganization(organization)
+    onOpen()
+  }
 
   useEffect(() => {
-    getOrganizationData();
-    const canvasAuth = searchParams?.get("canvasAuth");
+    getOrganizationData()
+    const canvasAuth = searchParams?.get("canvasAuth")
     if (canvasAuth && Cookies.get("canvas_token")) {
-      handleOpenModal("auth", organizationsData);
+      handleOpenModal("auth", organizationsData)
     }
-  }, []);
+  }, [])
 
   const getOrganizationData = async () => {
     try {
-      setLoading(true);
-      const res = await getOrganizations();
-      setOrganizationsData(res?.data);
-      setLoading(false);
+      setLoading(true)
+      const res = await getOrganizations()
+      setOrganizationsData(res?.data)
+      setLoading(false)
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  };
+  }
 
   const handleRedirectToOrganization = (organization: any) => {
-    router.push(`/administration/organizations/${organization.name}`);
-  };
+    router.push(`/administration/organizations/${organization.name}`)
+  }
 
   const handleDeleteOrganization = async () => {
     const organizations = organizationsData.filter(function (
       organization: any
     ) {
-      return organization.name !== currentOrganization.name;
-    });
-    setOrganizationsData(organizations);
-  };
+      return organization.name !== currentOrganization.name
+    })
+    setOrganizationsData(organizations)
+  }
 
   const renderCell = React.useCallback((organization: any, columnKey: any) => {
     switch (columnKey) {
@@ -84,7 +84,7 @@ export default function OrganizationsPageRoute() {
             avatarProps={{ radius: "lg", src: organization.imageUrl }}
             name={organization.name}
           />
-        );
+        )
       case "edit":
         return (
           <Button
@@ -93,7 +93,7 @@ export default function OrganizationsPageRoute() {
           >
             Edit
           </Button>
-        );
+        )
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
@@ -106,12 +106,12 @@ export default function OrganizationsPageRoute() {
               </span>
             </Tooltip>
           </div>
-        );
+        )
       default:
-        return "";
+        return ""
     }
-  }, []);
-  if (loading) return <p>Loading...</p>;
+  }, [])
+  if (loading) return <p>Loading...</p>
   return (
     <div className="min-h-screen p-6 bg-blackflex bg-black items-center justify-center">
       <div
@@ -154,7 +154,7 @@ export default function OrganizationsPageRoute() {
           </div>
           <Table aria-label="Organizations table">
             <TableHeader columns={columns}>
-              {(column) => (
+              {column => (
                 <TableColumn
                   key={column.uid}
                   align={column.uid === "actions" ? "center" : "start"}
@@ -164,9 +164,9 @@ export default function OrganizationsPageRoute() {
               )}
             </TableHeader>
             <TableBody items={organizationsData}>
-              {(item) => (
+              {item => (
                 <TableRow>
-                  {(columnKey) => (
+                  {columnKey => (
                     <TableCell>{renderCell(item, columnKey)}</TableCell>
                   )}
                 </TableRow>
@@ -179,5 +179,5 @@ export default function OrganizationsPageRoute() {
         </div>
       </div>
     </div>
-  );
+  )
 }

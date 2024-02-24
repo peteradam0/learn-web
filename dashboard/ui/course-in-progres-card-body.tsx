@@ -1,47 +1,47 @@
-"use client";
-import { getCoursePartitipation } from "@/course/api-adapter/get-course-participation";
-import { getUserToken } from "@/course/domain/get-user-token";
-import { CardBody, Chip, Divider, Link, Progress } from "@nextui-org/react";
-import { redirect } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import { calculateProgressBar } from "../domain/calculate-progress-bar";
+"use client"
+import { getCoursePartitipation } from "@/course/api/get-course-participation"
+import { getUserToken } from "@/course/domain/get-user-token"
+import { CardBody, Chip, Divider, Link, Progress } from "@nextui-org/react"
+import { redirect } from "next/navigation"
+import React, { useEffect, useState } from "react"
+import { calculateProgressBar } from "../domain/calculate-progress-bar"
 
 export default function CourseInProgressCardBody({
   course,
-  displayProgressBar,
+  displayProgressBar
 }: any) {
-  const [progressBarNumber, setProgressBarNumber] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const url = `/courses/${btoa(course?.id)}`;
+  const [progressBarNumber, setProgressBarNumber] = useState(0)
+  const [loading, setLoading] = useState(false)
+  const url = `/courses/${btoa(course?.id)}`
 
   useEffect(() => {
-    setLoading(true);
-    getCourseData();
-  }, []);
+    setLoading(true)
+    getCourseData()
+  }, [])
 
   const getCourseData = async () => {
-    const token = await getUserToken();
+    const token = await getUserToken()
 
     if (!token) {
-      redirect("/sign-in");
+      redirect("/sign-in")
     }
 
     try {
-      const res = await getCoursePartitipation(course.id, token);
+      const res = await getCoursePartitipation(course.id, token)
 
       setProgressBarNumber(
         calculateProgressBar(
           course.chapterData.length,
           res?.data?.completedChapterIds?.length
         )
-      );
-      setLoading(false);
+      )
+      setLoading(false)
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  };
+  }
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Loading...</p>
 
   return (
     <>
@@ -76,7 +76,7 @@ export default function CourseInProgressCardBody({
               paddingTop: "10px",
               paddingRight: "10px",
               paddingLeft: "6px",
-              paddingBottom: "10px",
+              paddingBottom: "10px"
             }}
           >
             <Progress
@@ -89,5 +89,5 @@ export default function CourseInProgressCardBody({
       </CardBody>
       <Divider />
     </>
-  );
+  )
 }

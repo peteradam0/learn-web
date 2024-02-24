@@ -1,35 +1,35 @@
-"use client";
-import { UploadButton } from "@/common/api-adapter/uploadthing";
+"use client"
+import { UploadButton } from "@/common/api/uploadthing"
 
-import { Badge, Button, Input, Image } from "@nextui-org/react";
-import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { createOrganization } from "../api-adapter/create-organization";
-import { Organization } from "@/organizations/domain/organization";
+import { Badge, Button, Input, Image } from "@nextui-org/react"
+import { useState } from "react"
+import { SubmitHandler, useForm } from "react-hook-form"
+import { createOrganization } from "../api/create-organization"
+import { Organization } from "@/organizations/domain/organization"
 
 export default function CreateOrganizationForm({ onClose }: any) {
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState("")
 
-  const processForm: SubmitHandler<Organization> = async (data) => {
-    const { name } = data;
+  const processForm: SubmitHandler<Organization> = async data => {
+    const { name } = data
     await createOrganization({
       name,
-      imageUrl: url,
-    });
-    onClose();
-  };
+      imageUrl: url
+    })
+    onClose()
+  }
 
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors }
   } = useForm<Organization>({
     defaultValues: {
       name: "",
-      imageUrl: "",
-    },
-  });
+      imageUrl: ""
+    }
+  })
   return (
     <>
       <form className="lg:col-span-2" onSubmit={handleSubmit(processForm)}>
@@ -78,11 +78,11 @@ export default function CreateOrganizationForm({ onClose }: any) {
                 <>
                   <UploadButton
                     endpoint="imageUploader"
-                    onClientUploadComplete={(res) => {
-                      setUrl(res?.[0].url);
+                    onClientUploadComplete={res => {
+                      setUrl(res?.[0].url)
                     }}
                     onUploadError={(error: Error) => {
-                      alert(`ERROR! ${error.message}`);
+                      alert(`ERROR! ${error.message}`)
                     }}
                   />
 
@@ -90,7 +90,7 @@ export default function CreateOrganizationForm({ onClose }: any) {
                     className="hidden"
                     value={url}
                     {...register("imageUrl", {
-                      required: "Image is required",
+                      required: "Image is required"
                     })}
                   />
                 </>
@@ -110,5 +110,5 @@ export default function CreateOrganizationForm({ onClose }: any) {
         </div>
       </form>
     </>
-  );
+  )
 }

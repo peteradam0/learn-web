@@ -1,34 +1,35 @@
-"use client";
-import { getUserData } from "@/common/api-adapter/get-user-data";
-import CoursesInProgressCard from "@/dashboard/ui/courses-in-progress-card";
-import NewCoursesCard from "@/dashboard/ui/new-courses-card";
+"use client"
 
-import { Divider } from "@nextui-org/react";
+import CoursesInProgressCard from "@/dashboard/ui/courses-in-progress-card"
+import NewCoursesCard from "@/dashboard/ui/new-courses-card"
 
-import React, { useEffect, useState } from "react";
-import ActiveEventsCard from "@/event/ui/active-events-card";
+import { Divider } from "@nextui-org/react"
+
+import React, { useEffect, useState } from "react"
+import ActiveEventsCard from "@/event/ui/active-events-card"
+import { getUserData } from "@/common/api/get-user-data"
 
 export default function WelcomePage() {
-  const [userData, setUserData] = useState<any>();
+  const [userData, setUserData] = useState<any>()
 
   useEffect(() => {
-    getData();
-  }, []);
+    getData()
+  }, [])
 
   const getData = async () => {
     try {
-      const res = await getUserData();
-      setUserData(res?.data);
+      const res = await getUserData()
+      setUserData(res?.data)
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  };
+  }
   return (
     <div
       style={{
         marginLeft: "17%",
         marginRight: "17%",
-        paddingTop: "2%",
+        paddingTop: "2%"
       }}
       className="primaryBackGround"
     >
@@ -57,5 +58,5 @@ export default function WelcomePage() {
         </div>
       </div>
     </div>
-  );
+  )
 }

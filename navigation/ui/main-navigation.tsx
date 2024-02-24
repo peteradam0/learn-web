@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"
 import {
   Navbar,
   NavbarContent,
@@ -9,42 +9,42 @@ import {
   NavbarMenuToggle,
   Button,
   NavbarMenu,
-  NavbarMenuItem,
-} from "@nextui-org/react";
-import { UserButton } from "@clerk/nextjs";
+  NavbarMenuItem
+} from "@nextui-org/react"
+import { UserButton } from "@clerk/nextjs"
 
-import Image from "next/image";
-import { getUserData } from "@/common/api-adapter/get-user-data";
+import Image from "next/image"
+import { getUserData } from "@/common/api/get-user-data"
 
 export default function MainHeader() {
-  const [userData, setUserData] = useState<any>();
-  const [loading, setLoading] = useState<boolean>();
+  const [userData, setUserData] = useState<any>()
+  const [loading, setLoading] = useState<boolean>()
 
   useEffect(() => {
-    setLoading(true);
-    getData();
-    setLoading(false);
-  }, []);
+    setLoading(true)
+    getData()
+    setLoading(false)
+  }, [])
 
   const getData = async () => {
     try {
-      const res = await getUserData();
-      setUserData(res?.data);
+      const res = await getUserData()
+      setUserData(res?.data)
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  };
+  }
 
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
   const menuItems = [
     { name: "Home", url: "/" },
     { name: "Courses", url: "/courses" },
     { name: "My Courses", url: "/courses/mycourses" },
-    { name: "Admin", url: "/administration/courses" },
-  ];
+    { name: "Admin", url: "/administration/courses" }
+  ]
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div>Loading...</div>
 
   return (
     <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
@@ -128,5 +128,5 @@ export default function MainHeader() {
         ))}
       </NavbarMenu>
     </Navbar>
-  );
+  )
 }

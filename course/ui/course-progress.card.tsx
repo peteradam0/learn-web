@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import {
   Button,
@@ -6,65 +6,65 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-  Progress,
-} from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
-import { createCoursePartitipation } from "../api-adapter/create-course-participation";
-import { getUserToken } from "../domain/get-user-token";
-import { useRouter } from "next/navigation";
-import { getCoursePartitipation } from "../api-adapter/get-course-participation";
-import { calculateProgressBar } from "@/dashboard/domain/calculate-progress-bar";
+  Progress
+} from "@nextui-org/react"
+import React, { useEffect, useState } from "react"
+import { createCoursePartitipation } from "../api/create-course-participation"
+import { getUserToken } from "../domain/get-user-token"
+import { useRouter } from "next/navigation"
+import { getCoursePartitipation } from "../api/get-course-participation"
+import { calculateProgressBar } from "@/dashboard/domain/calculate-progress-bar"
 
 export default function CourseProgressCard({ course }: any) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [participationData, setParticipationData] = useState();
-  const [progressBarNumber, setProgressBarNumber] = useState(0);
+  const [isLoading, setIsLoading] = useState(false)
+  const [participationData, setParticipationData] = useState()
+  const [progressBarNumber, setProgressBarNumber] = useState(0)
 
-  const router = useRouter();
+  const router = useRouter()
 
   useEffect(() => {
-    getParticipationData();
-  }, []);
+    getParticipationData()
+  }, [])
 
   const handleRedirect = () => {
-    router.push(`/courses/${btoa(course?.id)}`);
-  };
+    router.push(`/courses/${btoa(course?.id)}`)
+  }
 
   const handleEnroll = async () => {
-    const token = await getUserToken();
+    const token = await getUserToken()
 
     if (token === null) {
-      router.push("/");
+      router.push("/")
     } else {
-      const res = await createCoursePartitipation(course?.id, token);
+      const res = await createCoursePartitipation(course?.id, token)
       if (res) {
-        handleRedirect();
+        handleRedirect()
       }
     }
-  };
+  }
 
   const getParticipationData = async () => {
-    const token = await getUserToken();
+    const token = await getUserToken()
     if (!token) {
-      router.push("/");
+      router.push("/")
     } else {
       try {
-        const res = await getCoursePartitipation(course?.id, token);
-        setParticipationData(res?.data.courseId);
+        const res = await getCoursePartitipation(course?.id, token)
+        setParticipationData(res?.data.courseId)
         setProgressBarNumber(
           calculateProgressBar(
             course.chapterData.length,
             res?.data?.completedChapterIds?.length
           )
-        );
-        setIsLoading(false);
+        )
+        setIsLoading(false)
       } catch (e) {
-        console.log(e);
+        console.log(e)
       }
     }
-  };
+  }
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading...</p>
 
   return (
     <Card>
@@ -84,7 +84,7 @@ export default function CourseProgressCard({ course }: any) {
                   alt="waves"
                   style={{
                     height: "100px",
-                    width: "170px",
+                    width: "170px"
                   }}
                 />
               </div>
@@ -119,5 +119,5 @@ export default function CourseProgressCard({ course }: any) {
         </div>
       </div>
     </Card>
-  );
+  )
 }

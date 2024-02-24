@@ -1,8 +1,8 @@
-"use client";
+"use client"
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"
 
-import { SubmitHandler } from "react-hook-form";
+import { SubmitHandler } from "react-hook-form"
 import {
   Badge,
   Button,
@@ -11,88 +11,88 @@ import {
   Select,
   SelectItem,
   Switch,
-  Textarea,
-} from "@nextui-org/react";
+  Textarea
+} from "@nextui-org/react"
 
-import { useForm } from "react-hook-form";
+import { useForm } from "react-hook-form"
 
-import { getOrganizations } from "@/organizations/api-adapter/get-organizations";
+import { getOrganizations } from "@/organizations/api/get-organizations"
 
-import { EventFormProps } from "@/event/domain/event";
-import UserListBox from "@/event/ui/user-listbox";
-import { UploadButton } from "@/common/api-adapter/uploadthing";
-import { getUsers } from "@/users/api-adapter/getUsers";
-import { getOrganizationMemberData } from "@/organizations/api-adapter/create-organization";
-import { createVideoEvent } from "@/event/api/create-event";
-import { useRouter } from "next/navigation";
+import { EventFormProps } from "@/event/domain/event"
+import UserListBox from "@/event/ui/user-listbox"
+import { getUsers } from "@/users/api/getUsers"
+import { getOrganizationMemberData } from "@/organizations/api/create-organization"
+import { createVideoEvent } from "@/event/api/create-event"
+import { useRouter } from "next/navigation"
+import { UploadButton } from "@/common/api/uploadthing"
 
 export default function EventsPageRoute() {
-  const [url, setUrl] = useState<any>();
-  const [organization, setOrganization] = useState("Public");
-  const [organizationData, setOrganizationData] = useState([]);
-  const [limitUsers, setLimitUsers] = useState(false);
-  const [selectedUsers, setSelectedUsers] = useState(new Set());
-  const [users, setUsers] = useState([]);
+  const [url, setUrl] = useState<any>()
+  const [organization, setOrganization] = useState("Public")
+  const [organizationData, setOrganizationData] = useState([])
+  const [limitUsers, setLimitUsers] = useState(false)
+  const [selectedUsers, setSelectedUsers] = useState(new Set())
+  const [users, setUsers] = useState([])
 
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
-    getOrganizationData();
-  }, []);
+    getOrganizationData()
+  }, [])
 
   const getOrganizationData = async () => {
-    setLoading(true);
-    const res = await getOrganizations();
+    setLoading(true)
+    const res = await getOrganizations()
 
-    setOrganizationData(res?.data);
-    setLoading(false);
-  };
+    setOrganizationData(res?.data)
+    setLoading(false)
+  }
 
   useEffect(() => {
     if (limitUsers && organization) {
       if (organization === "Public") {
         // getAllusers
-        getAllUserData();
+        getAllUserData()
       } else {
         // get users for given organization
-        getUserDataForOrganization();
+        getUserDataForOrganization()
       }
     }
-  }, [organization, limitUsers]);
+  }, [organization, limitUsers])
 
   const getAllUserData = async () => {
-    const res = await getUsers();
-    setUsers(res?.data);
-  };
+    const res = await getUsers()
+    setUsers(res?.data)
+  }
 
   const getUserDataForOrganization = async () => {
-    const res = await getOrganizationMemberData(organization);
-    setUsers(res?.data);
-  };
+    const res = await getOrganizationMemberData(organization)
+    setUsers(res?.data)
+  }
 
   const {
     register,
     handleSubmit,
     reset,
     setError,
-    formState: { errors },
+    formState: { errors }
   } = useForm<EventFormProps>({
     defaultValues: {
       name: "",
       description: "",
       imageUrl: "",
-      organization: "",
-    },
-  });
+      organization: ""
+    }
+  })
 
-  const processForm: SubmitHandler<EventFormProps> = async (data) => {
+  const processForm: SubmitHandler<EventFormProps> = async data => {
     if (limitUsers && selectedUsers.size == 0) {
-      console.log("users are limeted but no users are selected");
+      console.log("users are limeted but no users are selected")
       setError("users", {
         type: "required",
-        message: "Users are limeted but no users are selected",
-      });
+        message: "Users are limeted but no users are selected"
+      })
     } else {
       await createVideoEvent({
         videoData: {
@@ -100,14 +100,14 @@ export default function EventsPageRoute() {
           description: data.description,
           imageUrl: url,
           organization: data.organization,
-          users: Array.from(selectedUsers),
-        },
-      });
-      router.push("/administration/events");
+          users: Array.from(selectedUsers)
+        }
+      })
+      router.push("/administration/events")
     }
-  };
+  }
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Loading...</p>
 
   return (
     <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
@@ -147,7 +147,7 @@ export default function EventsPageRoute() {
                     <Input
                       label="Name"
                       {...register("name", {
-                        required: "Name is required",
+                        required: "Name is required"
                       })}
                     />
 
@@ -164,7 +164,7 @@ export default function EventsPageRoute() {
                     <Textarea
                       label="Description"
                       {...register("description", {
-                        required: "Description is required",
+                        required: "Description is required"
                       })}
                     />
                     {errors.description?.message && (
@@ -183,12 +183,12 @@ export default function EventsPageRoute() {
                         label="Organization"
                         className="max-w-xs"
                         // @ts-ignore
-                        onChange={(key) => {
-                          setOrganization(key.target.value);
+                        onChange={key => {
+                          setOrganization(key.target.value)
                         }}
                         {...register("organization", {
                           value: organization,
-                          required: "Organization is required",
+                          required: "Organization is required"
                         })}
                       >
                         {organizationData.map((org: any) => (
@@ -266,11 +266,11 @@ export default function EventsPageRoute() {
                         <>
                           <UploadButton
                             endpoint="imageUploader"
-                            onClientUploadComplete={(res) => {
-                              setUrl(res?.[0].url);
+                            onClientUploadComplete={res => {
+                              setUrl(res?.[0].url)
                             }}
                             onUploadError={(error: Error) => {
-                              alert(`ERROR! ${error.message}`);
+                              alert(`ERROR! ${error.message}`)
                             }}
                           />
 
@@ -278,7 +278,7 @@ export default function EventsPageRoute() {
                             className="hidden"
                             value={url}
                             {...register("imageUrl", {
-                              required: "Image is required",
+                              required: "Image is required"
                             })}
                           />
                         </>
@@ -297,5 +297,5 @@ export default function EventsPageRoute() {
         </div>
       </div>
     </div>
-  );
+  )
 }

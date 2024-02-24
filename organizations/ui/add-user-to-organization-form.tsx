@@ -1,63 +1,63 @@
-"use client";
+"use client"
 
 import {
   Autocomplete,
   AutocompleteItem,
   Button,
-  Input,
-} from "@nextui-org/react";
+  Input
+} from "@nextui-org/react"
 
-import { SubmitHandler, useForm } from "react-hook-form";
-import { sendOrganizationMemberInvite } from "../api-adapter/create-organization";
-import { OrganizationMember } from "../domain/organization";
-import { useEffect, useState } from "react";
-import { getOrganizationMemberSuggestions } from "../api-adapter/get-suggested-users";
-import Cookies from "js-cookie";
+import { SubmitHandler, useForm } from "react-hook-form"
+import { sendOrganizationMemberInvite } from "../api/create-organization"
+import { OrganizationMember } from "../domain/organization"
+import { useEffect, useState } from "react"
+import { getOrganizationMemberSuggestions } from "../api/get-suggested-users"
+import Cookies from "js-cookie"
 
 export default function AddUserToOrganizationForm({
   onClose,
-  organizationName,
+  organizationName
 }: any) {
-  const [suggestedUsers, setSuggestedUsers] = useState([]);
+  const [suggestedUsers, setSuggestedUsers] = useState([])
 
   useEffect(() => {
-    const canvasToken = Cookies.get("canvas_token");
+    const canvasToken = Cookies.get("canvas_token")
     if (canvasToken) {
-      getData(canvasToken);
+      getData(canvasToken)
     }
-  });
+  })
 
   const getData = async (canvasToken: string) => {
     try {
       const res = await getOrganizationMemberSuggestions(
         organizationName,
         canvasToken
-      );
-      if (res?.data) setSuggestedUsers(res?.data);
+      )
+      if (res?.data) setSuggestedUsers(res?.data)
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  };
+  }
 
-  const processForm: SubmitHandler<OrganizationMember> = async (data) => {
-    const { email } = data;
+  const processForm: SubmitHandler<OrganizationMember> = async data => {
+    const { email } = data
     await sendOrganizationMemberInvite({
       email,
-      organizationName,
-    });
-    onClose();
-  };
+      organizationName
+    })
+    onClose()
+  }
 
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors }
   } = useForm<OrganizationMember>({
     defaultValues: {
-      email: "",
-    },
-  });
+      email: ""
+    }
+  })
   return (
     <>
       <form className="lg:col-span-2" onSubmit={handleSubmit(processForm)}>
@@ -74,7 +74,7 @@ export default function AddUserToOrganizationForm({
                 label="Search or type in email"
                 variant="bordered"
                 {...register("email", {
-                  required: "Email is required",
+                  required: "Email is required"
                 })}
               >
                 {(item: any) => (
@@ -87,7 +87,7 @@ export default function AddUserToOrganizationForm({
               <Input
                 label="Email"
                 {...register("email", {
-                  required: "Email is required",
+                  required: "Email is required"
                 })}
               />
             )}
@@ -110,5 +110,5 @@ export default function AddUserToOrganizationForm({
         </div>
       </form>
     </>
-  );
+  )
 }

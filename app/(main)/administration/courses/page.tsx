@@ -1,38 +1,38 @@
-"use client";
+"use client"
 
-import { Button, Link } from "@nextui-org/react";
-import { useEffect, useState } from "react";
+import { Button, Link } from "@nextui-org/react"
+import { useEffect, useState } from "react"
 
-import { getCoursesForUser } from "@/course/api-adapter/get-courses-user";
-import { getUserToken } from "@/course/domain/get-user-token";
-import MyCourseCreateCard from "@/course/ui-adapter/my-course-create-card";
-import { redirect } from "next/navigation";
+import { getCoursesForUser } from "@/course/api/get-courses-user"
+import { getUserToken } from "@/course/domain/get-user-token"
+import MyCourseCreateCard from "@/course/ui/my-course-create-card"
+import { redirect } from "next/navigation"
 
 export default function MyCoursePage() {
-  const [courseData, setCourseData] = useState([]);
-  const [isLoading, setLoading] = useState(true);
+  const [courseData, setCourseData] = useState([])
+  const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
-    getCourseData();
-  }, []);
+    getCourseData()
+  }, [])
 
   const getCourseData = async () => {
-    const token = await getUserToken();
+    const token = await getUserToken()
 
     if (!token) {
-      redirect("/");
+      redirect("/")
     }
 
     try {
-      const res = await getCoursesForUser(token);
-      setCourseData(res?.data);
-      setLoading(false);
+      const res = await getCoursesForUser(token)
+      setCourseData(res?.data)
+      setLoading(false)
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  };
+  }
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading...</p>
 
   return (
     <div className="min-h-screen p-6 bg-black flex items-center justify-center">
@@ -60,5 +60,5 @@ export default function MyCoursePage() {
         </div>
       </div>
     </div>
-  );
+  )
 }

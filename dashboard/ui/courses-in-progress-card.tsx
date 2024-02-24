@@ -1,40 +1,40 @@
-import { Card, CardFooter, CardHeader, Link } from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
-import CourseInProgressCardBody from "./course-in-progres-card-body";
-import { getUserToken } from "@/course/domain/get-user-token";
-import { redirect } from "next/navigation";
-import { getInProgressCourses } from "@/course/api-adapter/get-course";
-import { getSelfCourses } from "../api/get-published-courses";
+import { Card, CardFooter, CardHeader, Link } from "@nextui-org/react"
+import React, { useEffect, useState } from "react"
+import CourseInProgressCardBody from "./course-in-progres-card-body"
+import { getUserToken } from "@/course/domain/get-user-token"
+import { redirect } from "next/navigation"
+import { getInProgressCourses } from "@/course/api/get-course"
+import { getSelfCourses } from "../api/get-published-courses"
 
 export default function CoursesInProgressCard() {
-  const [inProgressCourses, setInProgressCourseData] = useState([]);
-  const [courseData, setCourseData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [inProgressCourses, setInProgressCourseData] = useState([])
+  const [courseData, setCourseData] = useState([])
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    setLoading(true);
-    getCourseData();
-  }, []);
+    setLoading(true)
+    getCourseData()
+  }, [])
 
   const getCourseData = async () => {
-    const token = await getUserToken();
+    const token = await getUserToken()
 
     if (!token) {
-      redirect("/");
+      redirect("/")
     }
 
     try {
-      const res = await getInProgressCourses(token);
-      const resCourse = await getSelfCourses(token);
-      setCourseData(resCourse?.data);
-      setInProgressCourseData(res?.data);
-      setLoading(false);
+      const res = await getInProgressCourses(token)
+      const resCourse = await getSelfCourses(token)
+      setCourseData(resCourse?.data)
+      setInProgressCourseData(res?.data)
+      setLoading(false)
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  };
+  }
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Loading...</p>
   return (
     <Card className="max-w-[400px]">
       {inProgressCourses.length === 0 && (
@@ -70,5 +70,5 @@ export default function CoursesInProgressCard() {
         </Link>
       </CardFooter>
     </Card>
-  );
+  )
 }

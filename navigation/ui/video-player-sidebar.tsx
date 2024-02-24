@@ -1,43 +1,43 @@
-"use client";
-import { Accordion, AccordionItem } from "@nextui-org/react";
+"use client"
+import { Accordion, AccordionItem } from "@nextui-org/react"
 
-import React, { useEffect, useState } from "react";
-import VideoPlayerCard from "./video-player-card";
-import { redirect } from "next/navigation";
-import { getUserToken } from "@/course/domain/get-user-token";
-import { getCoursePartitipation } from "@/course/api-adapter/get-course-participation";
+import React, { useEffect, useState } from "react"
+import VideoPlayerCard from "./video-player-card"
+import { redirect } from "next/navigation"
+import { getUserToken } from "@/course/domain/get-user-token"
+import { getCoursePartitipation } from "@/course/api/get-course-participation"
 
 export default function VidePlayerSidebar({
   chapterData,
   courseId,
-  currentChapterId,
+  currentChapterId
 }: any) {
-  const [loading, setLoading] = useState(false);
-  const [participationData, setParticipationData] = useState(Object);
+  const [loading, setLoading] = useState(false)
+  const [participationData, setParticipationData] = useState(Object)
 
   useEffect(() => {
-    getParticipationData();
-  }, []);
+    getParticipationData()
+  }, [])
 
   const getParticipationData = async () => {
-    setLoading(true);
-    const token = await getUserToken();
+    setLoading(true)
+    const token = await getUserToken()
 
     if (!token) {
-      redirect("/");
+      redirect("/")
     }
 
     try {
-      const course = await getCoursePartitipation(courseId, token);
-      setParticipationData(course?.data);
-      setLoading(false);
+      const course = await getCoursePartitipation(courseId, token)
+      setParticipationData(course?.data)
+      setLoading(false)
     } catch (e) {
-      console.log(e);
-      setLoading(false);
+      console.log(e)
+      setLoading(false)
     }
-  };
+  }
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Loading...</p>
 
   return (
     <div>
@@ -86,5 +86,5 @@ export default function VidePlayerSidebar({
         </nav>
       </aside>
     </div>
-  );
+  )
 }

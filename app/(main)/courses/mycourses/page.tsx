@@ -1,43 +1,43 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 
-import { getInProgressCourses } from "@/course/api-adapter/get-course";
-import { getUserToken } from "@/course/domain/get-user-token";
-import CourseProgressCard from "@/course/ui-adapter/course-progress.card";
-import { SearchBar } from "@/course/ui-adapter/searchbar";
-import { redirect } from "next/navigation";
+import { getInProgressCourses } from "@/course/api/get-course"
+import { getUserToken } from "@/course/domain/get-user-token"
+import CourseProgressCard from "@/course/ui/course-progress.card"
+import { SearchBar } from "@/course/ui/searchbar"
+import { redirect } from "next/navigation"
 
 export default function MyCoursesPageRoute() {
-  const [courseData, setCourseData] = useState<any>([]);
-  const [isLoading, setLoading] = useState(true);
-  const [search, setSerach] = useState("");
+  const [courseData, setCourseData] = useState<any>([])
+  const [isLoading, setLoading] = useState(true)
+  const [search, setSerach] = useState("")
 
   useEffect(() => {
-    getCourseData();
-  }, []);
+    getCourseData()
+  }, [])
 
   useEffect(() => {
-    console.log(search);
-  }, [search]);
+    console.log(search)
+  }, [search])
 
   const getCourseData = async () => {
-    const token = await getUserToken();
+    const token = await getUserToken()
 
     if (!token) {
-      redirect("/");
+      redirect("/")
     }
 
     try {
-      const res = await getInProgressCourses(token);
-      setCourseData(res?.data);
-      setLoading(false);
+      const res = await getInProgressCourses(token)
+      setCourseData(res?.data)
+      setLoading(false)
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  };
+  }
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading...</p>
 
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -55,7 +55,7 @@ export default function MyCoursesPageRoute() {
             .filter((course: any) => {
               return search.toLocaleLowerCase() === ""
                 ? course
-                : course.title.toLocaleLowerCase().includes(search);
+                : course.title.toLocaleLowerCase().includes(search)
             })
             .map((course: any) => (
               <CourseProgressCard key={course.id} course={course} />
@@ -63,5 +63,5 @@ export default function MyCoursesPageRoute() {
         </div>
       </div>
     </div>
-  );
+  )
 }

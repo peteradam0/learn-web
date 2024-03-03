@@ -1,5 +1,5 @@
-import { startVideoEvent } from "@/event/api/create-event";
-import { removeVideoEvent } from "@/event/api/remove-event";
+import { startVideoEvent } from "@/event/api/create-event"
+import { removeVideoEvent } from "@/event/api/remove-event"
 
 import {
   Card,
@@ -7,49 +7,49 @@ import {
   CardBody,
   CardFooter,
   Divider,
-  Button,
-} from "@nextui-org/react";
-import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { generateRoomId } from "@/livekit/technical/client";
+  Button
+} from "@nextui-org/react"
+import { useRouter } from "next/navigation"
+import React, { useEffect, useState } from "react"
+import { Icon } from "@iconify/react/dist/iconify.js"
+import { generateRoomId } from "@/livekit/technical/client"
 
 export default function EventCard({ eventData }: any) {
-  const [members, setMembers] = useState<string>();
-  const router = useRouter();
+  const [members, setMembers] = useState<string>()
+  const router = useRouter()
   useEffect(() => {
     if (eventData.users) {
       eventData.users.map((user: any) => {
         if (members) {
-          setMembers(members + " " + user.email);
+          setMembers(members + " " + user.email)
         } else {
-          setMembers("Members: " + user.email);
+          setMembers("Members: " + user.email)
         }
-      });
+      })
     }
-  }, []);
+  }, [])
 
   const removeEvent = async (eventData: any) => {
     await removeVideoEvent({
       videoData: {
         name: eventData.name,
-        organization: eventData.organization,
-      },
-    });
-    window.location.reload();
-  };
+        organization: eventData.organization
+      }
+    })
+    window.location.reload()
+  }
 
   const startEvent = async () => {
-    const roomId = generateRoomId();
+    const roomId = generateRoomId()
     await startVideoEvent({
       videoData: {
         name: eventData.name,
         organization: eventData.organization,
-        roomId: roomId,
-      },
-    });
-    router.push(`/room/${roomId}`);
-  };
+        roomId: roomId
+      }
+    })
+    router.push(`/room/${roomId}`)
+  }
 
   return (
     <Card className="p-2 max-w-[400px]">
@@ -75,24 +75,21 @@ export default function EventCard({ eventData }: any) {
       <Divider />
       <CardFooter>
         <div>
-          {!eventData.active && (
-            <Button size="sm" color="default" onClick={() => startEvent()}>
-              Start
-            </Button>
-          )}
-          {eventData.active && (
-            <Button
-              size="sm"
-              color="danger"
-              onClick={() => {
-                removeEvent(eventData);
-              }}
-            >
-              Close
-            </Button>
-          )}
+          <Button size="sm" color="default" onClick={() => startEvent()}>
+            Start
+          </Button>
+          {"   "}
+          <Button
+            size="sm"
+            color="danger"
+            onClick={() => {
+              removeEvent(eventData)
+            }}
+          >
+            Close
+          </Button>
         </div>
       </CardFooter>
     </Card>
-  );
+  )
 }

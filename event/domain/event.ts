@@ -1,7 +1,8 @@
 export type EventFormProps = {
-  name: string;
-  description: string;
-  imageUrl: string;
-  organization: string;
-  users: any[];
-};
+  name: string
+  description: string
+  imageUrl: string
+  organization: string
+  users: any[]
+  date: string
+}

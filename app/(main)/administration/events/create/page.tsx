@@ -82,7 +82,8 @@ export default function EventsPageRoute() {
       name: "",
       description: "",
       imageUrl: "",
-      organization: ""
+      organization: "",
+      date: ""
     }
   })
 
@@ -100,6 +101,7 @@ export default function EventsPageRoute() {
           description: data.description,
           imageUrl: url,
           organization: data.organization,
+          date: data.date,
           users: Array.from(selectedUsers)
         }
       })
@@ -110,19 +112,19 @@ export default function EventsPageRoute() {
   if (loading) return <p>Loading...</p>
 
   return (
-    <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
+    <div className="min-h-screen p-6  flex items-center justify-center">
       <div className="container max-w-screen-lg mx-auto">
-        <div>
-          <h2 className="font-semibold text-xl text-gray-600">
+        <div style={{ border: "solid #494949 0.0006em" }} className="p-3">
+          <h2 className="font-semibold text-xl text-white">
             Create a new event
           </h2>
           <p className="text-gray-500 mb-6">
             Fill out the form with the data of the new event
           </p>
 
-          <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+          <div className=" rounded shadow-lg p-4 px-4 md:p-8 mb-6">
             <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
-              <div className="text-gray-600">
+              <div className="text-white">
                 <p className="font-medium text-lg">Event details</p>
                 <p>
                   An event can be public or private based on the event details.
@@ -145,7 +147,7 @@ export default function EventsPageRoute() {
                     </h3>
 
                     <Input
-                      label="Name"
+                      label="name"
                       {...register("name", {
                         required: "Name is required"
                       })}
@@ -154,6 +156,24 @@ export default function EventsPageRoute() {
                     {errors.name?.message && (
                       <p className="text-sm text-red-400">
                         {errors.name.message}
+                      </p>
+                    )}
+                  </div>
+                  <div className="p-1 md:col-span-5">
+                    <h3 className="text-default-500 text-small pb-1">
+                      The start date and time of the event
+                    </h3>
+
+                    <Input
+                      type="datetime-local"
+                      {...register("date", {
+                        required: "Date and time are required"
+                      })}
+                    />
+
+                    {errors.date?.message && (
+                      <p className="text-sm text-red-400">
+                        {errors.date.message}
                       </p>
                     )}
                   </div>

@@ -10,6 +10,7 @@ import ActiveEventsCard from "@/event/ui/active-events-card"
 import { getUserData } from "@/common/api/get-user-data"
 import MainHeader from "@/navigation/ui/main-navigation"
 import { Footer } from "@/navigation/ui/footer"
+import UpcomingEvents from "@/event/ui/upcoming-events-card"
 
 export default function WelcomePage() {
   const [userData, setUserData] = useState<any>()
@@ -58,6 +59,12 @@ export default function WelcomePage() {
               <h1>Active events</h1>
               <div className="pt-5">
                 <ActiveEventsCard />
+              </div>
+            </div>
+            <div>
+              <h1>Upcoming events</h1>
+              <div className="pt-5">
+                <UpcomingEvents />
               </div>
             </div>
           </div>

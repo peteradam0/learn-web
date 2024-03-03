@@ -35,7 +35,7 @@ export default function MyCoursePage() {
   if (isLoading) return <p>Loading...</p>
 
   return (
-    <div className="min-h-screen p-6 bg-black flex items-center justify-center">
+    <div className="min-h-screen p-6 primaryColor flex items-center justify-center">
       <div className="container max-w-screen-lg mx-auto">
         <h2 className="font-semibold text-xl text-white pb-1">MyCourses</h2>
         <p className="text-white mb-6">

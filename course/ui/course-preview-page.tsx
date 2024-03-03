@@ -38,7 +38,7 @@ export default function CoursePreviewPage(params: { courseId: string }) {
 
   return (
     <>
-      <div className=" p-6 bg-gray-100 flex items-center justify-center">
+      <div className=" p-6 primaryColor flex items-center justify-center">
         <div className="container mx-auto">
           <CourseHeadline courseData={courseData} />
         </div>

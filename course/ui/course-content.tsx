@@ -1,24 +1,24 @@
-"use client";
+"use client"
 
-import React from "react";
-import CourseTableOfContents from "./course-table-of-contents";
+import React from "react"
+import CourseTableOfContents from "./course-table-of-contents"
 
-import "next-cloudinary/dist/cld-video-player.css";
+import "next-cloudinary/dist/cld-video-player.css"
 
 export default function CourseContent(data: any) {
-  const course = data.courseData;
-  const courseDate = new Date(course.createdAt).toDateString();
+  const course = data.courseData
+  const courseDate = new Date(course.createdAt).toDateString()
 
   return (
     <div
       style={{
         marginLeft: "105px",
-        paddingTop: "50px",
+        paddingTop: "50px"
       }}
     >
       <div
         className="text-sm text-white flex items-center"
-        style={{ background: "#18191d" }}
+        style={{ background: "#1e2025" }}
       >
         <video width="600" height="450" src={course.videoUrl} controls />
 
@@ -30,7 +30,7 @@ export default function CourseContent(data: any) {
           <div className="pt-1 pb-2">
             <div
               style={{
-                paddingTop: "10px",
+                paddingTop: "10px"
               }}
               className="pt-1"
             >
@@ -44,7 +44,7 @@ export default function CourseContent(data: any) {
       </div>
       <div
         style={{
-          paddingTop: "3rem",
+          paddingTop: "3rem"
         }}
       >
         <CourseTableOfContents
@@ -53,5 +53,5 @@ export default function CourseContent(data: any) {
         />
       </div>
     </div>
-  );
+  )
 }

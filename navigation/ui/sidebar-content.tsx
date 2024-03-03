@@ -1,12 +1,12 @@
-"use client";
+"use client"
 
-import Link from "next/link";
+import Link from "next/link"
 
 export default function SidebarContent() {
   return (
     <aside
       className="text-white w-30 sidebarheight p-4 float-left primaryBackGround"
-      style={{ width: "20%", borderRight: "solid #494949 0.0006em" }}
+      style={{ width: "20%" }}
     >
       <nav>
         <ul className="space-y-2">
@@ -51,5 +51,5 @@ export default function SidebarContent() {
         </ul>
       </nav>
     </aside>
-  );
+  )
 }

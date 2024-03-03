@@ -124,10 +124,10 @@ export default function EditCoursePage({
 
   if (isLoading) return <p>Loading...</p>
   return (
-    <div className="min-h-screen p-6 bg-black flex items-center justify-center">
+    <div className="min-h-screen p-4  flex items-center justify-center">
       <div
-        className="container max-w-screen-lg mx-auto p-3"
-        style={{ background: "#12181f", border: "solid #494949 0.0006em" }}
+        className="container max-w-screen-lg mx-auto p-4"
+        style={{ background: "#12181f", border: "solid #2e2e2e 0.0006em" }}
       >
         <div>
           <h2 className="font-semibold text-xl text-white">

@@ -1,3 +1,4 @@
+import { Footer } from "@/navigation/ui/footer"
 import MainHeader from "@/navigation/ui/main-navigation"
 import "@livekit/components-styles"
 import "@livekit/components-styles/prefabs"
@@ -9,7 +10,8 @@ export default function MainLayout({
   return (
     <div>
       <MainHeader />
-      <div>{children}</div>
+      <div style={{ paddingBottom: "4rem" }}>{children}</div>
+      <Footer />
     </div>
   )
 }

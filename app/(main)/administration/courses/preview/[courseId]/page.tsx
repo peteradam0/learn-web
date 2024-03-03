@@ -6,9 +6,5 @@ export default function PreviewPageRoute({
 }: {
   params: { courseId: string }
 }) {
-  return (
-    <div>
-      <CoursePreviewPage courseId={params.courseId} />
-    </div>
-  )
+  return <CoursePreviewPage courseId={params.courseId} />
 }

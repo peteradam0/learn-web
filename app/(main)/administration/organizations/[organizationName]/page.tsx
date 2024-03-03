@@ -95,7 +95,7 @@ export default function OrganizationPageRoute({ params }: any) {
       >
         <div
           className="container max-w-screen-lg mx-auto p-6"
-          style={{ background: "#12181f", border: "solid #494949 0.0006em" }}
+          style={{ border: "solid #494949 0.0006em" }}
         >
           <h2 className="font-semibold text-xl text-white">Manage users</h2>
           <p className="text-gray-400 mb-4">

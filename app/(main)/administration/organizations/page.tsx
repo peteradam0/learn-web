@@ -113,7 +113,7 @@ export default function OrganizationsPageRoute() {
   }, [])
   if (loading) return <p>Loading...</p>
   return (
-    <div className="min-h-screen p-6 bg-blackflex bg-black items-center justify-center">
+    <div className="min-h-screen p-6 bg-blackflex items-center justify-center">
       <div
         className="container max-w-screen-lg mx-auto p-6"
         style={{ background: "#12181f", border: "solid #494949 0.0006em" }}

@@ -1,33 +1,33 @@
-"use client";
+"use client"
 
-import { getVideoEvents } from "@/event/api/get-video-events";
-import EventCard from "@/event/ui/event-card";
-import { Button, Link } from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
+import { getVideoEvents } from "@/event/api/get-video-events"
+import EventCard from "@/event/ui/event-card"
+import { Button, Link } from "@nextui-org/react"
+import React, { useEffect, useState } from "react"
 
 export default function EventsPage() {
-  const [eventsData, setEventsData] = useState([]);
-  const [isLoading, setLoading] = useState(false);
+  const [eventsData, setEventsData] = useState([])
+  const [isLoading, setLoading] = useState(false)
 
   useEffect(() => {
-    getEventData();
-  }, []);
+    getEventData()
+  }, [])
 
   const getEventData = async () => {
     try {
-      const res = await getVideoEvents();
-      setEventsData(res?.data);
+      const res = await getVideoEvents()
+      setEventsData(res?.data)
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  };
+  }
 
-  if (isLoading) return <p>...</p>;
+  if (isLoading) return <p>...</p>
 
   return (
-    <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
+    <div className="min-h-screen p-6 primaryColor flex items-center justify-center">
       <div className="container max-w-screen-lg mx-auto">
-        <h2 className="font-semibold text-xl text-gray-600 pb-1">Events</h2>
+        <h2 className="font-semibold text-xl text-white pb-1">Events</h2>
         <p className="text-gray-500 mb-6">
           ed ut perspiciatis unde omnis iste natus error sit voluptatem
           accusantium doloremque laudantium.
@@ -35,10 +35,13 @@ export default function EventsPage() {
 
         <div style={{ paddingBottom: "20px" }}>
           <Link href="/administration/events/create">
-            <Button>Create event</Button>
+            <Button color="success">Create event</Button>
           </Link>
         </div>
-        <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+        <div
+          className=" rounded shadow-lg p-4 px-4 md:p-8 mb-6"
+          style={{ border: "solid #494949 0.0006em" }}
+        >
           <div className="container mx-auto py-46 px-8">
             <div className="grid lg:grid-cols-3 gap-4">
               {eventsData.map((ev: any) => (
@@ -51,5 +54,5 @@ export default function EventsPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }

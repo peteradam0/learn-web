@@ -41,6 +41,7 @@ export default function MainHeader() {
     { name: "Home", url: "/" },
     { name: "Courses", url: "/courses" },
     { name: "My Courses", url: "/courses/mycourses" },
+    { name: "About", url: "/about" },
     { name: "Admin", url: "/administration/courses" }
   ]
 
@@ -97,8 +98,8 @@ export default function MainHeader() {
                   index === 2
                     ? "warning"
                     : index === menuItems.length - 1
-                    ? "danger"
-                    : "foreground"
+                      ? "danger"
+                      : "foreground"
                 }
                 href={item.url}
                 size="lg"
@@ -115,8 +116,8 @@ export default function MainHeader() {
                   index === 2
                     ? "warning"
                     : index === menuItems.length - 1
-                    ? "danger"
-                    : "foreground"
+                      ? "danger"
+                      : "foreground"
                 }
                 href={item.url}
                 size="lg"

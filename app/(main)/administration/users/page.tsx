@@ -107,7 +107,7 @@ export default function UserPageRoute() {
   }, [])
   if (loading) return <p>Loading...</p>
   return (
-    <div className="min-h-screen p-6 bg-black flex items-center justify-center">
+    <div className="min-h-screen p-6  flex items-center justify-center">
       <div className="container max-w-screen-lg mx-auto p-3">
         <div>
           <h2

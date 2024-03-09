@@ -26,12 +26,7 @@ export const getVideoEvents = async () => {
   return res
 }
 
-export const getActiveVideoEvents = async () => {
-  const token = await getUserToken()
-  if (!token) {
-    redirect("/")
-  }
-
+export const getActiveVideoEvents = async (token: string) => {
   const url = qs.stringifyUrl({
     url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/active`
   })
@@ -49,12 +44,7 @@ export const getActiveVideoEvents = async () => {
   return res
 }
 
-export const getUpcomingEvents = async () => {
-  const token = await getUserToken()
-  if (!token) {
-    redirect("/")
-  }
-
+export const getUpcomingEvents = async (token: string) => {
   const url = qs.stringifyUrl({
     url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/upcoming`
   })

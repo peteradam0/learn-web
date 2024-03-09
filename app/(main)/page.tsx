@@ -1,76 +1,27 @@
-"use client"
+import { getCourseDomain } from "@/course/api/get-courses-domain"
+import { getInProgressCourseDomain } from "@/course/api/get-in-progress-courses"
+import { getUserToken } from "@/course/domain/get-user-token"
+import { getUserDomainData } from "@/dashboard/api/get-user-domain-data"
+import { DashboardPage } from "@/dashboard/ui/dashboard-page"
+import { getActiveEventsDomain } from "@/event/api/get-active-events"
+import { getFutureEvents } from "@/event/api/get-future-events"
 
-import CoursesInProgressCard from "@/dashboard/ui/courses-in-progress-card"
-import NewCoursesCard from "@/dashboard/ui/new-courses-card"
+export default async function DashboardPageRoute() {
+  const token = await getUserToken()
+  if (!token) return
+  const user = await getUserDomainData()
+  const inProgressCourses = await getInProgressCourseDomain(token)
+  const courses = await getCourseDomain(token)
+  const events = await getActiveEventsDomain(token)
+  const futureEvents = await getFutureEvents(token)
 
-import { Divider } from "@nextui-org/react"
-
-import React, { useEffect, useState } from "react"
-import ActiveEventsCard from "@/event/ui/active-events-card"
-import { getUserData } from "@/common/api/get-user-data"
-import MainHeader from "@/navigation/ui/main-navigation"
-import { Footer } from "@/navigation/ui/footer"
-import UpcomingEvents from "@/event/ui/upcoming-events-card"
-
-export default function WelcomePage() {
-  const [userData, setUserData] = useState<any>()
-
-  useEffect(() => {
-    getData()
-  }, [])
-
-  const getData = async () => {
-    try {
-      const res = await getUserData()
-      setUserData(res?.data)
-    } catch (e) {
-      console.log(e)
-    }
-  }
   return (
-    <div>
-      <MainHeader />
-      <div
-        style={{
-          marginLeft: "17%",
-          marginRight: "17%",
-          paddingTop: "2%",
-          paddingBottom: "4rem"
-        }}
-        className="primaryBackGround"
-      >
-        <h1 className="text-xl pb-7">Welcome Back, {userData?.username} </h1>
-        <Divider />
-        <div className="pt-5">
-          <div className="grid grid-cols-2" style={{ gap: "70px" }}>
-            <div>
-              <h1>Courses in progress</h1>
-              <div className="pt-5">
-                <CoursesInProgressCard />
-              </div>
-            </div>
-            <div>
-              <h1>Explore courses</h1>
-              <div className="pt-5">
-                <NewCoursesCard />
-              </div>
-            </div>
-            <div>
-              <h1>Active events</h1>
-              <div className="pt-5">
-                <ActiveEventsCard />
-              </div>
-            </div>
-            <div>
-              <h1>Upcoming events</h1>
-              <div className="pt-5">
-                <UpcomingEvents />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <Footer />
-    </div>
+    <DashboardPage
+      user={user}
+      inProgressCourses={inProgressCourses}
+      courses={courses}
+      events={events}
+      futureEvents={futureEvents}
+    />
   )
 }

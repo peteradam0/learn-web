@@ -1,5 +1,5 @@
 "use client";
-import { getVideLengthInMin } from "@/common/domain/course-domain";
+import { getVideLengthInMin } from "@/common/domain/course";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 

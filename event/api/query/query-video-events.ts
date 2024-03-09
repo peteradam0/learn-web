@@ -3,7 +3,7 @@ import axios from "axios"
 import { redirect } from "next/navigation"
 import qs from "query-string"
 
-export const getVideoEvents = async () => {
+export const queryVideoEvents = async () => {
   const token = await queryToken()
   if (!token) {
     redirect("/")
@@ -26,7 +26,7 @@ export const getVideoEvents = async () => {
   return res
 }
 
-export const getActiveVideoEvents = async (token: string) => {
+export const queryActiveVideoEvents = async (token: string) => {
   const url = qs.stringifyUrl({
     url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/active`
   })
@@ -44,7 +44,7 @@ export const getActiveVideoEvents = async (token: string) => {
   return res
 }
 
-export const getUpcomingEvents = async (token: string) => {
+export const queryUpcomingEvents = async (token: string) => {
   const url = qs.stringifyUrl({
     url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/upcoming`
   })

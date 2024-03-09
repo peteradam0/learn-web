@@ -2,7 +2,7 @@
 
 import { UploadButton } from "@/common/api/uploadthing"
 import { CreateCourseProps } from "@/common/domain/types"
-import { getCourse } from "@/course/api/get-course"
+import { queryCourseData } from "@/course/api/query/query-course-data"
 import { updateChapter } from "@/course/api/update-publication"
 import { queryToken } from "@/course/api/query/get-user-token"
 import EditChapters from "@/course/ui/edit-chapters"
@@ -99,7 +99,7 @@ export default function EditCoursePage({
     }
 
     try {
-      const course = await getCourse(token, decodedId)
+      const course = await queryCourseData(token, decodedId)
       setCourseData(course?.data)
 
       setUrl(course?.data.imageUrl)

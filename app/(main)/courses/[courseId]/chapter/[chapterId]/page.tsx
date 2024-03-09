@@ -1,5 +1,5 @@
 "use client"
-import { getCourse } from "@/course/api/get-course"
+import { queryCourseData } from "@/course/api/query/query-course-data"
 import { queryToken } from "@/course/api/query/get-user-token"
 import CourseVideoPage from "@/course/ui/course-video-page"
 
@@ -34,7 +34,7 @@ export default function ChapterPageRoute({ params }: any) {
     }
 
     try {
-      const course = await getCourse(token, decodedCourseId)
+      const course = await queryCourseData(token, decodedCourseId)
       setCourseData(course?.data)
       setLoading(false)
     } catch (e) {

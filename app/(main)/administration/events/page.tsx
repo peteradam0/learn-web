@@ -1,6 +1,6 @@
 "use client"
 
-import { getVideoEvents } from "@/event/api/get-video-events"
+import { queryVideoEvents } from "@/event/api/query/query-video-events"
 import EventCard from "@/event/ui/event-card"
 import { Button, Link } from "@nextui-org/react"
 import React, { useEffect, useState } from "react"
@@ -15,7 +15,7 @@ export default function EventsPage() {
 
   const getEventData = async () => {
     try {
-      const res = await getVideoEvents()
+      const res = await queryVideoEvents()
       setEventsData(res?.data)
     } catch (e) {
       console.log(e)

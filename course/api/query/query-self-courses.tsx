@@ -1,17 +1,11 @@
-import { queryToken } from "@/course/api/query/get-user-token";
 import axios from "axios";
-import { redirect } from "next/navigation";
 import qs from "query-string";
 
-export const getUserData = async () => {
-  const token = await queryToken();
-  if (!token) {
-    redirect("/");
-  }
-
+export const querySelfCourses = async (token: string) => {
   const url = qs.stringifyUrl({
-    url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/user`,
+    url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/courses/self`,
   });
+
   let res = undefined;
   try {
     res = await axios.get(url, {
@@ -22,5 +16,6 @@ export const getUserData = async () => {
   } catch (e) {
     console.log(e);
   }
+
   return res;
 };

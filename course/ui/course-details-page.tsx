@@ -5,7 +5,7 @@ import CourseHeadline from "./course-headline"
 import CourseContent from "./course-content"
 import { queryToken } from "../api/query/get-user-token"
 import { redirect } from "next/navigation"
-import { getCourse } from "../api/get-course"
+import { queryCourseData } from "../api/query/query-course-data"
 
 export default function CourseDetailsPage(params: { courseId: string }) {
   const [courseData, setCourseData] = useState({})
@@ -24,7 +24,7 @@ export default function CourseDetailsPage(params: { courseId: string }) {
     }
 
     try {
-      const course = await getCourse(token, params.courseId)
+      const course = await queryCourseData(token, params.courseId)
       setCourseData(course?.data)
       setLoading(false)
     } catch (e) {

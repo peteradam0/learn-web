@@ -14,7 +14,7 @@ import {
 import { UserButton } from "@clerk/nextjs"
 
 import Image from "next/image"
-import { getUserData } from "@/common/api/get-user-data"
+import { queryUserData } from "@/common/api/query/query-user-data"
 
 export default function MainHeader() {
   const [userData, setUserData] = useState<any>()
@@ -28,7 +28,7 @@ export default function MainHeader() {
 
   const getData = async () => {
     try {
-      const res = await getUserData()
+      const res = await queryUserData()
       setUserData(res?.data)
     } catch (e) {
       console.log(e)

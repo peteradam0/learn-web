@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react"
 
 import { redirect } from "next/navigation"
-import { getSelfCourses } from "@/dashboard/api/get-published-courses"
+import { querySelfCourses } from "@/course/api/query/query-self-courses"
 import { SearchBar } from "@/course/ui/searchbar"
 import CourseCard from "@/course/ui/course-card"
 import { queryToken } from "@/course/api/query/get-user-token"
@@ -29,7 +29,7 @@ export default function CoursePageRoute() {
     }
 
     try {
-      const res = await getSelfCourses(token)
+      const res = await querySelfCourses(token)
       setCourseData(res?.data)
       setLoading(false)
     } catch (e) {

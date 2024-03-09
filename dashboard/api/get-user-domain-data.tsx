@@ -1,7 +1,7 @@
-import { getUserData } from "@/common/api/get-user-data"
+import { queryUserData } from "@/common/api/query/query-user-data"
 import { mapToUser } from "@/common/api/map-to-user"
 
 export const getUserDomainData = async () => {
-  const response = await getUserData()
+  const response = await queryUserData()
   return mapToUser(response?.data)
 }

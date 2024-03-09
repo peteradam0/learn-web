@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 
-import { getInProgressCourses } from "@/course/api/get-course"
+import { queryInProgressCourseData } from "@/course/api/query/query-course-data"
 import { queryToken } from "@/course/api/query/get-user-token"
 import CourseProgressCard from "@/course/ui/course-progress.card"
 import { SearchBar } from "@/course/ui/searchbar"
@@ -29,7 +29,7 @@ export default function MyCoursesPageRoute() {
     }
 
     try {
-      const res = await getInProgressCourses(token)
+      const res = await queryInProgressCourseData(token)
       setCourseData(res?.data)
       setLoading(false)
     } catch (e) {

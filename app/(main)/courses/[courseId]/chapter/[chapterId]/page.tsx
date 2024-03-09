@@ -1,6 +1,6 @@
 "use client"
 import { getCourse } from "@/course/api/get-course"
-import { getUserToken } from "@/course/domain/get-user-token"
+import { queryToken } from "@/course/api/query/get-user-token"
 import CourseVideoPage from "@/course/ui/course-video-page"
 
 import VidePlayerSidebar from "@/navigation/ui/video-player-sidebar"
@@ -27,7 +27,7 @@ export default function ChapterPageRoute({ params }: any) {
 
   const getCourseData = async () => {
     setLoading(true)
-    const token = await getUserToken()
+    const token = await queryToken()
 
     if (!token) {
       redirect("/")

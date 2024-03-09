@@ -1,7 +1,7 @@
 "use client";
 
 import { CanvasAuth } from "@/common/domain/types";
-import { getUserToken } from "@/course/domain/get-user-token";
+import { queryToken } from "@/course/api/query/get-user-token";
 import { Button, Input, Link } from "@nextui-org/react";
 import Cookies from "js-cookie";
 import { redirect, useRouter } from "next/navigation";
@@ -18,7 +18,7 @@ export default function IntegrationForm() {
   const router = useRouter();
   const [token, setToken] = useState(false);
   const processForm: SubmitHandler<CanvasAuth> = async (canvasData) => {
-    const token = await getUserToken();
+    const token = await queryToken();
 
     if (!token) {
       redirect("/");

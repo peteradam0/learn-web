@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { createCoursePartitipation } from "../api/create-course-participation"
 import { getCoursePartitipation } from "../api/get-course-participation"
-import { getUserToken } from "../domain/get-user-token"
+import { queryToken } from "../api/query/get-user-token"
 
 export default function CourseCard({ course }: any) {
   const [isLoading, setIsLoading] = useState(false)
@@ -27,7 +27,7 @@ export default function CourseCard({ course }: any) {
   }
 
   const handleEnroll = async () => {
-    const token = await getUserToken()
+    const token = await queryToken()
 
     if (token === null) {
       router.push("/")
@@ -40,7 +40,7 @@ export default function CourseCard({ course }: any) {
   }
 
   const getParticipationData = async () => {
-    const token = await getUserToken()
+    const token = await queryToken()
     if (!token) {
       router.push("/")
     } else {

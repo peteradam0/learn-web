@@ -4,7 +4,7 @@ import { Accordion, AccordionItem } from "@nextui-org/react"
 import React, { useEffect, useState } from "react"
 import VideoPlayerCard from "./video-player-card"
 import { redirect } from "next/navigation"
-import { getUserToken } from "@/course/domain/get-user-token"
+import { queryToken } from "@/course/api/query/get-user-token"
 import { getCoursePartitipation } from "@/course/api/get-course-participation"
 
 export default function VidePlayerSidebar({
@@ -21,7 +21,7 @@ export default function VidePlayerSidebar({
 
   const getParticipationData = async () => {
     setLoading(true)
-    const token = await getUserToken()
+    const token = await queryToken()
 
     if (!token) {
       redirect("/")

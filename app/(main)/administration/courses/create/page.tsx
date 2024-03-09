@@ -4,7 +4,7 @@ import { UploadButton } from "@/common/api/uploadthing"
 import { CreateCourseProps } from "@/common/domain/types"
 import { createCourse } from "@/course/api/create-course"
 import { getCourseSuggestions } from "@/course/api/get-course-suggestions"
-import { getUserToken } from "@/course/domain/get-user-token"
+import { queryToken } from "@/course/api/query/get-user-token"
 import { getOrganizations } from "@/organizations/api/get-organizations"
 import {
   Autocomplete,
@@ -63,7 +63,7 @@ export default function AddCoursePageRoute() {
   const processForm: SubmitHandler<CreateCourseProps> = async data => {
     console.log(data)
 
-    const token = await getUserToken()
+    const token = await queryToken()
 
     if (!token) {
       redirect("/")

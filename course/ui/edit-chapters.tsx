@@ -19,7 +19,7 @@ import { useState } from "react"
 import { createChapter } from "../api/create-chapter"
 import { removeChapter } from "../api/remove-chapter"
 import { updateChapter } from "../api/update-chapter"
-import { getUserToken } from "../domain/get-user-token"
+import { queryToken } from "../api/query/get-user-token"
 
 export default function EditChapters({
   courseId,
@@ -62,7 +62,7 @@ export default function EditChapters({
 
   const removeFromList = async () => {
     if (chapterId) {
-      const token = await getUserToken()
+      const token = await queryToken()
       if (!token) {
         redirect("/")
       }

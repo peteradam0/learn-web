@@ -1,12 +1,12 @@
 //canvas.docker/api/v1/courses
 
 import { redirect } from "next/navigation";
-import { getUserToken } from "../domain/get-user-token";
+import { queryToken } from "./query/get-user-token";
 import qs from "query-string";
 import axios from "axios";
 
 export const getCourseSuggestions = async (canvasToken: string) => {
-  const token = await getUserToken();
+  const token = await queryToken();
   if (!token) {
     redirect("/");
   }

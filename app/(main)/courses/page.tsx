@@ -6,7 +6,7 @@ import { redirect } from "next/navigation"
 import { getSelfCourses } from "@/dashboard/api/get-published-courses"
 import { SearchBar } from "@/course/ui/searchbar"
 import CourseCard from "@/course/ui/course-card"
-import { getUserToken } from "@/course/domain/get-user-token"
+import { queryToken } from "@/course/api/query/get-user-token"
 
 export default function CoursePageRoute() {
   const [courseData, setCourseData] = useState<any>([])
@@ -22,7 +22,7 @@ export default function CoursePageRoute() {
   }, [search])
 
   const getCourseData = async () => {
-    const token = await getUserToken()
+    const token = await queryToken()
 
     if (!token) {
       redirect("/")

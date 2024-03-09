@@ -4,7 +4,7 @@ import { UploadButton } from "@/common/api/uploadthing"
 import { CreateCourseProps } from "@/common/domain/types"
 import { getCourse } from "@/course/api/get-course"
 import { updateChapter } from "@/course/api/update-publication"
-import { getUserToken } from "@/course/domain/get-user-token"
+import { queryToken } from "@/course/api/query/get-user-token"
 import EditChapters from "@/course/ui/edit-chapters"
 import {
   Badge,
@@ -92,7 +92,7 @@ export default function EditCoursePage({
   }, [])
 
   const getCourseData = async () => {
-    const token = await getUserToken()
+    const token = await queryToken()
 
     if (!token) {
       redirect("/")

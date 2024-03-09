@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 
 import { getInProgressCourses } from "@/course/api/get-course"
-import { getUserToken } from "@/course/domain/get-user-token"
+import { queryToken } from "@/course/api/query/get-user-token"
 import CourseProgressCard from "@/course/ui/course-progress.card"
 import { SearchBar } from "@/course/ui/searchbar"
 import { redirect } from "next/navigation"
@@ -22,7 +22,7 @@ export default function MyCoursesPageRoute() {
   }, [search])
 
   const getCourseData = async () => {
-    const token = await getUserToken()
+    const token = await queryToken()
 
     if (!token) {
       redirect("/")

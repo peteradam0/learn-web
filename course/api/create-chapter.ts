@@ -1,14 +1,14 @@
 import { CreateChapterProps } from "@/common/domain/types";
 import axios from "axios";
 import qs from "query-string";
-import { getUserToken } from "../domain/get-user-token";
+import { queryToken } from "./query/get-user-token";
 import { redirect } from "next/navigation";
 
 export const createChapter = async (
   createChapterData: CreateChapterProps,
   courseId: string
 ) => {
-  const token = await getUserToken();
+  const token = await queryToken();
 
   if (!token) {
     redirect("/");

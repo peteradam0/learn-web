@@ -1,6 +1,6 @@
 "use client"
 import { getCoursePartitipation } from "@/course/api/get-course-participation"
-import { getUserToken } from "@/course/domain/get-user-token"
+import { queryToken } from "@/course/api/query/get-user-token"
 import { CardBody, Chip, Divider, Link, Progress } from "@nextui-org/react"
 import { redirect } from "next/navigation"
 import React, { useEffect, useState } from "react"
@@ -20,7 +20,7 @@ export default function CourseInProgressCardBody({
   }, [])
 
   const getCourseData = async () => {
-    const token = await getUserToken()
+    const token = await queryToken()
 
     if (!token) {
       redirect("/sign-in")

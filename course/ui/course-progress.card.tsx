@@ -10,7 +10,7 @@ import {
 } from "@nextui-org/react"
 import React, { useEffect, useState } from "react"
 import { createCoursePartitipation } from "../api/create-course-participation"
-import { getUserToken } from "../domain/get-user-token"
+import { queryToken } from "../api/query/get-user-token"
 import { useRouter } from "next/navigation"
 import { getCoursePartitipation } from "../api/get-course-participation"
 import { calculateProgressBar } from "@/dashboard/domain/calculate-progress-bar"
@@ -31,7 +31,7 @@ export default function CourseProgressCard({ course }: any) {
   }
 
   const handleEnroll = async () => {
-    const token = await getUserToken()
+    const token = await queryToken()
 
     if (token === null) {
       router.push("/")
@@ -44,7 +44,7 @@ export default function CourseProgressCard({ course }: any) {
   }
 
   const getParticipationData = async () => {
-    const token = await getUserToken()
+    const token = await queryToken()
     if (!token) {
       router.push("/")
     } else {

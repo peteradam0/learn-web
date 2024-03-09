@@ -1,4 +1,4 @@
-import { getUserToken } from "@/course/domain/get-user-token";
+import { queryToken } from "@/course/api/query/get-user-token";
 import axios from "axios";
 import { redirect } from "next/navigation";
 import qs from "query-string";
@@ -7,7 +7,7 @@ export const getOrganizationMemberSuggestions = async (
   organizationName: string,
   canvasToken: string
 ) => {
-  const token = await getUserToken();
+  const token = await queryToken();
   if (!token) {
     redirect("/");
   }

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react"
 import CourseHeadline from "./course-headline"
 import CourseContent from "./course-content"
-import { getUserToken } from "../domain/get-user-token"
+import { queryToken } from "../api/query/get-user-token"
 import { redirect } from "next/navigation"
 import { getCourse } from "../api/get-course"
 
@@ -18,7 +18,7 @@ export default function CoursePreviewPage(params: { courseId: string }) {
 
   const getCourseData = async () => {
     setLoading(true)
-    const token = await getUserToken()
+    const token = await queryToken()
 
     if (!token) {
       redirect("/")

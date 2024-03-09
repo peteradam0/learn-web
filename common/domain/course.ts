@@ -1,4 +1,4 @@
-import { getUserToken } from "@/course/domain/get-user-token"
+import { queryToken } from "@/course/api/query/get-user-token"
 import { completeChapter } from "../api/complete-course"
 import { CreateChapterProps } from "@/common/domain/types"
 
@@ -16,7 +16,7 @@ export const triggerCompleteChapter = async (
   courseId: string,
   chapterId: string
 ) => {
-  const token = await getUserToken()
+  const token = await queryToken()
 
   if (token) {
     await completeChapter(courseId, chapterId, token)

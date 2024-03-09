@@ -1,48 +1,23 @@
-"use client"
-
-import React, { useEffect, useState } from "react"
-import CourseHeadline from "./course-headline"
+import { Course } from "@/common/domain/course"
+import React from "react"
 import CourseContent from "./course-content"
-import { queryToken } from "../api/query/get-user-token"
-import { redirect } from "next/navigation"
-import { queryCourseData } from "../api/query/query-course-data"
+import CourseHeadline from "./course-headline"
 
-export default function CourseDetailsPage(params: { courseId: string }) {
-  const [courseData, setCourseData] = useState({})
-  const [isLoading, setLoading] = useState(false)
+export type CourseDetailsPageProps = {
+  course: Course | undefined
+}
 
-  useEffect(() => {
-    getCourseData()
-  }, [])
-
-  const getCourseData = async () => {
-    setLoading(true)
-    const token = await queryToken()
-
-    if (!token) {
-      redirect("/")
-    }
-
-    try {
-      const course = await queryCourseData(token, params.courseId)
-      setCourseData(course?.data)
-      setLoading(false)
-    } catch (e) {
-      console.log(e)
-      setLoading(false)
-    }
-  }
-
-  if (isLoading) return <p>Loading...</p>
-
+export const CourseDetailsPage: React.FC<CourseDetailsPageProps> = ({
+  course
+}) => {
   return (
     <>
       <div className=" p-6 backgroundPrimary flex items-center justify-center">
         <div className="container mx-auto">
-          <CourseHeadline courseData={courseData} />
+          <CourseHeadline courseData={course} />
         </div>
       </div>
-      <CourseContent courseData={courseData} />
+      <CourseContent courseData={course} />
     </>
   )
 }

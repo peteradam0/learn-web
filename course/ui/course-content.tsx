@@ -1,5 +1,3 @@
-"use client"
-
 import React from "react"
 import CourseTableOfContents from "./course-table-of-contents"
 

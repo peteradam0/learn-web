@@ -1,9 +1,7 @@
-import React from "react";
-
-import { Avatar, Chip } from "@nextui-org/react";
+import { Avatar, Chip } from "@nextui-org/react"
 
 export default function CourseHeadline(data: any) {
-  const course = data.courseData;
+  const course = data.courseData
   return (
     <div className="mb-8" style={{ marginLeft: "80px" }}>
       <h2 className="font-semibold text-xl text-white pb-1">{course.title}</h2>
@@ -14,7 +12,7 @@ export default function CourseHeadline(data: any) {
           style={{
             height: "170px",
             paddingTop: "15px",
-            width: "300px",
+            width: "300px"
           }}
         />
         <div
@@ -24,7 +22,7 @@ export default function CourseHeadline(data: any) {
           <div className="pt-1 pb-2">
             <div
               style={{
-                paddingTop: "10px",
+                paddingTop: "10px"
               }}
               className="pt-1"
             >
@@ -51,5 +49,5 @@ export default function CourseHeadline(data: any) {
         </div>
       </div>
     </div>
-  );
+  )
 }

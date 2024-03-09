@@ -1,4 +1,4 @@
-import { getCourseDomain } from "@/course/api/get-courses-domain"
+import { getCoursesDomain as getCoursesDomain } from "@/course/api/get-courses-domain"
 import { getInProgressCourseDomain } from "@/course/api/get-in-progress-courses"
 import { queryToken } from "@/course/api/query/get-user-token"
 import { getUserDomainData } from "@/dashboard/api/get-user-domain-data"
@@ -11,7 +11,7 @@ export default async function DashboardPageRoute() {
   if (!token) return
   const user = await getUserDomainData()
   const inProgressCourses = await getInProgressCourseDomain(token)
-  const courses = await getCourseDomain(token)
+  const courses = await getCoursesDomain(token)
   const events = await getActiveEventsDomain(token)
   const futureEvents = await getFutureEvents(token)
 

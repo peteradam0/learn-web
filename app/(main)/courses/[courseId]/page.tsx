@@ -2,7 +2,6 @@ import { getCourseDomain } from "@/course/api/get-course-domain"
 import { queryToken } from "@/course/api/query/get-user-token"
 import { CourseDetailsPage } from "@/course/ui/course-details-page"
 
-import React from "react"
 
 export default async function CourseDetailsPageRoute({ params }: any) {
   const { courseId } = params

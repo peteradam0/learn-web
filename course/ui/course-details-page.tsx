@@ -1,4 +1,4 @@
-import { Course } from "@/common/domain/course"
+import { Course } from "@/course/domain/course"
 import React from "react"
 import CourseContent from "./course-content"
 import CourseHeadline from "./course-headline"

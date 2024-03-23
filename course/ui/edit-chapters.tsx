@@ -3,7 +3,7 @@ import { CreateChapterProps } from "@/common/domain/types"
 import { SubmitHandler, useForm } from "react-hook-form"
 
 import { UploadButton } from "@/common/api/uploadthing"
-import { getVideLengthInMin } from "@/common/domain/course"
+import { getVideLengthInMin } from "@/course/domain/course"
 import {
   Badge,
   Button,

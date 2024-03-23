@@ -5,11 +5,11 @@ import CourseCard from "@/course/ui/course-card"
 import { SearchBar } from "@/course/ui/searchbar"
 import React, { useState } from "react"
 
-export type CourseDetailsPageProps = {
+export type CoursesPageProps = {
   courses: CourseData[] | undefined
 }
 
-export const CourseDetailsPage: React.FC<CourseDetailsPageProps> = ({
+export const CoursesPage: React.FC<CoursesPageProps> = ({
   courses
 }) => {
   const [search, setSerach] = useState("")

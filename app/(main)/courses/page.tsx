@@ -1,6 +1,6 @@
 import { getCoursesDomain } from "@/course/api/get-courses-domain"
 import { queryToken } from "@/course/api/query/get-user-token"
-import { CoursePage } from "@/course/ui/course-page"
+import { CoursesPage } from "@/course/ui/courses-page"
 
 export default async function CoursePageRoute() {
   const token = await queryToken()
@@ -9,7 +9,7 @@ export default async function CoursePageRoute() {
 
   return (
     <>
-      <CoursePage courses={courses} />
+      <CoursesPage courses={courses} />
     </>
   )
 }

@@ -1,5 +1,5 @@
 import { queryToken } from "@/course/api/query/get-user-token"
-import { completeChapter } from "../api/complete-course"
+import { completeChapter } from "../../common/api/complete-course"
 import { CreateChapterProps } from "@/common/domain/types"
 
 export const getVideLengthInMin = (videoId: string): string => {

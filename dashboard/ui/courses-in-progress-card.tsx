@@ -1,4 +1,4 @@
-import { Course } from "@/common/domain/course"
+import { Course } from "@/course/domain/course"
 import { Card, CardFooter, CardHeader, Link } from "@nextui-org/react"
 import CourseInProgressCardBody from "./course-in-progres-card-body"
 

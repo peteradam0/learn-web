@@ -1,6 +1,6 @@
 "use client";
 import "next-cloudinary/dist/cld-video-player.css";
-import { triggerCompleteChapter } from "@/common/domain/course";
+import { triggerCompleteChapter } from "@/course/domain/course";
 
 export default function CourseVideoPage({
   videoUrl,

@@ -1,62 +1,31 @@
-"use client"
-import { queryCourseData } from "@/course/api/query/query-course-data"
 import { queryToken } from "@/course/api/query/get-user-token"
 import CourseVideoPage from "@/course/ui/course-video-page"
 
+import { getCourse } from "@/course/api/get-course"
+import { getCurrentVideoUrl } from "@/course/domain/course"
 import VidePlayerSidebar from "@/navigation/ui/video-player-sidebar"
-import { redirect } from "next/navigation"
-import React, { useEffect, useState } from "react"
 
-export default function ChapterPageRoute({ params }: any) {
-  const [loading, setLoading] = useState(false)
-  const [courseData, setCourseData] = useState<any>({})
+export default async function ChapterPageRoute({ params }: any) {
   const { courseId, chapterId } = params
 
-  const decodedCourseId = atob(courseId)
-  const decodedChapterId = atob(chapterId)
-  const getCurrentVideoUrl = (courseData: any, chapterId: string) => {
-    const currentChapter = courseData?.chapterData?.find((chapter: any) => {
-      return chapter.id === chapterId
-    })
-    return currentChapter?.videoUrl
-  }
-
-  useEffect(() => {
-    getCourseData()
-  }, [])
-
-  const getCourseData = async () => {
-    setLoading(true)
-    const token = await queryToken()
-
-    if (!token) {
-      redirect("/")
-    }
-
-    try {
-      const course = await queryCourseData(token, decodedCourseId)
-      setCourseData(course?.data)
-      setLoading(false)
-    } catch (e) {
-      console.log(e)
-      setLoading(false)
-    }
-  }
-
-  if (loading) return <p>Loading...</p>
+  const token = await queryToken()
+  if (!token) return
+  const course = await getCourse(token, atob(courseId))
+  if (!course || !course?.chapterData) return
+  const url = getCurrentVideoUrl(course?.chapterData, atob(chapterId))?.videoUrl
 
   return (
     <div>
       <VidePlayerSidebar
-        currentChapterId={decodedChapterId}
-        chapterData={courseData.chapterData}
-        courseId={decodedCourseId}
+        currentChapterId={courseId}
+        chapterData={course?.chapterData}
+        courseId={courseId}
       />
       <div style={{ marginLeft: "20%" }}>
         <CourseVideoPage
-          chapterId={decodedChapterId}
-          courseId={decodedCourseId}
-          videoUrl={getCurrentVideoUrl(courseData, decodedChapterId)}
+          chapterId={courseId}
+          courseId={courseId}
+          videoUrl={url}
         />
       </div>
     </div>

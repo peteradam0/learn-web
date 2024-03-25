@@ -1,6 +1,5 @@
 import { queryToken } from "@/course/api/query/get-user-token"
 import { completeChapter } from "../../common/api/complete-course"
-import { CreateChapterProps } from "@/common/domain/types"
 
 export const getVideLengthInMin = (videoId: string): string => {
   const v: any = document.getElementById(videoId)
@@ -23,6 +22,9 @@ export const triggerCompleteChapter = async (
   }
 }
 
+export const getCurrentVideoUrl = (chapters: Chapter[], chapterId: string) =>
+  chapters.find((chapter: any) => chapter.id === chapterId)
+
 function secondsToMinutesAndSeconds(totalSeconds: number): string {
   var minutes = Math.floor(totalSeconds / 60)
   var seconds = Math.floor(totalSeconds % 60)
@@ -37,5 +39,12 @@ export type Course = {
   category: string
   createdAt: string
   videoUrl: string
-  chapters: CreateChapterProps[]
+  chapterData: Chapter[]
+}
+
+export type Chapter = {
+  title: string
+  description: string
+  videoUrl: string
+  videoDuration: string
 }

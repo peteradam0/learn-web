@@ -1,5 +1,5 @@
-"use client";
-import { useClerk } from "@clerk/nextjs";
+"use client"
+import { updateUserRole } from "@/users/api/users/user-update-role"
 import {
   Button,
   Modal,
@@ -7,29 +7,48 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-} from "@nextui-org/react";
-import { useRouter } from "next/navigation";
+  Select,
+  SelectItem
+} from "@nextui-org/react"
 
+import { useState } from "react"
 
 export default function UserEditModal({
   isOpen,
   onOpenChange,
   modalVersion,
+  userId
 }: any) {
-  const { signOut } = useClerk();
-  const router = useRouter();
+  const [role, setRole] = useState()
+
   return (
     <div>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
-          {(onClose) => (
+          {onClose => (
             <>
               {modalVersion}
               <ModalHeader className="flex flex-col gap-1">
-                Edit user
+                Modify user role
               </ModalHeader>
               <ModalBody>
-                <p>Edit user data.</p>
+                <p>
+                  Edit user data.Lorem ipsum dolor sit amet, consectetur
+                  adipisicing elit, sed do eiusmod tempor incididunt ut labore
+                  et dolore magna aliqua.
+                </p>
+                <Select
+                  label="User role"
+                  placeholder="Select a role"
+                  className="max-w-xs"
+                >
+                  <SelectItem value="ADMIN" key={"1"}>
+                    ADMIN
+                  </SelectItem>
+                  <SelectItem value="CONSUMER" key={"2"}>
+                    CONSUMER
+                  </SelectItem>
+                </Select>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
@@ -38,7 +57,7 @@ export default function UserEditModal({
 
                 <Button
                   color="success"
-                  onClick={() => signOut(() => router.push("/sign-up"))}
+                  onClick={() => updateUserRole(userId, role)}
                 >
                   Save
                 </Button>
@@ -48,5 +67,5 @@ export default function UserEditModal({
         </ModalContent>
       </Modal>
     </div>
-  );
+  )
 }

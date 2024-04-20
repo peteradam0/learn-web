@@ -15,9 +15,10 @@ import {
 import React, { useEffect, useState } from "react"
 
 import { getOrganizationMemberData } from "@/users/api/organizations/create-organization"
-import { columns, statusColorMap } from "@/users/domain/organization"
+import { columns } from "@/users/domain/organization"
 import OrganizationMemberModal from "@/users/ui/organizations/organization-member-modal"
 import { Icon } from "@iconify/react/dist/iconify.js"
+import { roleColorsMap } from "@/users/domain/users"
 
 export default function OrganizationPageRoute({ params }: any) {
   const { organizationName } = params
@@ -62,7 +63,7 @@ export default function OrganizationPageRoute({ params }: any) {
         return (
           <Chip
             className="capitalize"
-            color={statusColorMap[user.userRole]}
+            color={roleColorsMap[user.userRole]}
             size="sm"
             variant="flat"
           >

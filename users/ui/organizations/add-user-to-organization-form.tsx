@@ -8,10 +8,10 @@ import {
 } from "@nextui-org/react"
 
 import { SubmitHandler, useForm } from "react-hook-form"
-import { sendOrganizationMemberInvite } from "../api/create-organization"
-import { OrganizationMember } from "../domain/organization"
+import { sendOrganizationMemberInvite } from "../../api/organizations/create-organization"
+import { OrganizationMember } from "../../domain/organization"
 import { useEffect, useState } from "react"
-import { getOrganizationMemberSuggestions } from "../api/get-suggested-users"
+import { getOrganizationMemberSuggestions } from "../../api/organizations/get-suggested-users"
 import Cookies from "js-cookie"
 
 export default function AddUserToOrganizationForm({

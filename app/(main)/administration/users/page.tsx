@@ -14,8 +14,8 @@ import {
 } from "@nextui-org/react"
 import React, { useEffect, useState } from "react"
 
-import { getUsers } from "@/users/api/getUsers"
-import UsersModal from "@/users/ui/users-modal"
+import { getUsers } from "@/users/api/users/getUsers"
+import UsersModal from "@/users/ui/users/users-modal"
 import { Icon } from "@iconify/react/dist/iconify.js"
 import { UserRole } from "@/common/domain/user"
 

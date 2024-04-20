@@ -9,7 +9,7 @@ import {
 } from "@nextui-org/react"
 
 import React from "react"
-import { deleteOrganization } from "../api/delete-organizations"
+import { deleteOrganization } from "../../api/organizations/delete-organizations"
 
 export default function OrganizationDeleteModal({
   isOpen,

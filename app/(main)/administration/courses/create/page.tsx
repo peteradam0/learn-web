@@ -5,7 +5,7 @@ import { CreateCourseProps } from "@/common/domain/types"
 import { createCourse } from "@/course/api/create-course"
 import { getCourseSuggestions } from "@/course/api/get-course-suggestions"
 import { queryToken } from "@/course/api/query/get-user-token"
-import { getOrganizations } from "@/organizations/api/get-organizations"
+import { getOrganizations } from "@/users/api/organizations/get-organizations"
 import {
   Autocomplete,
   AutocompleteItem,

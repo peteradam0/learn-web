@@ -14,9 +14,9 @@ import {
 } from "@nextui-org/react"
 import React, { useEffect, useState } from "react"
 
-import { getOrganizationMemberData } from "@/organizations/api/create-organization"
-import { columns, statusColorMap } from "@/organizations/domain/organization"
-import OrganizationMemberModal from "@/organizations/ui/organization-member-modal"
+import { getOrganizationMemberData } from "@/users/api/organizations/create-organization"
+import { columns, statusColorMap } from "@/users/domain/organization"
+import OrganizationMemberModal from "@/users/ui/organizations/organization-member-modal"
 import { Icon } from "@iconify/react/dist/iconify.js"
 
 export default function OrganizationPageRoute({ params }: any) {

@@ -4,8 +4,8 @@ import { UploadButton } from "@/common/api/uploadthing"
 import { Badge, Button, Input, Image } from "@nextui-org/react"
 import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { createOrganization } from "../api/create-organization"
-import { Organization } from "@/organizations/domain/organization"
+import { createOrganization } from "../../api/organizations/create-organization"
+import { Organization } from "@/users/domain/organization"
 
 export default function CreateOrganizationForm({ onClose }: any) {
   const [url, setUrl] = useState("")

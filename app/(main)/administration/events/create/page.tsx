@@ -16,12 +16,12 @@ import {
 
 import { useForm } from "react-hook-form"
 
-import { getOrganizations } from "@/organizations/api/get-organizations"
+import { getOrganizations } from "@/users/api/organizations/get-organizations"
 
 import { EventFormProps } from "@/event/domain/event"
 import UserListBox from "@/event/ui/user-listbox"
-import { getUsers } from "@/users/api/getUsers"
-import { getOrganizationMemberData } from "@/organizations/api/create-organization"
+import { getUsers } from "@/users/api/users/getUsers"
+import { getOrganizationMemberData } from "@/users/api/organizations/create-organization"
 import { createVideoEvent } from "@/event/api/create-event"
 import { useRouter } from "next/navigation"
 import { UploadButton } from "@/common/api/uploadthing"

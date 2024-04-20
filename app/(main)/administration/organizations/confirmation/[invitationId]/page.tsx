@@ -1,6 +1,6 @@
 "use client"
 
-import { confirmInvite } from "@/organizations/api/create-organization"
+import { confirmInvite } from "@/users/api/organizations/create-organization"
 import { useRouter } from "next/router"
 import React, { useEffect, useState } from "react"
 

@@ -15,8 +15,8 @@ import React, { useEffect, useState } from "react"
 
 import { Icon } from "@iconify/react/dist/iconify.js"
 
-import { getOrganizations } from "@/organizations/api/get-organizations"
-import OrganizationModal from "@/organizations/ui/organization-modal"
+import { getOrganizations } from "@/users/api/organizations/get-organizations"
+import OrganizationModal from "@/users/ui/organizations/organization-modal"
 import Cookies from "js-cookie"
 import { useRouter, useSearchParams } from "next/navigation"
 import IntegrationForm from "@/canvaslms/ui/integration-form"

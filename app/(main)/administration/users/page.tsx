@@ -17,11 +17,11 @@ import React, { useEffect, useState } from "react"
 import { getUsers } from "@/users/api/getUsers"
 import UsersModal from "@/users/ui/users-modal"
 import { Icon } from "@iconify/react/dist/iconify.js"
+import { UserRole } from "@/common/domain/user"
 
-const statusColorMap: any = {
-  CUSTOMER: "success",
-  ADMIN: "danger",
-  TEACHER: "warning"
+const roleColorsMap: any = {
+  [UserRole.ADMIN]: "danger",
+  [UserRole.CONSUMER]: "success"
 }
 
 const columns = [
@@ -42,7 +42,6 @@ export default function UserPageRoute() {
     setUserId(userId)
     onOpen()
   }
-
   useEffect(() => {
     getCourseData()
   }, [])
@@ -72,7 +71,7 @@ export default function UserPageRoute() {
         return (
           <Chip
             className="capitalize"
-            color={statusColorMap[user.userRole]}
+            color={roleColorsMap[user.userRole]}
             size="sm"
             variant="flat"
           >

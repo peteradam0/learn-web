@@ -1,9 +1,7 @@
-import { CreateChapterProps } from "@/common/domain/types"
-
 import { SubmitHandler, useForm } from "react-hook-form"
 
 import { UploadButton } from "@/common/api/uploadthing"
-import { getVideLengthInMin } from "@/course/domain/course"
+import { Chapter, getVideLengthInMin } from "@/course/domain/course"
 import {
   Badge,
   Button,
@@ -77,7 +75,7 @@ export default function EditChapters({
     handleSubmit,
     reset,
     formState: { errors }
-  } = useForm<CreateChapterProps>({})
+  } = useForm<Chapter>({})
 
   return (
     <>

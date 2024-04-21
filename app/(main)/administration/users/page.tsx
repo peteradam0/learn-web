@@ -17,7 +17,7 @@ import React, { useEffect, useState } from "react"
 import { getUsers } from "@/users/api/users/getUsers"
 import UsersModal from "@/users/ui/users/users-modal"
 import { Icon } from "@iconify/react/dist/iconify.js"
-import { UserRole } from "@/common/domain/user"
+
 import { roleColorsMap } from "@/users/domain/users"
 
 const columns = [

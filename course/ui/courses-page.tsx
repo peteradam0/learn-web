@@ -1,17 +1,15 @@
 "use client"
 
-import { CourseData } from "@/common/domain/types"
+import { Course } from "@/course/domain/course"
 import CourseCard from "@/course/ui/course-card"
 import { SearchBar } from "@/course/ui/searchbar"
 import React, { useState } from "react"
 
 export type CoursesPageProps = {
-  courses: CourseData[] | undefined
+  courses: Course[] | undefined
 }
 
-export const CoursesPage: React.FC<CoursesPageProps> = ({
-  courses
-}) => {
+export const CoursesPage: React.FC<CoursesPageProps> = ({ courses }) => {
   const [search, setSerach] = useState("")
 
   return (

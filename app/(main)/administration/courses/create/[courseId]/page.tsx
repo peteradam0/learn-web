@@ -20,11 +20,11 @@ import {
   cn
 } from "@nextui-org/react"
 
-import { redirect } from "next/navigation"
-import { useRouter } from "next/router"
+import { redirect, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { UUID } from "uuid-generator-ts"
+import { updateCourse } from "@/course/api/query/update-course"
 
 type EditCourseFormData = {
   title: string

@@ -1,6 +1,6 @@
 import axios from "axios";
 import qs from "query-string";
-import { queryToken } from "./query/get-user-token";
+import { queryToken } from "../../common/api/query/get-user-token";
 import { redirect } from "next/navigation";
 
 export const updateChapter = async (

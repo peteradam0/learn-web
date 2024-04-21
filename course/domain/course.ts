@@ -1,4 +1,4 @@
-import { queryToken } from "@/course/api/query/get-user-token"
+import { queryToken } from "@/common/api/query/get-user-token"
 import { completeChapter } from "../../common/api/complete-course"
 
 export const getVideLengthInMin = (videoId: string): string => {

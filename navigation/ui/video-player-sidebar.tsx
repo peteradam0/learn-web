@@ -4,7 +4,7 @@ import { Accordion, AccordionItem } from "@nextui-org/react"
 import React, { useEffect, useState } from "react"
 import VideoPlayerCard from "./video-player-card"
 import { redirect } from "next/navigation"
-import { queryToken } from "@/course/api/query/get-user-token"
+import { queryToken } from "@/common/api/query/get-user-token"
 import { getCoursePartitipation } from "@/course/api/get-course-participation"
 
 export default function VidePlayerSidebar({

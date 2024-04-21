@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 
 import { queryInProgressCourseData } from "@/course/api/query/query-course-data"
-import { queryToken } from "@/course/api/query/get-user-token"
+import { queryToken } from "@/common/api/query/get-user-token"
 import CourseProgressCard from "@/course/ui/course-progress.card"
 import { SearchBar } from "@/course/ui/searchbar"
 import { redirect } from "next/navigation"

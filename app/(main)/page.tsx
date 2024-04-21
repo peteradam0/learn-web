@@ -1,6 +1,6 @@
 import { getCoursesDomain } from "@/course/api/get-courses-domain"
 import { getInProgressCourseDomain } from "@/course/api/get-in-progress-courses"
-import { queryToken } from "@/course/api/query/get-user-token"
+import { queryToken } from "@/common/api/query/get-user-token"
 import { getUserDomainData } from "@/dashboard/api/get-user-domain-data"
 import { AllCoursesCard } from "@/dashboard/ui/all-courses-card"
 import { CoursesInProgressCard } from "@/dashboard/ui/courses-in-progress-card"

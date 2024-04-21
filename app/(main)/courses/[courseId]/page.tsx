@@ -1,5 +1,5 @@
 import { getCourse } from "@/course/api/get-course"
-import { queryToken } from "@/course/api/query/get-user-token"
+import { queryToken } from "@/common/api/query/get-user-token"
 import { CourseDetailsPage } from "@/course/ui/course-details-page"
 
 export default async function CourseDetailsPageRoute({ params }: any) {

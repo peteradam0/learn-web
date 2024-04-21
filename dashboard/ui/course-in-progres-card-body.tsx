@@ -1,6 +1,6 @@
 "use client"
 import { getCoursePartitipation } from "@/course/api/get-course-participation"
-import { queryToken } from "@/course/api/query/get-user-token"
+import { queryToken } from "@/common/api/query/get-user-token"
 import { CardBody, Chip, Divider, Link, Progress } from "@nextui-org/react"
 import { redirect } from "next/navigation"
 import React, { useEffect, useState } from "react"

@@ -2,9 +2,9 @@
 
 import { UploadButton } from "@/common/api/uploadthing"
 
-import { createCourse } from "@/course/api/create-course"
+import { createCourse } from "@/course/api/query/create-course"
 import { getCourseSuggestions } from "@/course/api/get-course-suggestions"
-import { queryToken } from "@/course/api/query/get-user-token"
+import { queryToken } from "@/common/api/query/get-user-token"
 import { getOrganizations } from "@/users/api/organizations/get-organizations"
 import {
   Autocomplete,
@@ -70,8 +70,6 @@ export default function AddCoursePageRoute() {
   }
 
   const processForm: SubmitHandler<CreateCourseFormData> = async data => {
-    console.log(data)
-
     const token = await queryToken()
 
     if (!token) {

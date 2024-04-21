@@ -10,7 +10,7 @@ import {
 } from "@nextui-org/react"
 import React, { useEffect, useState } from "react"
 import { createCoursePartitipation } from "../api/create-course-participation"
-import { queryToken } from "../api/query/get-user-token"
+import { queryToken } from "../../common/api/query/get-user-token"
 import { useRouter } from "next/navigation"
 import { getCoursePartitipation } from "../api/get-course-participation"
 import { calculateProgressBar } from "@/dashboard/domain/calculate-progress-bar"

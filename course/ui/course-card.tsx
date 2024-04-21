@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { createCoursePartitipation } from "../api/create-course-participation"
 import { getCoursePartitipation } from "../api/get-course-participation"
-import { queryToken } from "../api/query/get-user-token"
+import { queryToken } from "../../common/api/query/get-user-token"
 
 export default function CourseCard({ course }: any) {
   const [isLoading, setIsLoading] = useState(false)

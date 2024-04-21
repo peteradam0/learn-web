@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react"
 import CourseHeadline from "./course-headline"
 import CourseContent from "./course-content"
-import { queryToken } from "../api/query/get-user-token"
+import { queryToken } from "../../common/api/query/get-user-token"
 import { redirect } from "next/navigation"
 import { queryCourseData } from "../api/query/query-course-data"
 

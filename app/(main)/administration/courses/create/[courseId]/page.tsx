@@ -1,7 +1,7 @@
 "use client"
 
 import { UploadButton } from "@/common/api/uploadthing"
-import { queryToken } from "@/course/api/query/get-user-token"
+import { queryToken } from "@/common/api/query/get-user-token"
 import { queryCourseData } from "@/course/api/query/query-course-data"
 import { updateChapter } from "@/course/api/update-publication"
 import EditChapters from "@/course/ui/edit-chapters"
@@ -21,6 +21,7 @@ import {
 } from "@nextui-org/react"
 
 import { redirect } from "next/navigation"
+import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { UUID } from "uuid-generator-ts"
@@ -46,6 +47,7 @@ export default function EditCoursePage({
   const [category, setCategory] = useState("Frontend")
   const [chapterList, setChapterList] = useState([] as any)
   const [publish, setIsPublished] = useState(false)
+  const router = useRouter()
 
   const handleAddChapterClick = () => {
     const uuid = new UUID()
@@ -91,7 +93,28 @@ export default function EditCoursePage({
   }
 
   const processForm: SubmitHandler<EditCourseFormData> = async data => {
-    //TODO: implement me
+    const token = await queryToken()
+
+    if (!token) {
+      redirect("/")
+    }
+    try {
+      await updateCourse(
+        {
+          title: data.title,
+          description: data.description,
+          category: data.category,
+          imageUrl: url,
+          videoUrl: videoUrl,
+          organization: data.organization
+        },
+        token
+      )
+      reset()
+      router.push(`/administration/courses/`)
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   useEffect(() => {
@@ -126,6 +149,7 @@ export default function EditCoursePage({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm<EditCourseFormData>({})
 

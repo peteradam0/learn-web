@@ -4,7 +4,7 @@ import { Button, Link } from "@nextui-org/react"
 import { useEffect, useState } from "react"
 
 import { getCoursesForUser } from "@/course/api/get-courses-user"
-import { queryToken } from "@/course/api/query/get-user-token"
+import { queryToken } from "@/common/api/query/get-user-token"
 import MyCourseCreateCard from "@/course/ui/my-course-create-card"
 import { redirect } from "next/navigation"
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { CanvasAuth } from "@/common/domain/types";
-import { queryToken } from "@/course/api/query/get-user-token";
+import { queryToken } from "@/common/api/query/get-user-token";
 import { Button, Input, Link } from "@nextui-org/react";
 import Cookies from "js-cookie";
 import { redirect, useRouter } from "next/navigation";

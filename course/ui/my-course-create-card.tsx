@@ -1,17 +1,17 @@
-"use client";
+"use client"
 
-import { Button, Card, Chip } from "@nextui-org/react";
-import { useRouter } from "next/navigation";
+import { Button, Card, Chip } from "@nextui-org/react"
+import { useRouter } from "next/navigation"
 
 export default function MyCourseCreateCard({ course }: any) {
-  const router = useRouter();
+  const router = useRouter()
 
   const handleRedirect = (courseId: string) => {
-    router.push(`/administration/courses/create/${btoa(courseId)}`);
-  };
+    router.push(`/administration/courses/create/${btoa(courseId)}`)
+  }
   const handleRedirectToPreview = (courseId: string) => {
-    router.push(`/administration/courses/preview/${btoa(courseId)}`);
-  };
+    router.push(`/administration/courses/preview/${btoa(courseId)}`)
+  }
 
   return (
     <Card style={{ background: "#12181f", border: "solid #494949 0.0006em" }}>
@@ -26,9 +26,9 @@ export default function MyCourseCreateCard({ course }: any) {
                     src={course.imageUrl}
                     alt="waves"
                     style={{
-                      height: "150px",
+                      height: "120px",
                       paddingTop: "15px",
-                      width: "200px",
+                      width: "200px"
                     }}
                   />
                 </div>
@@ -50,7 +50,7 @@ export default function MyCourseCreateCard({ course }: any) {
                   </div>
                   <p
                     style={{ paddingTop: "15px", paddingBottom: "15px" }}
-                    className="mb-12 text-gray-600"
+                    className="mb-12 text-gray-600 text-sm"
                   >
                     {course.description}
                   </p>
@@ -79,5 +79,5 @@ export default function MyCourseCreateCard({ course }: any) {
         </div>
       </div>
     </Card>
-  );
+  )
 }

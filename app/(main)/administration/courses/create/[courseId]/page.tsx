@@ -207,7 +207,7 @@ export default function EditCoursePage({
                 <div className="p-1 md:col-span-5">
                   <h3 className="text-default-500 text-small pb-1">
                     The first thing that you will have to specify is the name of
-                    the course
+                    the course.
                   </h3>
                   <Input
                     label="Title"
@@ -227,7 +227,7 @@ export default function EditCoursePage({
                 </div>
                 <div className="p-1 md:col-span-5 pt-1">
                   <h3 className="text-default-500 text-small pb-1">
-                    Please enter the description of the course
+                    Please enter the description of the course.
                   </h3>
                   <Textarea
                     className="pt-1"
@@ -246,7 +246,7 @@ export default function EditCoursePage({
                 </div>
                 <div className="p-1 md:col-span-5">
                   <h3 className="text-default-500 text-small pb-1">
-                    Please select the course category
+                    Please select the course category.
                   </h3>
                   <div className="pt-1">
                     <Dropdown backdrop="blur">
@@ -283,7 +283,7 @@ export default function EditCoursePage({
 
                 <div className="p-1 md:col-span-5 ">
                   <h3 className="text-default-500 text-small pb-1">
-                    Please upload the thumbnail image of the course
+                    Please upload the thumbnail image of the course.
                   </h3>
                   {url === "" && errors.imageUrl?.message && (
                     <p className="text-sm text-red-400">
@@ -336,7 +336,7 @@ export default function EditCoursePage({
                 </div>
                 <div className="p-1 md:col-span-5 ">
                   <h3 className="text-default-500 text-small pb-1">
-                    Please upload the preview video of the course
+                    Please upload the preview video of the course.
                   </h3>
                   {videoUrl === "" && errors.videoUrl?.message && (
                     <p className="text-sm text-red-400">

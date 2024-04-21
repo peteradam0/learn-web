@@ -1,7 +1,7 @@
 "use client"
 
 import { UploadButton } from "@/common/api/uploadthing"
-import { CreateCourseProps } from "@/common/domain/types"
+
 import { createCourse } from "@/course/api/create-course"
 import { getCourseSuggestions } from "@/course/api/get-course-suggestions"
 import { queryToken } from "@/course/api/query/get-user-token"
@@ -26,6 +26,15 @@ import Cookies from "js-cookie"
 import { redirect, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
+
+type CreateCourseFormData = {
+  title: string
+  description: string
+  imageUrl: string
+  category: string
+  videoUrl: string
+  organization: string
+}
 
 export default function AddCoursePageRoute() {
   const [url, setUrl] = useState("")
@@ -60,7 +69,7 @@ export default function AddCoursePageRoute() {
     setLoading(false)
   }
 
-  const processForm: SubmitHandler<CreateCourseProps> = async data => {
+  const processForm: SubmitHandler<CreateCourseFormData> = async data => {
     console.log(data)
 
     const token = await queryToken()
@@ -93,7 +102,7 @@ export default function AddCoursePageRoute() {
     handleSubmit,
     reset,
     formState: { errors }
-  } = useForm<CreateCourseProps>({
+  } = useForm<CreateCourseFormData>({
     defaultValues: {
       title: "",
       description: "",

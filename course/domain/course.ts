@@ -48,3 +48,4 @@ export type Chapter = {
   videoUrl: string
   videoDuration: string
 }
+

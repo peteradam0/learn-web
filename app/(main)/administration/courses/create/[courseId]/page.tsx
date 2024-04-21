@@ -1,10 +1,9 @@
 "use client"
 
 import { UploadButton } from "@/common/api/uploadthing"
-import { CreateCourseProps } from "@/common/domain/types"
+import { queryToken } from "@/course/api/query/get-user-token"
 import { queryCourseData } from "@/course/api/query/query-course-data"
 import { updateChapter } from "@/course/api/update-publication"
-import { queryToken } from "@/course/api/query/get-user-token"
 import EditChapters from "@/course/ui/edit-chapters"
 import {
   Badge,
@@ -26,6 +25,14 @@ import { useEffect, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { UUID } from "uuid-generator-ts"
 
+type EditCourseFormData = {
+  title: string
+  description: string
+  imageUrl: string
+  category: string
+  videoUrl: string
+  organization: string
+}
 export default function EditCoursePage({
   params
 }: {
@@ -83,8 +90,8 @@ export default function EditCoursePage({
     setIsPublished(!publish)
   }
 
-  const processForm: SubmitHandler<CreateCourseProps> = async data => {
-    //TODO: update course
+  const processForm: SubmitHandler<EditCourseFormData> = async data => {
+    //TODO: implement me
   }
 
   useEffect(() => {
@@ -120,7 +127,7 @@ export default function EditCoursePage({
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<CreateCourseProps>({})
+  } = useForm<EditCourseFormData>({})
 
   if (isLoading) return <p>Loading...</p>
   return (

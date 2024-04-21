@@ -118,9 +118,7 @@ export default function OrganizationsPageRoute() {
         className="container max-w-screen-lg mx-auto p-6"
         style={{ background: "#12181f", border: "solid #494949 0.0006em" }}
       >
-        <h1 className="font-semibold text-xl text-white">
-          Manage Organizations
-        </h1>
+        <h1 className="font-semibold text-xl text-white">Manage User groups</h1>
         <p className="text-gray-400 mb-4">
           ed ut perspiciatis unde omnis iste natus error sit voluptatem
           accusantium doloremque laudantium.
@@ -148,7 +146,7 @@ export default function OrganizationsPageRoute() {
             </div>
             <div className="flex justify-between items-center">
               <span className="text-default-400 text-small pb-2">
-                Total {organizationsData?.length} organizations
+                Total {organizationsData?.length} user groups
               </span>
             </div>
           </div>

@@ -37,7 +37,7 @@ export default function MyCoursePage() {
   return (
     <div className="min-h-screen p-6 primaryColor flex items-center justify-center">
       <div className="container max-w-screen-lg mx-auto">
-        <h2 className="font-semibold text-xl text-white pb-1">MyCourses</h2>
+        <h2 className="font-semibold text-xl text-white pb-1">Courses</h2>
         <p className="text-white mb-6">
           ed ut perspiciatis unde omnis iste natus error sit voluptatem
           accusantium doloremque laudantium.

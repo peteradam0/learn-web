@@ -79,7 +79,10 @@ export default function CourseCard({ course }: any) {
                   }}
                 />
               </div>
-              <p className="mb-12 text-gray-600" style={{ paddingTop: "5%" }}>
+              <p
+                className="mb-12 text-gray-600 text-sm"
+                style={{ paddingTop: "5%" }}
+              >
                 {course.description}
               </p>
             </CardBody>

@@ -10,7 +10,6 @@ export default function CourseContent(data: any) {
   return (
     <div
       style={{
-        marginLeft: "105px",
         paddingTop: "50px"
       }}
     >

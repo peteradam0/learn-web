@@ -3,7 +3,7 @@ import { Avatar, Chip } from "@nextui-org/react"
 export default function CourseHeadline(data: any) {
   const course = data.courseData
   return (
-    <div className="mb-8" style={{ marginLeft: "80px" }}>
+    <div>
       <h2 className="font-semibold text-xl text-white pb-1">{course.title}</h2>
       <div className="text-sm text-white flex items-center">
         <img

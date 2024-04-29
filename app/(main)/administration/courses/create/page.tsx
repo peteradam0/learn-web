@@ -2,9 +2,9 @@
 
 import { UploadButton } from "@/common/api/uploadthing"
 
-import { createCourse } from "@/course/api/query/create-course"
-import { getCourseSuggestions } from "@/course/api/get-course-suggestions"
 import { queryToken } from "@/common/api/query/get-user-token"
+import { getCourseSuggestions } from "@/course/api/get-course-suggestions"
+import { createCourse } from "@/course/api/query/create-course"
 import { getOrganizations } from "@/users/api/organizations/get-organizations"
 import {
   Autocomplete,
@@ -40,7 +40,7 @@ export default function AddCoursePageRoute() {
   const [url, setUrl] = useState("")
   const [videoUrl, setVideoUrl] = useState("")
   const [category, setCategory] = useState("Frontend")
-  const [organizationData, setOrganizationData] = useState([])
+  const [organizationData, setOrganizationData] = useState([{ name: "Public" }])
   const [courseSuggestions, setCourseSuggestions] = useState()
   const [token, setToken] = useState(false)
 
@@ -64,8 +64,9 @@ export default function AddCoursePageRoute() {
   const getOrganizationData = async () => {
     setLoading(true)
     const res = await getOrganizations()
-
-    setOrganizationData(res?.data)
+    const data: any[] = res?.data
+    data.push({ name: "Public" })
+    setOrganizationData(data)
     setLoading(false)
   }
 

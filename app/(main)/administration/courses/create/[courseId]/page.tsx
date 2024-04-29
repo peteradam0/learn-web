@@ -25,6 +25,7 @@ import { useEffect, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { UUID } from "uuid-generator-ts"
 import { updateCourse } from "@/course/api/query/update-course"
+import { removeCourse } from "@/course/api/query/remove-course"
 
 type EditCourseFormData = {
   title: string
@@ -85,6 +86,11 @@ export default function EditCoursePage({
 
   const handleRemoveChapter = () => {
     setChapterList(chapterList)
+  }
+
+  const handleRemoveCourse = async (courseId: string) => {
+    await removeCourse(courseId)
+    router.push("/administration/courses")
   }
 
   const handlePublication = async () => {
@@ -197,6 +203,20 @@ export default function EditCoursePage({
                     </p>
                   </div>
                 </Switch>
+              </div>
+              <div className="text-gray-400">
+                <p className="p-1">
+                  By pressing the delete button the course will be removed
+                </p>
+                <div className="pt-2">
+                  <Button
+                    color="danger"
+                    size="sm"
+                    onClick={() => handleRemoveCourse(decodedId)}
+                  >
+                    Delete Course
+                  </Button>
+                </div>
               </div>
             </div>
             <form

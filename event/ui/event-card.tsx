@@ -65,7 +65,6 @@ export default function EventCard({ eventData }: any) {
           <p className="text-small text-default-500">
             {eventData.organization}
           </p>
-          {eventData.active && <Icon icon={"fluent:live-20-filled"} />}
         </div>
       </CardHeader>
       <Divider />
@@ -74,19 +73,17 @@ export default function EventCard({ eventData }: any) {
       </CardBody>
       <Divider />
       <CardFooter>
-        <div>
-          <Button size="sm" color="default" onClick={() => startEvent()}>
+        <div className="flex gap-4 items-center pt-1">
+          <Button size="sm" color="success" onClick={() => startEvent()}>
             Start
           </Button>
-          {"   "}
+
           <Button
             size="sm"
             color="danger"
-            onClick={() => {
-              removeEvent(eventData)
-            }}
+            onClick={() => removeEvent(eventData)}
           >
-            Close
+            Remove
           </Button>
         </div>
       </CardFooter>

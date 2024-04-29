@@ -28,8 +28,8 @@ export default function EventsPage() {
     <div className="min-h-screen p-6 primaryColor flex items-center justify-center">
       <div className="container max-w-screen-lg mx-auto">
         <h2 className="font-semibold text-xl text-white pb-1">Events</h2>
-        <p className="text-gray-500 mb-6">
-          ed ut perspiciatis unde omnis iste natus error sit voluptatem
+        <p className="mb-6">
+          Ed ut perspiciatis unde omnis iste natus error sit voluptatem
           accusantium doloremque laudantium.
         </p>
 
@@ -38,11 +38,8 @@ export default function EventsPage() {
             <Button color="success">Create event</Button>
           </Link>
         </div>
-        <div
-          className=" rounded shadow-lg p-4 px-4 md:p-8 mb-6"
-          style={{ border: "solid #494949 0.0006em" }}
-        >
-          <div className="container mx-auto py-46 px-8">
+        <div className="pt-2">
+          <div className="container mx-auto py-46">
             <div className="grid lg:grid-cols-3 gap-4">
               {eventsData.map((ev: any) => (
                 <>
@@ -52,7 +49,7 @@ export default function EventsPage() {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+       </div>
+    </div>      
   )
 }

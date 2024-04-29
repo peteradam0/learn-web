@@ -1,14 +1,14 @@
-"use client";
-import "next-cloudinary/dist/cld-video-player.css";
-import { triggerCompleteChapter } from "@/course/domain/course";
+"use client"
+import "next-cloudinary/dist/cld-video-player.css"
+import { triggerCompleteChapter } from "@/course/domain/course"
 
 export default function CourseVideoPage({
   videoUrl,
   chapterId,
-  courseId,
+  courseId
 }: any) {
   return (
-    <div style={{ width: "90%", overflow: "hidden" }}>
+    <div style={{ overflow: "hidden" }}>
       <video
         id={chapterId}
         style={{ width: "100%", height: "100%" }}
@@ -17,5 +17,5 @@ export default function CourseVideoPage({
         onEnded={() => triggerCompleteChapter(courseId, chapterId)}
       />
     </div>
-  );
+  )
 }

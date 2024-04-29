@@ -21,7 +21,7 @@ export default async function ChapterPageRoute({ params }: any) {
         chapterData={course?.chapterData}
         courseId={courseId}
       />
-      <div style={{ marginLeft: "20%" }}>
+      <div style={{ marginLeft: "20%", width: "81%" }}>
         <CourseVideoPage
           chapterId={courseId}
           courseId={courseId}

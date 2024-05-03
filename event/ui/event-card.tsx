@@ -56,20 +56,18 @@ export default function EventCard({ eventData }: any) {
       <CardHeader className="flex gap-3">
         <img
           alt="nextui logo"
-          height={40}
+          height={90}
           src={eventData?.imageUrl}
-          width={40}
+          width={100}
         />
         <div className="flex flex-col">
           <p className="text-md">{eventData.name}</p>
-          <p className="text-small text-default-500">
-            {eventData.organization}
-          </p>
+          <p className="text-xs text-default-500">{eventData.organization}</p>
         </div>
       </CardHeader>
       <Divider />
       <CardBody>
-        <p>{eventData.description}</p>
+        <p className="text-sm">{eventData.description}</p>
       </CardBody>
       <Divider />
       <CardFooter>
@@ -83,7 +81,7 @@ export default function EventCard({ eventData }: any) {
             color="danger"
             onClick={() => removeEvent(eventData)}
           >
-            Remove
+            Close
           </Button>
         </div>
       </CardFooter>

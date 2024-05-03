@@ -35,7 +35,9 @@ export default function EventsPage() {
 
         <div style={{ paddingBottom: "20px" }}>
           <Link href="/administration/events/create">
-            <Button color="success">Create event</Button>
+            <Button size="sm" color="success">
+              Create event
+            </Button>
           </Link>
         </div>
         <div className="pt-2">
@@ -49,7 +51,7 @@ export default function EventsPage() {
             </div>
           </div>
         </div>
-       </div>
-    </div>      
+      </div>
+    </div>
   )
 }

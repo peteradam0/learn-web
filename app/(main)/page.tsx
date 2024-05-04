@@ -64,7 +64,6 @@ export default async function DashboardPageRoute() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   )
 }

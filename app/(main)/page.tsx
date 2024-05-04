@@ -1,6 +1,6 @@
-import { getCourses } from "@/course/api/get-courses-domain"
-import { getInProgressCourse } from "@/course/api/get-in-progress-courses"
 import { queryToken } from "@/common/api/query/get-user-token"
+import { getCourses } from "@/course/api/get-courses-domain"
+import { getInProgressCoursesData } from "@/course/api/get-in-progress-courses"
 import { getUserData } from "@/dashboard/api/get-user-domain-data"
 import { AllCoursesCard } from "@/dashboard/ui/all-courses-card"
 import { CoursesInProgressCard } from "@/dashboard/ui/courses-in-progress-card"
@@ -8,7 +8,6 @@ import { getActiveEvents } from "@/event/api/get-active-events"
 import { getFutureEvents } from "@/event/api/get-future-events"
 import { ActiveEventsCard } from "@/event/ui/active-events-card"
 import { UpcomingEvents } from "@/event/ui/upcoming-events-card"
-import { Footer } from "@/navigation/ui/footer"
 import MainHeader from "@/navigation/ui/main-navigation"
 import { Divider } from "@nextui-org/react"
 
@@ -16,7 +15,7 @@ export default async function DashboardPageRoute() {
   const token = await queryToken()
   if (!token) return
   const user = await getUserData()
-  const inProgressCourses = await getInProgressCourse(token)
+  const inProgressCourses = await getInProgressCoursesData(token)
   const courses = await getCourses(token)
   const events = await getActiveEvents(token)
   const futureEvents = await getFutureEvents(token)

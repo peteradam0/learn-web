@@ -1,7 +1,7 @@
 import { queryToken } from "@/common/api/query/get-user-token"
 import CourseVideoPage from "@/course/ui/course-video-page"
 
-import { getCourse } from "@/course/api/get-course"
+import { getCourse } from "@/course/api/get-courses"
 import { getCurrentVideoUrl } from "@/course/domain/course"
 import VidePlayerSidebar from "@/navigation/ui/video-player-sidebar"
 

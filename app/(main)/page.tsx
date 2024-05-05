@@ -1,6 +1,9 @@
 import { queryToken } from "@/common/api/query/get-user-token"
-import { getCourses } from "@/course/api/get-courses"
-import { getInProgressCoursesData } from "@/course/api/get-in-progress-courses"
+import {
+  getInProgressCourses,
+  getNotInProgressCourses
+} from "@/course/api/get-courses"
+
 import { getUserData } from "@/dashboard/api/get-user-domain-data"
 import { AllCoursesCard } from "@/dashboard/ui/all-courses-card"
 import { CoursesInProgressCard } from "@/dashboard/ui/courses-in-progress-card"
@@ -10,12 +13,15 @@ import { ActiveEventsCard } from "@/event/ui/active-events-card"
 import { UpcomingEvents } from "@/event/ui/upcoming-events-card"
 import MainHeader from "@/navigation/ui/main-navigation"
 import { Divider } from "@nextui-org/react"
+
 export default async function CourseDetailsPage() {
   const token = await queryToken()
+
   if (!token) return
+
   const user = await getUserData()
-  const inProgressCourses = await getInProgressCoursesData(token)
-  const courses = await getCourses(token)
+  const inProgressCourses = await getInProgressCourses(token)
+  const notInProgressCourses = await getNotInProgressCourses(token)
   const events = await getActiveEvents(token)
   const futureEvents = await getFutureEvents(token)
 
@@ -44,7 +50,7 @@ export default async function CourseDetailsPage() {
             <div>
               <h1>Explore courses</h1>
               <div className="pt-5">
-                <AllCoursesCard courses={courses} />
+                <AllCoursesCard courses={notInProgressCourses} />
               </div>
             </div>
             <div>

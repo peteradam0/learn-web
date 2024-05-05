@@ -21,7 +21,7 @@ export const queryCourseData = async (token: string, courseId: string) => {
 }
 export const queryNotInProgressCourseData = async (token: string) => {
   const url = qs.stringifyUrl({
-    url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/courses/in-progress`
+    url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/courses/not-in-progress`
   })
   let res = undefined
   try {

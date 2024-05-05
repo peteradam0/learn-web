@@ -14,9 +14,12 @@ import {
 } from "@nextui-org/react"
 import { redirect } from "next/navigation"
 import { useState } from "react"
-import { createChapter } from "../api/create-chapter"
-import { removeChapter } from "../api/remove-chapter"
-import { updateChapter } from "../api/update-chapter"
+import {
+  queryCreateChapter,
+  removeChapter,
+  updateChapter
+} from "../api/query/query-chapter"
+
 import { queryToken } from "../../common/api/query/get-user-token"
 
 export default function EditChapters({
@@ -45,7 +48,7 @@ export default function EditChapters({
       )
     } else {
       //create chapter
-      const chapter: any = await createChapter(
+      const chapter: any = await queryCreateChapter(
         {
           title: data.title,
           description: data.description,

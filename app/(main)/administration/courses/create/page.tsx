@@ -3,8 +3,8 @@
 import { UploadButton } from "@/common/api/uploadthing"
 
 import { queryToken } from "@/common/api/query/get-user-token"
-import { getCourseSuggestions } from "@/course/api/get-course-suggestions"
-import { createCourse } from "@/course/api/query/create-course"
+import { queryCourseSuggestions } from "@/course/api/query/query-course-suggestions"
+
 import { getOrganizations } from "@/users/api/organizations/get-organizations"
 import {
   Autocomplete,
@@ -26,6 +26,7 @@ import Cookies from "js-cookie"
 import { redirect, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
+import { queryCreateCourses } from "@/course/api/query/query-course"
 
 type CreateCourseFormData = {
   title: string
@@ -57,7 +58,7 @@ export default function AddCoursePageRoute() {
   }, [])
 
   const getSuggestion = async (canvasToken: string) => {
-    const res = await getCourseSuggestions(canvasToken)
+    const res = await queryCourseSuggestions(canvasToken)
     setCourseSuggestions(res?.data)
   }
 
@@ -78,7 +79,7 @@ export default function AddCoursePageRoute() {
     }
 
     try {
-      await createCourse(
+      await queryCreateCourses(
         {
           title: data.title,
           description: data.description,

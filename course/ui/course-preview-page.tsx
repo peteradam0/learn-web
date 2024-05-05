@@ -5,7 +5,7 @@ import CourseHeadline from "./course-headline"
 import CourseContent from "./course-content"
 import { queryToken } from "../../common/api/query/get-user-token"
 import { redirect } from "next/navigation"
-import { queryCourseData } from "../api/query/query-course-data"
+import { queryCourseData } from "../api/query/query-course"
 
 export default function CoursePreviewPage(params: { courseId: string }) {
   const decodedId = atob(params.courseId)

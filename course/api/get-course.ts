@@ -1,5 +1,5 @@
-import { mapToCourse } from "@/course/api/map-to-course"
-import { queryCourseData } from "@/course/api/query/query-course-data"
+import { mapToCourse } from "@/course/api/mapping/map-to-course"
+import { queryCourseData } from "@/course/api/query/query-course"
 
 export const getCourse = async (token: string | null, courseId: string) => {
   if (!token) return

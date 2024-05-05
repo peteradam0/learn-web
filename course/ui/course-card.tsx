@@ -9,8 +9,11 @@ import {
 } from "@nextui-org/react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { createCoursePartitipation } from "../api/create-course-participation"
-import { getCoursePartitipation } from "../api/get-course-participation"
+
+import {
+  queryCoursePartitipation,
+  queryCreateCoursePartitipation
+} from "../api/query/query-course-participation"
 import { queryToken } from "../../common/api/query/get-user-token"
 
 export default function CourseCard({ course }: any) {
@@ -32,7 +35,7 @@ export default function CourseCard({ course }: any) {
     if (token === null) {
       router.push("/")
     } else {
-      const res = await createCoursePartitipation(course?.id, token)
+      const res = await queryCreateCoursePartitipation(course?.id, token)
       if (res) {
         handleRedirect()
       }
@@ -45,7 +48,7 @@ export default function CourseCard({ course }: any) {
       router.push("/")
     } else {
       try {
-        const res = await getCoursePartitipation(course?.id, token)
+        const res = await queryCoursePartitipation(course?.id, token)
         setParticipationData(res?.data.courseId)
 
         setIsLoading(false)

@@ -2,8 +2,12 @@
 
 import { UploadButton } from "@/common/api/uploadthing"
 import { queryToken } from "@/common/api/query/get-user-token"
-import { queryCourseData } from "@/course/api/query/query-course-data"
-import { updateChapter } from "@/course/api/update-publication"
+import {
+  queryCourseData,
+  queryRemoveCourse,
+  queryUpdateCourse
+} from "@/course/api/query/query-course"
+
 import EditChapters from "@/course/ui/edit-chapters"
 import {
   Badge,
@@ -24,8 +28,7 @@ import { redirect, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { UUID } from "uuid-generator-ts"
-import { updateCourse } from "@/course/api/query/update-course"
-import { removeCourse } from "@/course/api/query/remove-course"
+import { queryUpdateChapter } from "@/course/api/query/query-chapter"
 
 type EditCourseFormData = {
   title: string
@@ -89,12 +92,12 @@ export default function EditCoursePage({
   }
 
   const handleRemoveCourse = async (courseId: string) => {
-    await removeCourse(courseId)
+    await queryRemoveCourse(courseId)
     router.push("/administration/courses")
   }
 
   const handlePublication = async () => {
-    await updateChapter(decodedId)
+    await queryUpdateChapter(decodedId)
     setIsPublished(!publish)
   }
 
@@ -105,7 +108,7 @@ export default function EditCoursePage({
       redirect("/")
     }
     try {
-      await updateCourse(
+      await queryUpdateCourse(
         {
           title: data.title,
           description: data.description,

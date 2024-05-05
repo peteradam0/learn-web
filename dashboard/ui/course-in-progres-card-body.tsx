@@ -1,5 +1,5 @@
 "use client"
-import { getCoursePartitipation } from "@/course/api/get-course-participation"
+import { queryCoursePartitipation } from "@/course/api/query/query-course-participation"
 import { queryToken } from "@/common/api/query/get-user-token"
 import { CardBody, Chip, Divider, Link, Progress } from "@nextui-org/react"
 import { redirect } from "next/navigation"
@@ -27,7 +27,7 @@ export default function CourseInProgressCardBody({
     }
 
     try {
-      const res = await getCoursePartitipation(course.id, token)
+      const res = await queryCoursePartitipation(course.id, token)
 
       setProgressBarNumber(
         calculateProgressBar(

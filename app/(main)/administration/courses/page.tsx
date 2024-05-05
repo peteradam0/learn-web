@@ -3,10 +3,10 @@
 import { Button, Link } from "@nextui-org/react"
 import { useEffect, useState } from "react"
 
-import { getCoursesForUser } from "@/course/api/get-courses-user"
 import { queryToken } from "@/common/api/query/get-user-token"
 import MyCourseCreateCard from "@/course/ui/my-course-create-card"
 import { redirect } from "next/navigation"
+import { queryCoursesForUser } from "@/course/api/query/query-course"
 
 export default function MyCoursePage() {
   const [courseData, setCourseData] = useState([])
@@ -24,7 +24,7 @@ export default function MyCoursePage() {
     }
 
     try {
-      const res = await getCoursesForUser(token)
+      const res = await queryCoursesForUser(token)
       setCourseData(res?.data)
       setLoading(false)
     } catch (e) {

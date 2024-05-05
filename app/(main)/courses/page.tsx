@@ -1,4 +1,4 @@
-import { getCourses } from "@/course/api/get-courses-domain"
+import { getCourses } from "@/course/api/get-courses"
 import { queryToken } from "@/common/api/query/get-user-token"
 import { CoursesPage } from "@/course/ui/courses-page"
 

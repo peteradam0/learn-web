@@ -1,5 +1,5 @@
 import { queryToken } from "@/common/api/query/get-user-token"
-import { getCourses } from "@/course/api/get-courses-domain"
+import { getCourses } from "@/course/api/get-courses"
 import { getInProgressCoursesData } from "@/course/api/get-in-progress-courses"
 import { getUserData } from "@/dashboard/api/get-user-domain-data"
 import { AllCoursesCard } from "@/dashboard/ui/all-courses-card"
@@ -10,8 +10,7 @@ import { ActiveEventsCard } from "@/event/ui/active-events-card"
 import { UpcomingEvents } from "@/event/ui/upcoming-events-card"
 import MainHeader from "@/navigation/ui/main-navigation"
 import { Divider } from "@nextui-org/react"
-
-export default async function DashboardPageRoute() {
+export default async function CourseDetailsPage() {
   const token = await queryToken()
   if (!token) return
   const user = await getUserData()

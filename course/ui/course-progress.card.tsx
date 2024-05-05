@@ -9,10 +9,12 @@ import {
   Progress
 } from "@nextui-org/react"
 import React, { useEffect, useState } from "react"
-import { createCoursePartitipation } from "../api/create-course-participation"
 import { queryToken } from "../../common/api/query/get-user-token"
 import { useRouter } from "next/navigation"
-import { getCoursePartitipation } from "../api/get-course-participation"
+import {
+  queryCoursePartitipation,
+  queryCreateCoursePartitipation
+} from "../api/query/query-course-participation"
 import { calculateProgressBar } from "@/dashboard/domain/calculate-progress-bar"
 
 export default function CourseProgressCard({ course }: any) {
@@ -36,7 +38,8 @@ export default function CourseProgressCard({ course }: any) {
     if (token === null) {
       router.push("/")
     } else {
-      const res = await createCoursePartitipation(course?.id, token)
+      const res = await queryCreateCoursePartitipation(course?.id, token)
+
       if (res) {
         handleRedirect()
       }
@@ -49,7 +52,7 @@ export default function CourseProgressCard({ course }: any) {
       router.push("/")
     } else {
       try {
-        const res = await getCoursePartitipation(course?.id, token)
+        const res = await queryCoursePartitipation(course?.id, token)
         setParticipationData(res?.data.courseId)
         setProgressBarNumber(
           calculateProgressBar(

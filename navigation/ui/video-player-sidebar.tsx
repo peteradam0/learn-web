@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react"
 import VideoPlayerCard from "./video-player-card"
 import { redirect } from "next/navigation"
 import { queryToken } from "@/common/api/query/get-user-token"
-import { getCoursePartitipation } from "@/course/api/get-course-participation"
+import { queryCoursePartitipation } from "@/course/api/query/query-course-participation"
 
 export default function VidePlayerSidebar({
   chapterData,
@@ -28,7 +28,7 @@ export default function VidePlayerSidebar({
     }
 
     try {
-      const course = await getCoursePartitipation(courseId, token)
+      const course = await queryCoursePartitipation(courseId, token)
       setParticipationData(course?.data)
       setLoading(false)
     } catch (e) {

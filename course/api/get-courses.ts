@@ -1,20 +1,9 @@
-import axios from "axios";
-import qs from "query-string";
+import { mapToCourse } from "@/course/api/mapping/map-to-courses"
+import { querySelfCourses } from "@/course/api/query/query-course"
 
-export const getCourses = async (token: string) => {
-  const url = qs.stringifyUrl({
-    url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/courses`,
-  });
+export const getCourses = async (token: string | null) => {
+  if (!token) return
+  const response = await querySelfCourses(token)
 
-  let res = undefined;
-  try {
-    res = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-  } catch (e) {
-    console.log(e);
-  }
-  return res;
-};
+  return mapToCourse(response?.data)
+}

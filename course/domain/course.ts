@@ -1,5 +1,5 @@
 import { queryToken } from "@/common/api/query/get-user-token"
-import { completeChapter } from "../../common/api/complete-course"
+import { queryCompleteChapter } from "@/course/api/query/query-course"
 
 export const getVideLengthInMin = (videoId: string): string => {
   const v: any = document.getElementById(videoId)
@@ -18,7 +18,7 @@ export const triggerCompleteChapter = async (
   const token = await queryToken()
 
   if (token) {
-    await completeChapter(courseId, chapterId, token)
+    await queryCompleteChapter(courseId, chapterId, token)
   }
 }
 
@@ -48,5 +48,3 @@ export type Chapter = {
   videoUrl: string
   videoDuration: string
 }
-
-

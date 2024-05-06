@@ -1,7 +1,8 @@
-import { queryActiveVideoEvents } from "@/event/api/query/query-video-events"
 import { mapToVideoEvent } from "@/event/api/map-to-video-event"
+import { queryActiveVideoEvents } from "@/event/api/query/query-video-events"
 
-export const getActiveEvents = async (token: string) => {
-  const response = await queryActiveVideoEvents(token)
-  return mapToVideoEvent(response?.data)
+export const getActiveEvents = async () => {
+  const response = await queryActiveVideoEvents()
+
+  return mapToVideoEvent(response)
 }

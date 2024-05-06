@@ -1,197 +1,106 @@
+import { executeAuthorizedCreateQuery } from "@/common/api/query/execute-authorized-create-query"
+import { executeAuthorizedDeleteQuery } from "@/common/api/query/execute-authorized-delete-query"
+import { executeAuthorizedFetchQuery } from "@/common/api/query/execute-authorized-fetch-query"
+import { executeAuthorizedUpdateQuery } from "@/common/api/query/execute-authorized-update-query"
 import { queryToken } from "@/common/api/query/get-user-token"
-import axios from "axios"
-import { redirect } from "next/navigation"
 import qs from "query-string"
 
-export const queryCourseData = async (token: string, courseId: string) => {
+export const queryCourseData = async (courseId: string) => {
+  const token = await queryToken()
   const url = qs.stringifyUrl({
     url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/courses/${courseId}`
   })
-  let res = undefined
-  try {
-    res = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-  } catch (e) {
-    console.log(e)
-  }
-  return res
+
+  return executeAuthorizedFetchQuery(url, token)
 }
-export const queryNotInProgressCourseData = async (token: string) => {
+export const queryNotInProgressCourseData = async () => {
+  const token = await queryToken()
+
   const url = qs.stringifyUrl({
     url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/courses/not-in-progress`
   })
-  let res = undefined
-  try {
-    res = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-  } catch (e) {
-    console.log(e)
-  }
-  return res
+
+  return executeAuthorizedFetchQuery(url, token)
 }
-export const queryInProgressCourseData = async (token: string) => {
+export const queryInProgressCourseData = async () => {
+  const token = await queryToken()
+
   const url = qs.stringifyUrl({
     url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/courses/in-progress`
   })
-  let res = undefined
-  try {
-    res = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-  } catch (e) {
-    console.log(e)
-  }
-  return res
+  return executeAuthorizedFetchQuery(url, token)
 }
-export const queryCourses = async (token: string) => {
+export const queryCourses = async () => {
+  const token = await queryToken()
   const url = qs.stringifyUrl({
     url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/courses`
   })
 
-  let res = undefined
-  try {
-    res = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-  } catch (e) {
-    console.log(e)
-  }
-  return res
+  return executeAuthorizedFetchQuery(url, token)
 }
-export const queryCreateCourses = async (
-  createCourseData: any,
-  token: string
-) => {
+export const queryCreateCourses = async (createCourseData: any) => {
+  const token = await queryToken()
   const url = qs.stringifyUrl({
     url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/courses`
   })
 
-  let res = undefined
-  try {
-    res = await axios.post(url, createCourseData, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-  } catch (e) {
-    console.log(e)
-  }
-  return res
+  return executeAuthorizedCreateQuery(url, token, createCourseData)
 }
 
 export const queryRemoveCourse = async (courseId: string) => {
   const token = await queryToken()
 
-  if (!token) {
-    redirect("/")
-  }
-
   const url = qs.stringifyUrl({
     url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/courses/${courseId}`
   })
 
-  let res = undefined
-  try {
-    res = await axios.delete(url, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-  } catch (e) {
-    console.log(e)
-  }
-  return res
+  return executeAuthorizedDeleteQuery(url, token)
 }
 
-export const querySelfCourses = async (token: string) => {
+export const querySelfCourses = async () => {
+  const token = await queryToken()
+
   const url = qs.stringifyUrl({
     url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/courses/self`
   })
 
-  let res = undefined
-  try {
-    res = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-  } catch (e) {
-    console.log(e)
-  }
-
-  return res
+  return executeAuthorizedFetchQuery(url, token)
 }
-export const queryUpdateCourse = async (
-  createCourseData: any,
-  token: string
-) => {
+export const queryUpdateCourse = async (updateCourseData: any) => {
+  const token = await queryToken()
   const url = qs.stringifyUrl({
     url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/courses`
   })
 
-  let res = undefined
-  try {
-    res = await axios.put(url, createCourseData, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-  } catch (e) {
-    console.log(e)
-  }
-  return res
+  return executeAuthorizedUpdateQuery(url, token, updateCourseData)
 }
 
-export const queryCoursesForUser = async (token: string) => {
+export const queryCoursesForUser = async () => {
+  const token = await queryToken()
   const url = qs.stringifyUrl({
     url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/administration/courses`
   })
 
-  let res = undefined
-  try {
-    res = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-  } catch (e) {
-    console.log(e)
-  }
-  return res
+  return executeAuthorizedFetchQuery(url, token)
 }
 export const queryUpdateChapter = async (courseId: string) => {
   const token = await queryToken()
 
-  if (!token) {
-    redirect("/")
-  }
   const url = qs.stringifyUrl({
     url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/courses/${courseId}`
   })
 
-  let res = undefined
-  try {
-    res = await axios.put(
-      url,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
-    )
-  } catch (e) {
-    console.log(e)
-  }
-  return res
+  return executeAuthorizedUpdateQuery(url, token, {})
+}
+
+export const queryCompleteChapter = async (
+  courseId: string,
+  chapterId: string,
+  token: string
+) => {
+  const url = qs.stringifyUrl({
+    url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/courses/${courseId}/chapter/${chapterId}/participation`
+  })
+
+  return executeAuthorizedCreateQuery(url, token, {})
 }

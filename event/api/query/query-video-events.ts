@@ -1,63 +1,31 @@
+import { executeAuthorizedFetchQuery } from "@/common/api/query/execute-authorized-fetch-query"
 import { queryToken } from "@/common/api/query/get-user-token"
-import axios from "axios"
-import { redirect } from "next/navigation"
 import qs from "query-string"
 
 export const queryVideoEvents = async () => {
   const token = await queryToken()
-  if (!token) {
-    redirect("/")
-  }
 
   const url = qs.stringifyUrl({
     url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events`
   })
-  let res = undefined
 
-  try {
-    res = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-  } catch (e) {
-    console.log(e)
-  }
-  return res
+  return executeAuthorizedFetchQuery(url, token)
 }
 
-export const queryActiveVideoEvents = async (token: string) => {
+export const queryActiveVideoEvents = async () => {
+  const token = await queryToken()
+
   const url = qs.stringifyUrl({
     url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/active`
   })
-  let res = undefined
-
-  try {
-    res = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-  } catch (e) {
-    console.log(e)
-  }
-  return res
+  return executeAuthorizedFetchQuery(url, token)
 }
 
-export const queryUpcomingEvents = async (token: string) => {
+export const queryUpcomingEvents = async () => {
+  const token = await queryToken()
+
   const url = qs.stringifyUrl({
     url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/events/upcoming`
   })
-  let res = undefined
-
-  try {
-    res = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-  } catch (e) {
-    console.log(e)
-  }
-  return res
+  return executeAuthorizedFetchQuery(url, token)
 }

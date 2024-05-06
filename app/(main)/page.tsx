@@ -1,4 +1,3 @@
-import { queryToken } from "@/common/api/query/get-user-token"
 import {
   getInProgressCourses,
   getNotInProgressCourses
@@ -15,15 +14,11 @@ import MainHeader from "@/navigation/ui/main-navigation"
 import { Divider } from "@nextui-org/react"
 
 export default async function CourseDetailsPage() {
-  const token = await queryToken()
-
-  if (!token) return
-
   const user = await getUserData()
-  const inProgressCourses = await getInProgressCourses(token)
-  const notInProgressCourses = await getNotInProgressCourses(token)
-  const events = await getActiveEvents(token)
-  const futureEvents = await getFutureEvents(token)
+  const inProgressCourses = await getInProgressCourses()
+  const notInProgressCourses = await getNotInProgressCourses()
+  const events = await getActiveEvents()
+  const futureEvents = await getFutureEvents()
 
   return (
     <>

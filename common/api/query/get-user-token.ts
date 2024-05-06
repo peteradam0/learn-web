@@ -1,12 +1,13 @@
 "use server"
 import { auth } from "@clerk/nextjs"
+import { redirect } from "next/navigation"
 
-export const queryToken = () => {
-  const token = auth().getToken()
+export const queryToken = async () => {
+  const token = await auth().getToken()
 
   if (!token) {
-    return null
+    redirect("/sign-in")
   }
 
-  return token
+  return token as string
 }

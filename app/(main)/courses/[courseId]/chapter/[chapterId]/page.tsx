@@ -1,4 +1,3 @@
-import { queryToken } from "@/common/api/query/get-user-token"
 import CourseVideoPage from "@/course/ui/course-video-page"
 
 import { getCourse } from "@/course/api/get-courses"
@@ -8,9 +7,7 @@ import VidePlayerSidebar from "@/navigation/ui/video-player-sidebar"
 export default async function ChapterPageRoute({ params }: any) {
   const { courseId, chapterId } = params
 
-  const token = await queryToken()
-  if (!token) return
-  const course = await getCourse(token, atob(courseId))
+  const course = await getCourse(atob(courseId))
   if (!course || !course?.chapterData) return
   const url = getCurrentVideoUrl(course?.chapterData, atob(chapterId))?.videoUrl
 

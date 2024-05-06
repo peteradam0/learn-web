@@ -2,9 +2,9 @@
 
 import { UploadButton } from "@/common/api/uploadthing"
 
-import { queryToken } from "@/common/api/query/get-user-token"
 import { queryCourseSuggestions } from "@/course/api/query/query-course-suggestions"
 
+import { queryCreateCourses } from "@/course/api/query/query-course"
 import { getOrganizations } from "@/users/api/organizations/get-organizations"
 import {
   Autocomplete,
@@ -26,7 +26,6 @@ import Cookies from "js-cookie"
 import { redirect, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { queryCreateCourses } from "@/course/api/query/query-course"
 
 type CreateCourseFormData = {
   title: string
@@ -72,24 +71,20 @@ export default function AddCoursePageRoute() {
   }
 
   const processForm: SubmitHandler<CreateCourseFormData> = async data => {
-    const token = await queryToken()
 
     if (!token) {
       redirect("/")
     }
 
     try {
-      await queryCreateCourses(
-        {
-          title: data.title,
-          description: data.description,
-          category: data.category,
-          imageUrl: url,
-          videoUrl: videoUrl,
-          organization: data.organization
-        },
-        token
-      )
+      await queryCreateCourses({
+        title: data.title,
+        description: data.description,
+        category: data.category,
+        imageUrl: url,
+        videoUrl: videoUrl,
+        organization: data.organization
+      })
       reset()
       router.push(`/administration/courses/`)
     } catch (e) {

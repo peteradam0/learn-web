@@ -6,30 +6,26 @@ import {
   querySelfCourses
 } from "@/course/api/query/query-course"
 
-export const getCourse = async (token: string | null, courseId: string) => {
-  if (!token) return
-  const response = await queryCourseData(token, courseId)
+export const getCourse = async (courseId: string) => {
+  const response = await queryCourseData(courseId)
 
-  return mapToCourse(response?.data)
+  return mapToCourse(response)
 }
 
-export const getCourses = async (token: string | null) => {
-  if (!token) return
-  const response = await querySelfCourses(token)
+export const getCourses = async () => {
+  const response = await querySelfCourses()
 
-  return mapToCourses(response?.data)
+  return mapToCourses(response)
 }
 
-export const getInProgressCourses = async (token: string | null) => {
-  if (!token) return
-  const response = await queryInProgressCourseData(token)
+export const getInProgressCourses = async () => {
+  const response = await queryInProgressCourseData()
 
-  return mapToCourses(response?.data)
+  return response
 }
 
-export const getNotInProgressCourses = async (token: string | null) => {
-  if (!token) return
-  const response = await queryNotInProgressCourseData(token)
+export const getNotInProgressCourses = async () => {
+  const response = await queryNotInProgressCourseData()
 
-  return mapToCourses(response?.data)
+  return mapToCourses(response)
 }

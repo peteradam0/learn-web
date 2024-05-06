@@ -1,11 +1,9 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
-import CourseHeadline from "./course-headline"
-import CourseContent from "./course-content"
-import { queryToken } from "../../common/api/query/get-user-token"
-import { redirect } from "next/navigation"
+import { useEffect, useState } from "react"
 import { queryCourseData } from "../api/query/query-course"
+import CourseContent from "./course-content"
+import CourseHeadline from "./course-headline"
 
 export default function CoursePreviewPage(params: { courseId: string }) {
   const decodedId = atob(params.courseId)
@@ -18,14 +16,9 @@ export default function CoursePreviewPage(params: { courseId: string }) {
 
   const getCourseData = async () => {
     setLoading(true)
-    const token = await queryToken()
-
-    if (!token) {
-      redirect("/")
-    }
 
     try {
-      const course = await queryCourseData(token, decodedId)
+      const course = await queryCourseData(decodedId)
       setCourseData(course?.data)
       setLoading(false)
     } catch (e) {

@@ -1,7 +1,7 @@
-import { queryUpcomingEvents } from "@/event/api/query/query-video-events"
 import { mapToVideoEvent } from "@/event/api/map-to-video-event"
+import { queryUpcomingEvents } from "@/event/api/query/query-video-events"
 
-export const getFutureEvents = async (token: string) => {
-  const response = await queryUpcomingEvents(token)
-  return mapToVideoEvent(response?.data)
+export const getFutureEvents = async () => {
+  const response = await queryUpcomingEvents()
+  return mapToVideoEvent(response)
 }

@@ -1,4 +1,4 @@
-import MainHeader from "@/navigation/ui/main-navigation"
+import MainNavigation from "@/navigation/ui/main-navigation"
 import "@livekit/components-styles"
 import "@livekit/components-styles/prefabs"
 export default function MainLayout({
@@ -8,7 +8,7 @@ export default function MainLayout({
 }) {
   return (
     <div>
-      <MainHeader />
+      <MainNavigation />
       <div>{children}</div>
     </div>
   )

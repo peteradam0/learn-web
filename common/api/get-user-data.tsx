@@ -3,5 +3,5 @@ import { mapToUser } from "@/common/api/mapping/map-to-user"
 
 export const getUserData = async () => {
   const response = await queryUserData()
-  return mapToUser(response?.data)
+  return mapToUser(response)
 }

@@ -1,4 +1,4 @@
-import MainHeader from "@/navigation/ui/main-navigation"
+import MainNavigation from "@/navigation/ui/main-navigation"
 import SidebarContent from "@/navigation/ui/sidebar-content"
 
 export default function MainLayout({
@@ -8,7 +8,7 @@ export default function MainLayout({
 }) {
   return (
     <div>
-      <MainHeader />
+      <MainNavigation />
       <SidebarContent />
       <div
         style={{

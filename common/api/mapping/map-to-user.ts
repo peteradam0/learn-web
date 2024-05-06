@@ -1,10 +1,10 @@
 import { User } from "@/common/domain/user"
 
 export const mapToUser = (apiData: any): User => {
-  if (!apiData.username) throw new Error("user has no username")
+  if (!apiData.userRole) throw new Error("User has no role")
 
-  const username = apiData.username
+  const userRole = apiData.userRole
   return {
-    username
+    userRole
   }
 }

@@ -3,18 +3,18 @@ import {
   getNotInProgressCourses
 } from "@/course/api/get-courses"
 
-import { getUserData } from "@/dashboard/api/get-user-domain-data"
 import { AllCoursesCard } from "@/dashboard/ui/all-courses-card"
 import { CoursesInProgressCard } from "@/dashboard/ui/courses-in-progress-card"
 import { getActiveEvents } from "@/event/api/get-active-events"
 import { getFutureEvents } from "@/event/api/get-future-events"
 import { ActiveEventsCard } from "@/event/ui/active-events-card"
 import { UpcomingEvents } from "@/event/ui/upcoming-events-card"
-import MainHeader from "@/navigation/ui/main-navigation"
+import MainNavigation from "@/navigation/ui/main-navigation"
+import { currentUser } from "@clerk/nextjs/server"
 import { Divider } from "@nextui-org/react"
 
 export default async function CourseDetailsPage() {
-  const user = await getUserData()
+  const user = await currentUser()
   const inProgressCourses = await getInProgressCourses()
   const notInProgressCourses = await getNotInProgressCourses()
   const events = await getActiveEvents()
@@ -22,7 +22,7 @@ export default async function CourseDetailsPage() {
 
   return (
     <>
-      <MainHeader />
+      <MainNavigation />
       <div
         style={{
           marginLeft: "17%",
@@ -32,7 +32,7 @@ export default async function CourseDetailsPage() {
         }}
         className="primaryBackGround"
       >
-        <h1 className="text-xl pb-7">Welcome Back, {user.username} </h1>
+        <h1 className="text-xl pb-7">Welcome Back {user?.username} </h1>
         <Divider />
         <div className="pt-5">
           <div className="grid grid-cols-2" style={{ gap: "70px" }}>

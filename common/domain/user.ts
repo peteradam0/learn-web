@@ -1,5 +1,5 @@
 export type User = {
-  username: string
+  userRole: string
 }
 
 export enum UserRole {

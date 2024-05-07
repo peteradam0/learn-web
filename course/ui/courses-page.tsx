@@ -1,7 +1,7 @@
 "use client"
 
 import { Course } from "@/course/domain/course"
-import CourseCard from "@/course/ui/course-card"
+import CourseListCard from "@/course/ui/course-list-card"
 import { SearchBar } from "@/course/ui/searchbar"
 import React, { useState } from "react"
 
@@ -34,7 +34,7 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({ courses }) => {
                   : course.title.toLocaleLowerCase().includes(search)
               })
               .map((course: any) => (
-                <CourseCard key={course.id} course={course} />
+                <CourseListCard key={course.id} course={course} />
               ))}
         </div>
       </div>

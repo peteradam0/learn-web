@@ -26,7 +26,7 @@ import { PreJoinNoSSR } from "@/livekit/ui/pre-join-component"
 import { GetServerSideProps } from "next"
 import "../../styles/room.css"
 
-import EventSidebar from "@/navigation/ui/event-sidebar"
+import EventSidebar from "@/event/ui/event-sidebar"
 
 import { useCookies } from "react-cookie"
 

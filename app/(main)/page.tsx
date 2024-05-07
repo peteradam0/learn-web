@@ -3,13 +3,13 @@ import {
   getNotInProgressCourses
 } from "@/course/api/get-courses"
 
-import { AllCoursesCard } from "@/dashboard/ui/all-courses-card"
-import { CoursesInProgressCard } from "@/dashboard/ui/courses-in-progress-card"
+import { AllCoursesCard } from "@/course/ui/all-courses-card"
+import { CoursesInProgressCard } from "@/course/ui/courses-in-progress-card"
 import { getActiveEvents } from "@/event/api/get-active-events"
 import { getFutureEvents } from "@/event/api/get-future-events"
 import { ActiveEventsCard } from "@/event/ui/active-events-card"
 import { UpcomingEvents } from "@/event/ui/upcoming-events-card"
-import MainNavigation from "@/navigation/ui/main-navigation"
+import MainNavigation from "@/common/ui/main-navigation"
 import { currentUser } from "@clerk/nextjs/server"
 import { Divider } from "@nextui-org/react"
 

@@ -5,23 +5,20 @@ import {
   Card,
   CardBody,
   CardFooter,
-  CardHeader,
-  Progress
+  CardHeader
 } from "@nextui-org/react"
-import React, { useEffect, useState } from "react"
-import { queryToken } from "../../common/api/query/get-user-token"
 import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
+
 import {
   queryCoursePartitipation,
   queryCreateCoursePartitipation
 } from "../api/query/query-course-participation"
-import { calculateProgressBar } from "@/course/domain/calculate-progress-bar"
+import { queryToken } from "../../common/api/query/get-user-token"
 
-export default function CourseProgressCard({ course }: any) {
+export default function CourseListCard({ course }: any) {
   const [isLoading, setIsLoading] = useState(false)
   const [participationData, setParticipationData] = useState()
-  const [progressBarNumber, setProgressBarNumber] = useState(0)
-
   const router = useRouter()
 
   useEffect(() => {
@@ -39,7 +36,6 @@ export default function CourseProgressCard({ course }: any) {
       router.push("/")
     } else {
       const res = await queryCreateCoursePartitipation(course?.id, token)
-
       if (res) {
         handleRedirect()
       }
@@ -54,12 +50,7 @@ export default function CourseProgressCard({ course }: any) {
       try {
         const res = await queryCoursePartitipation(course?.id, token)
         setParticipationData(res?.data.courseId)
-        setProgressBarNumber(
-          calculateProgressBar(
-            course.chapterData.length,
-            res?.data?.completedChapterIds?.length
-          )
-        )
+
         setIsLoading(false)
       } catch (e) {
         console.log(e)
@@ -70,7 +61,7 @@ export default function CourseProgressCard({ course }: any) {
   if (isLoading) return <p>Loading...</p>
 
   return (
-    <Card>
+    <Card style={{ background: "#12181f", border: "solid #494949 0.0006em" }}>
       <div
         className="relative flex flex-col min-w-0 break-wordsshadow-soft-xl rounded-2xl bg-clip-border"
         style={{ height: "100%" }}
@@ -91,16 +82,12 @@ export default function CourseProgressCard({ course }: any) {
                   }}
                 />
               </div>
-              <p className="mb-12 text-gray-600" style={{ paddingTop: "5%" }}>
+              <p
+                className="mb-12 text-gray-600 text-sm"
+                style={{ paddingTop: "5%" }}
+              >
                 {course.description}
               </p>
-              <div style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>
-                <Progress
-                  size="sm"
-                  aria-label="Loading..."
-                  value={progressBarNumber}
-                />
-              </div>
             </CardBody>
             <CardFooter>
               {participationData && (

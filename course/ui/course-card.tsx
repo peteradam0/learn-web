@@ -1,113 +1,38 @@
-"use client"
-
-import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader
-} from "@nextui-org/react"
-import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
-
-import {
-  queryCoursePartitipation,
-  queryCreateCoursePartitipation
-} from "../api/query/query-course-participation"
-import { queryToken } from "../../common/api/query/get-user-token"
+import { CardBody, Chip, Divider } from "@nextui-org/react";
+import Link from "next/link";
+import React from "react";
 
 export default function CourseCard({ course }: any) {
-  const [isLoading, setIsLoading] = useState(false)
-  const [participationData, setParticipationData] = useState()
-  const router = useRouter()
-
-  useEffect(() => {
-    getParticipationData()
-  }, [])
-
-  const handleRedirect = () => {
-    router.push(`/courses/${btoa(course?.id)}`)
-  }
-
-  const handleEnroll = async () => {
-    const token = await queryToken()
-
-    if (token === null) {
-      router.push("/")
-    } else {
-      const res = await queryCreateCoursePartitipation(course?.id, token)
-      if (res) {
-        handleRedirect()
-      }
-    }
-  }
-
-  const getParticipationData = async () => {
-    const token = await queryToken()
-    if (!token) {
-      router.push("/")
-    } else {
-      try {
-        const res = await queryCoursePartitipation(course?.id, token)
-        setParticipationData(res?.data.courseId)
-
-        setIsLoading(false)
-      } catch (e) {
-        console.log(e)
-      }
-    }
-  }
-
-  if (isLoading) return <p>Loading...</p>
-
+  const url = `/courses/${btoa(course?.id)}`;
   return (
-    <Card style={{ background: "#12181f", border: "solid #494949 0.0006em" }}>
-      <div
-        className="relative flex flex-col min-w-0 break-wordsshadow-soft-xl rounded-2xl bg-clip-border"
-        style={{ height: "100%" }}
-      >
-        <div className="flex-auto p-4">
-          <div className="flex flex-wrap -mx-3">
-            <CardHeader>
-              <p className=" font-semibold text-white">{course.title}</p>
-            </CardHeader>
-            <CardBody>
-              <div className="max-w-full ml-auto text-center lg:w-5/12 lg:flex-none">
+    <>
+      <CardBody>
+        <Link href={url}>
+          <div className="text-sm text-gray-600 flex items-center">
+            <div className="text-gray-900 font-bold mb-1 ml-1 p-1">
+              <div className="flex items-center gap-4 pt-1">
                 <img
-                  src={course.imageUrl}
-                  alt="waves"
-                  style={{
-                    height: "100px",
-                    width: "170px"
-                  }}
+                  src={course?.imageUrl}
+                  style={{ height: "50px", width: "100px" }}
                 />
+                <div className="font-medium text-gray-500">
+                  <div className="text-sm">{course?.title}</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                    {course.courseAuthorData.firstName}{" "}
+                    {course.courseAuthorData.lastName}
+                  </div>
+                  <div className="pt-1">
+                    <Chip size="sm" color="success">
+                      {course.organization.name}
+                    </Chip>
+                  </div>
+                </div>
               </div>
-              <p
-                className="mb-12 text-gray-600 text-sm"
-                style={{ paddingTop: "5%" }}
-              >
-                {course.description}
-              </p>
-            </CardBody>
-            <CardFooter>
-              {participationData && (
-                <Button
-                  color="secondary"
-                  variant="bordered"
-                  onClick={() => handleRedirect()}
-                >
-                  Continue
-                </Button>
-              )}
-              {!participationData && (
-                <Button color="primary" onClick={() => handleEnroll()}>
-                  Enroll
-                </Button>
-              )}
-            </CardFooter>
+            </div>
           </div>
-        </div>
-      </div>
-    </Card>
-  )
+        </Link>
+      </CardBody>
+      <Divider />
+    </>
+  );
 }

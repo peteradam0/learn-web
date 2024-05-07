@@ -2,7 +2,7 @@ import CourseVideoPage from "@/course/ui/course-video-page"
 
 import { getCourse } from "@/course/api/get-courses"
 import { getCurrentVideoUrl } from "@/course/domain/course"
-import VidePlayerSidebar from "@/navigation/ui/video-player-sidebar"
+import VidePlayerSidebar from "@/course/ui/video-player-sidebar"
 
 export default async function ChapterPageRoute({ params }: any) {
   const { courseId, chapterId } = params

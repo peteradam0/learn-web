@@ -1,5 +1,5 @@
-import MainNavigation from "@/navigation/ui/main-navigation"
-import SidebarContent from "@/navigation/ui/sidebar-content"
+import MainNavigation from "@/common/ui/main-navigation"
+import SidebarContent from "@/common/ui/sidebar-content"
 
 export default function MainLayout({
   children

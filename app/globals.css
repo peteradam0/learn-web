@@ -31,7 +31,7 @@
 .primaryBackGround {
   background: "#12181f";
 }
-  
+
   body {
     color: rgb(var(--foreground-rgb));
     background: linear-gradient(

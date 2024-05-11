@@ -20,7 +20,6 @@ export default function CourseProgressCard({ course }: any) {
   const [isLoading, setIsLoading] = useState(false)
   const [participationData, setParticipationData] = useState()
   const [progressBarNumber, setProgressBarNumber] = useState(0)
-
   const router = useRouter()
 
   useEffect(() => {
@@ -28,17 +27,17 @@ export default function CourseProgressCard({ course }: any) {
   }, [])
 
   const handleRedirect = () => {
-    router.push(`/courses/${btoa(course?.id)}`)
+    router.push(`/courses/${btoa(course.id)}`)
   }
 
   const handleEnroll = async () => {
-    await queryCreateCoursePartitipation(course?.id)
+    await queryCreateCoursePartitipation(course.id)
     handleRedirect()
   }
 
   const getParticipationData = async () => {
     try {
-      const res = await queryCoursePartitipation(course?.id)
+      const res = await queryCoursePartitipation(course.id)
 
       setParticipationData(res?.courseId)
       setProgressBarNumber(
@@ -58,8 +57,12 @@ export default function CourseProgressCard({ course }: any) {
   return (
     <Card>
       <div
-        className="relative flex flex-col min-w-0 break-wordsshadow-soft-xl rounded-2xl bg-clip-border"
-        style={{ height: "100%" }}
+        className="bgbordercolor relative flex flex-col min-w-0 break-wordsshadow-soft-xl rounded-2xl bg-clip-border"
+        style={{
+          height: "100%",
+          background: "#12181f",
+          border: "solid #494949 0.0006em"
+        }}
       >
         <div className="flex-auto p-4">
           <div className="flex flex-wrap -mx-3">
@@ -77,7 +80,10 @@ export default function CourseProgressCard({ course }: any) {
                   }}
                 />
               </div>
-              <p className="mb-12 text-gray-600" style={{ paddingTop: "5%" }}>
+              <p
+                className="mb-12 text-gray-600 text-sm"
+                style={{ paddingTop: "1rem" }}
+              >
                 {course.description}
               </p>
               <div style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>

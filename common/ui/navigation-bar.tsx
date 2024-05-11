@@ -24,7 +24,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({ userData }) => {
 
   const menuItems = [
     { name: "Home", url: "/" },
-    { name: "Courses", url: "/courses" },
+    { name: "Explore Courses", url: "/courses" },
     { name: "My Courses", url: "/courses/mycourses" },
     { name: "About", url: "/about" },
     { name: "Admin", url: "/administration/courses" }

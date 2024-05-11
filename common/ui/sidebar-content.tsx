@@ -26,7 +26,7 @@ export default function SidebarContent() {
                   href="/administration/courses"
                   className=" p-2 hover:bg-gray-700 flex items-center"
                 >
-                  Courses
+                  Explore Courses
                 </Link>
               </li>
 

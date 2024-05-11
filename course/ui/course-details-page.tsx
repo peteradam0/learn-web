@@ -11,7 +11,7 @@ export const CourseDetailsPage: React.FC<CourseDetailsPageProps> = ({
   course
 }) => {
   return (
-    <div className="mb-8" style={{ marginLeft: "105px", paddingTop: "50px" }}>
+    <div className="mb-8" style={{ paddingTop: "50px" }}>
       <CourseHeadline courseData={course} />
       <CourseContent courseData={course} />
     </div>

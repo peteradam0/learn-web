@@ -83,7 +83,7 @@ export default function CourseListCard({ course }: any) {
                 />
               </div>
               <p
-                className="mb-12 text-gray-600 text-sm"
+                className="mb-12 text-gray-400 text-sm"
                 style={{ paddingTop: "5%" }}
               >
                 {course.description}

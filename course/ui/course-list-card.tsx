@@ -14,7 +14,6 @@ import {
   queryCoursePartitipation,
   queryCreateCoursePartitipation
 } from "../api/query/query-course-participation"
-import { queryToken } from "../../common/api/query/get-user-token"
 
 export default function CourseListCard({ course }: any) {
   const [isLoading, setIsLoading] = useState(false)
@@ -30,31 +29,18 @@ export default function CourseListCard({ course }: any) {
   }
 
   const handleEnroll = async () => {
-    const token = await queryToken()
-
-    if (token === null) {
-      router.push("/")
-    } else {
-      const res = await queryCreateCoursePartitipation(course?.id, token)
-      if (res) {
-        handleRedirect()
-      }
-    }
+    await queryCreateCoursePartitipation(course?.id)
+    handleRedirect()
   }
 
   const getParticipationData = async () => {
-    const token = await queryToken()
-    if (!token) {
-      router.push("/")
-    } else {
-      try {
-        const res = await queryCoursePartitipation(course?.id, token)
-        setParticipationData(res?.data.courseId)
+    try {
+      const res = await queryCoursePartitipation(course?.id)
+      setParticipationData(res?.data.courseId)
 
-        setIsLoading(false)
-      } catch (e) {
-        console.log(e)
-      }
+      setIsLoading(false)
+    } catch (e) {
+      console.log(e)
     }
   }
 

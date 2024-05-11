@@ -1,5 +1,6 @@
 "use client"
 
+import { calculateProgressBar } from "@/course/domain/calculate-progress-bar"
 import {
   Button,
   Card,
@@ -8,14 +9,12 @@ import {
   CardHeader,
   Progress
 } from "@nextui-org/react"
-import React, { useEffect, useState } from "react"
-import { queryToken } from "../../common/api/query/get-user-token"
 import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 import {
   queryCoursePartitipation,
   queryCreateCoursePartitipation
 } from "../api/query/query-course-participation"
-import { calculateProgressBar } from "@/course/domain/calculate-progress-bar"
 
 export default function CourseProgressCard({ course }: any) {
   const [isLoading, setIsLoading] = useState(false)
@@ -33,37 +32,24 @@ export default function CourseProgressCard({ course }: any) {
   }
 
   const handleEnroll = async () => {
-    const token = await queryToken()
-
-    if (token === null) {
-      router.push("/")
-    } else {
-      const res = await queryCreateCoursePartitipation(course?.id, token)
-
-      if (res) {
-        handleRedirect()
-      }
-    }
+    await queryCreateCoursePartitipation(course?.id)
+    handleRedirect()
   }
 
   const getParticipationData = async () => {
-    const token = await queryToken()
-    if (!token) {
-      router.push("/")
-    } else {
-      try {
-        const res = await queryCoursePartitipation(course?.id, token)
-        setParticipationData(res?.data.courseId)
-        setProgressBarNumber(
-          calculateProgressBar(
-            course.chapterData.length,
-            res?.data?.completedChapterIds?.length
-          )
+    try {
+      const res = await queryCoursePartitipation(course?.id)
+
+      setParticipationData(res?.courseId)
+      setProgressBarNumber(
+        calculateProgressBar(
+          course.chapterData.length,
+          res?.completedChapterIds?.length
         )
-        setIsLoading(false)
-      } catch (e) {
-        console.log(e)
-      }
+      )
+      setIsLoading(false)
+    } catch (e) {
+      console.log(e)
     }
   }
 

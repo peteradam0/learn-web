@@ -1,11 +1,9 @@
 "use client"
 import { Accordion, AccordionItem } from "@nextui-org/react"
 
-import React, { useEffect, useState } from "react"
-import VideoPlayerCard from "./video-player-card"
-import { redirect } from "next/navigation"
-import { queryToken } from "@/common/api/query/get-user-token"
 import { queryCoursePartitipation } from "@/course/api/query/query-course-participation"
+import { useEffect, useState } from "react"
+import VideoPlayerCard from "./video-player-card"
 
 export default function VidePlayerSidebar({
   chapterData,
@@ -21,14 +19,8 @@ export default function VidePlayerSidebar({
 
   const getParticipationData = async () => {
     setLoading(true)
-    const token = await queryToken()
-
-    if (!token) {
-      redirect("/")
-    }
-
     try {
-      const course = await queryCoursePartitipation(courseId, token)
+      const course = await queryCoursePartitipation(courseId)
       setParticipationData(course?.data)
       setLoading(false)
     } catch (e) {

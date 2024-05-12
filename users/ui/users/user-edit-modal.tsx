@@ -10,6 +10,7 @@ import {
   Select,
   SelectItem
 } from "@nextui-org/react"
+import { useRouter } from "next/navigation"
 
 import { useState } from "react"
 
@@ -19,7 +20,12 @@ export default function UserEditModal({
   modalVersion,
   userId
 }: any) {
-  const [role, setRole] = useState()
+  const [role, setRole] = useState("")
+  const router = useRouter()
+
+  const handleUserUpdate = async () => {
+    await updateUserRole(userId, role)
+  }
 
   return (
     <div>
@@ -27,7 +33,6 @@ export default function UserEditModal({
         <ModalContent>
           {onClose => (
             <>
-              {modalVersion}
               <ModalHeader className="flex flex-col gap-1">
                 Modify user role
               </ModalHeader>
@@ -42,10 +47,18 @@ export default function UserEditModal({
                   placeholder="Select a role"
                   className="max-w-xs"
                 >
-                  <SelectItem value="ADMIN" key={"1"}>
+                  <SelectItem
+                    value="ADMIN"
+                    key={"1"}
+                    onClick={() => setRole("ADMIN")}
+                  >
                     ADMIN
                   </SelectItem>
-                  <SelectItem value="CONSUMER" key={"2"}>
+                  <SelectItem
+                    value="CONSUMER"
+                    key={"2"}
+                    onClick={() => setRole("CONSUMER")}
+                  >
                     CONSUMER
                   </SelectItem>
                 </Select>
@@ -57,7 +70,11 @@ export default function UserEditModal({
 
                 <Button
                   color="success"
-                  onClick={() => updateUserRole(userId, role)}
+                  onClick={() => {
+                    handleUserUpdate()
+                    onClose()
+                    router.refresh()
+                  }}
                 >
                   Save
                 </Button>

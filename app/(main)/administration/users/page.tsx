@@ -104,7 +104,7 @@ export default function UserPageRoute() {
   return (
     <div className="min-h-screen p-6  flex items-center justify-center">
       <div className="container max-w-screen-lg mx-auto p-3">
-        <div>
+        <div className="py-8">
           <h2
             className="font-semibold text-xl text-white"
             style={{ paddingBottom: "1rem" }}
@@ -134,34 +134,35 @@ export default function UserPageRoute() {
                 />
               </div>
             </div>
-            <div className="flex justify-between items-center">
-              <span className="text-default-400 text-small pb-2">
-                Total {userData?.length} users
-              </span>
-            </div>
           </div>
-          <Table aria-label="Example table with custom cells">
-            <TableHeader columns={columns}>
-              {column => (
-                <TableColumn
-                  key={column.uid}
-                  align={column.uid === "actions" ? "center" : "start"}
-                >
-                  {column.name}
-                </TableColumn>
-              )}
-            </TableHeader>
-            <TableBody items={userData}>
-              {item => (
-                <TableRow>
-                  {columnKey => (
-                    <TableCell>{renderCell(item, columnKey)}</TableCell>
-                  )}
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
         </div>
+        <div className="flex justify-between items-center">
+          <span className="text-default-400 text-small pb-2">
+            Total {userData?.length} users
+          </span>
+        </div>
+
+        <Table aria-label="Example table with custom cells">
+          <TableHeader columns={columns}>
+            {column => (
+              <TableColumn
+                key={column.uid}
+                align={column.uid === "actions" ? "center" : "start"}
+              >
+                {column.name}
+              </TableColumn>
+            )}
+          </TableHeader>
+          <TableBody items={userData}>
+            {item => (
+              <TableRow>
+                {columnKey => (
+                  <TableCell>{renderCell(item, columnKey)}</TableCell>
+                )}
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
       </div>
     </div>
   )

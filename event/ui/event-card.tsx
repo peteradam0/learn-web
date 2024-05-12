@@ -1,18 +1,19 @@
+"use client"
+
 import { startVideoEvent } from "@/event/api/create-event"
 import { removeVideoEvent } from "@/event/api/remove-event"
 
+import { generateRoomId } from "@/livekit/technical/client"
 import {
+  Button,
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
-  Divider,
-  Button
+  CardHeader,
+  Divider
 } from "@nextui-org/react"
 import { useRouter } from "next/navigation"
-import React, { useEffect, useState } from "react"
-import { Icon } from "@iconify/react/dist/iconify.js"
-import { generateRoomId } from "@/livekit/technical/client"
+import { useEffect, useState } from "react"
 
 export default function EventCard({ eventData }: any) {
   const [members, setMembers] = useState<string>()

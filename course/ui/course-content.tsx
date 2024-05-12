@@ -10,7 +10,7 @@ export default function CourseContent(data: any) {
   return (
     <div
       style={{
-        paddingTop: "50px"
+        paddingTop: "15%"
       }}
     >
       <div style={{ background: "#1e2025" }}>

@@ -5,7 +5,7 @@ import {
 
 import { AllCoursesCard } from "@/course/ui/all-courses-card"
 import { CoursesInProgressCard } from "@/course/ui/courses-in-progress-card"
-import { getActiveEvents } from "@/event/api/get-active-events"
+import { getActiveEvents } from "@/event/api/get-events"
 import { getFutureEvents } from "@/event/api/get-future-events"
 import { ActiveEventsCard } from "@/event/ui/active-events-card"
 import { UpcomingEvents } from "@/event/ui/upcoming-events-card"

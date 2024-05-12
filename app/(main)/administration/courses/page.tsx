@@ -1,49 +1,30 @@
-"use client"
-
 import { Button, Link } from "@nextui-org/react"
-import { useEffect, useState } from "react"
 
-import { queryCoursesForUser } from "@/course/api/query/query-course"
 import MyCourseCreateCard from "@/course/ui/my-course-create-card"
+import { getAdminCourses } from "@/course/api/get-courses"
 
-export default function MyCoursePage() {
-  const [courseData, setCourseData] = useState([])
-  const [isLoading, setLoading] = useState(true)
-
-  useEffect(() => {
-    getCourseData()
-  }, [])
-
-  const getCourseData = async () => {
-    try {
-      const res = await queryCoursesForUser()
-      setCourseData(res?.data)
-      setLoading(false)
-    } catch (e) {
-      console.log(e)
-    }
-  }
-
-  if (isLoading) return <p>Loading...</p>
+export default async function MyCoursePage() {
+  const courses = await getAdminCourses()
 
   return (
     <div className="min-h-screen p-6 primaryColor flex items-center justify-center">
       <div className="container max-w-screen-lg mx-auto">
-        <h2 className="font-semibold text-xl text-white pb-1">Courses</h2>
-        <p className="text-white mb-6">
-          ed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium.
-        </p>
+        <div className="py-8">
+          <h2 className="font-semibold text-xl text-white pb-1">Courses</h2>
+          <p className="text-gray-500 mb-6">
+            ed ut perspiciatis unde omnis iste natus error sit voluptatem
+            accusantium doloremque laudantium.
+          </p>
 
-        <div style={{ paddingBottom: "20px" }}>
-          <Link href="/administration/courses/create">
-            <Button color="success">Add course</Button>
-          </Link>
+          <div style={{ paddingBottom: "20px" }}>
+            <Link href="/administration/courses/create">
+              <Button color="success">Add course</Button>
+            </Link>
+          </div>
         </div>
-
         <div className="container mx-auto py-46 pt-2">
           <div className="grid lg:grid-cols-4 gap-4">
-            {courseData.map((course: any) => (
+            {courses.map((course: any) => (
               <>
                 <MyCourseCreateCard key={course.id} course={course} />
               </>

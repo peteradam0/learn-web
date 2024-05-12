@@ -75,7 +75,7 @@ export const queryUpdateCourse = async (updateCourseData: any) => {
   return executeAuthorizedUpdateQuery(url, token, updateCourseData)
 }
 
-export const queryCoursesForUser = async () => {
+export const queryAdminCourses = async () => {
   const token = await queryToken()
   const url = qs.stringifyUrl({
     url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/administration/courses`

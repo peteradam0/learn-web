@@ -1,5 +1,6 @@
 import { mapToCourse, mapToCourses } from "@/course/api/mapping/map-to-courses"
 import {
+  queryAdminCourses,
   queryCourseData,
   queryInProgressCourseData,
   queryNotInProgressCourseData,
@@ -16,6 +17,12 @@ export const getCourses = async () => {
   const response = await querySelfCourses()
 
   return mapToCourses(response)
+}
+
+export const getAdminCourses = async () => {
+  const response = await queryAdminCourses()
+
+  return response
 }
 
 export const getInProgressCourses = async () => {

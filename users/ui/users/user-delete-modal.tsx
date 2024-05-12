@@ -1,23 +1,30 @@
-"use client";
+"use client"
+import { queryDeleteUser } from "@/users/api/users/users"
 import {
   Button,
   Modal,
   ModalBody,
   ModalContent,
   ModalFooter,
-  ModalHeader,
-} from "@nextui-org/react";
+  ModalHeader
+} from "@nextui-org/react"
+import { useRouter } from "next/navigation"
 
-
-export default function UserDeleteModal({ isOpen, onOpenChange, userId }: any) {
-  const handleDeleteUser = () => {
-    console.log("delete " + userId);
-  };
+export default function UserDeleteModal({
+  onClose,
+  isOpen,
+  onOpenChange,
+  userId
+}: any) {
+  const router = useRouter()
+  const handleDeleteUser = async (userId: string) => {
+    await queryDeleteUser(userId)
+  }
   return (
     <div>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
-          {(onClose) => (
+          {onClose => (
             <>
               <ModalHeader className="flex flex-col gap-1">
                 Delete user
@@ -32,8 +39,10 @@ export default function UserDeleteModal({ isOpen, onOpenChange, userId }: any) {
 
                 <Button
                   color="success"
-                  onClick={() => {
-                    handleDeleteUser();
+                  onClick={async () => {
+                    handleDeleteUser(userId)
+                    onClose()
+                    router.refresh()
                   }}
                 >
                   Delete
@@ -44,5 +53,5 @@ export default function UserDeleteModal({ isOpen, onOpenChange, userId }: any) {
         </ModalContent>
       </Modal>
     </div>
-  );
+  )
 }

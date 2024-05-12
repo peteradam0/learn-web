@@ -5,6 +5,7 @@ import { UploadButton } from "@/common/api/uploadthing"
 import { queryCourseSuggestions } from "@/course/api/query/query-course-suggestions"
 
 import { queryCreateCourses } from "@/course/api/query/query-course"
+import { getCanvasToken } from "@/technical/canvaslms"
 import { getOrganizations } from "@/users/api/organizations/get-organizations"
 import {
   Autocomplete,
@@ -22,10 +23,10 @@ import {
   SelectItem,
   Textarea
 } from "@nextui-org/react"
-import Cookies from "js-cookie"
-import { redirect, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
+import Script from "next/script"
 
 type CreateCourseFormData = {
   title: string
@@ -40,16 +41,16 @@ export default function AddCoursePageRoute() {
   const [url, setUrl] = useState("")
   const [videoUrl, setVideoUrl] = useState("")
   const [category, setCategory] = useState("Frontend")
-  const [organizationData, setOrganizationData] = useState([{ name: "Public" }])
+  const [organizationData, setOrganizationData] = useState([])
   const [courseSuggestions, setCourseSuggestions] = useState()
   const [token, setToken] = useState(false)
 
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+  const canvasToken = getCanvasToken()
 
   useEffect(() => {
     getOrganizationData()
-    const canvasToken = Cookies.get("canvas_token")
     if (canvasToken) {
       setToken(true)
       getSuggestion(canvasToken)
@@ -64,18 +65,13 @@ export default function AddCoursePageRoute() {
   const getOrganizationData = async () => {
     setLoading(true)
     const res = await getOrganizations()
-    const data: any[] = res?.data
-    data.push({ name: "Public" })
-    setOrganizationData(data)
+    if (res && res.data) {
+      setOrganizationData(res.data)
+    }
     setLoading(false)
   }
 
   const processForm: SubmitHandler<CreateCourseFormData> = async data => {
-
-    if (!token) {
-      redirect("/")
-    }
-
     try {
       await queryCreateCourses({
         title: data.title,
@@ -122,7 +118,10 @@ export default function AddCoursePageRoute() {
 
         <div
           className="rounded shadow-lg p-4 px-4 md:p-8 mb-6"
-          style={{ border: "solid #494949 0.0006em" }}
+          style={{
+            background: "#12181f",
+            border: "solid #494949 0.0006em"
+          }}
         >
           <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
             <div className="text-gray-300">
@@ -223,11 +222,12 @@ export default function AddCoursePageRoute() {
                         required: "Organization is required"
                       })}
                     >
-                      {organizationData.map((org: any) => (
-                        <SelectItem key={org.name} value={org.name}>
-                          {org.name}
-                        </SelectItem>
-                      ))}
+                      {organizationData &&
+                        organizationData.map((org: any) => (
+                          <SelectItem key={org.name} value={org.name}>
+                            {org.name}
+                          </SelectItem>
+                        ))}
                     </Select>
                   </div>
 

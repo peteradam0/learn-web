@@ -62,22 +62,6 @@ export default function CourseInProgressCardBody({
             </div>
           </div>
         </Link>
-        {displayProgressBar && (
-          <div
-            style={{
-              paddingTop: "10px",
-              paddingRight: "10px",
-              paddingLeft: "6px",
-              paddingBottom: "10px"
-            }}
-          >
-            <Progress
-              size="sm"
-              aria-label="Loading..."
-              value={progressBarNumber}
-            />
-          </div>
-        )}
       </CardBody>
       <Divider />
     </>

@@ -207,7 +207,7 @@ export default function EditChapters({
                   <Popover placement="bottom" showArrow={true}>
                     <PopoverTrigger>
                       <Button type="submit" color="success">
-                        {chapterData ? "Update" : "Create"}
+                        {chapterData ? "Update" : "Save"}
                       </Button>
                     </PopoverTrigger>
 

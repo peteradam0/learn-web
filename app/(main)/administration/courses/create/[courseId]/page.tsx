@@ -131,16 +131,16 @@ export default function EditCoursePage({
 
     try {
       const course = await queryCourseData(decodedId)
-      setCourseData(course?.data)
+      setCourseData(course)
 
-      setUrl(course?.data.imageUrl)
-      setVideoUrl(course?.data.videoUrl)
-      setCategory(course?.data.category)
+      setUrl(course.imageUrl)
+      setVideoUrl(course.videoUrl)
+      setCategory(course.category)
 
-      if (course?.data?.chapterData) {
-        loadChapters(course?.data?.chapterData)
+      if (course.chapterData) {
+        loadChapters(course.chapterData)
       }
-      setIsPublished(course?.data?.published)
+      setIsPublished(course.published)
       setLoading(false)
     } catch (e) {
       console.log(e)

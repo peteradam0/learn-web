@@ -86,13 +86,6 @@ export default function CourseProgressCard({ course }: any) {
               >
                 {course.description}
               </p>
-              <div style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>
-                <Progress
-                  size="sm"
-                  aria-label="Loading..."
-                  value={progressBarNumber}
-                />
-              </div>
             </CardBody>
             <CardFooter>
               {participationData && (

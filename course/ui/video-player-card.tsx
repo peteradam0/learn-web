@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react"
 
 export default function VideoPlayerCard({ chapter, courseId, done }: any) {
   const [videoMin, setVideoMin] = useState("")
-  const url = `/courses/${courseId}/chapter/${chapter.id}`
+  const url = `/courses/${btoa(courseId)}/chapter/${btoa(chapter.id)}`
 
   useEffect(() => {
     setTimeout(() => {

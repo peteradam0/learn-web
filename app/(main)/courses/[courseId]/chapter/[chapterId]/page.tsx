@@ -8,15 +8,16 @@ export default async function ChapterPageRoute({ params }: any) {
   const { courseId, chapterId } = params
 
   const course = await getCourse(atob(courseId))
+
   if (!course || !course?.chapterData) return
   const url = getCurrentVideoUrl(course?.chapterData, atob(chapterId))?.videoUrl
 
   return (
     <div>
       <VidePlayerSidebar
-        currentChapterId={courseId}
+        currentChapterId={atob(chapterId)}
         chapterData={course?.chapterData}
-        courseId={courseId}
+        courseId={atob(courseId)}
       />
       <div style={{ marginLeft: "20%", width: "81%" }}>
         <CourseVideoPage

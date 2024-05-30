@@ -1,36 +1,16 @@
 "use client"
+
 import { Accordion, AccordionItem } from "@nextui-org/react"
 
-import { queryCoursePartitipation } from "@/course/api/query/query-course-participation"
-import { useEffect, useState } from "react"
 import VideoPlayerCard from "./video-player-card"
+import { getCourseParticipation } from "@/course/api/get-course-participation"
 
 export default function VidePlayerSidebar({
   chapterData,
   courseId,
   currentChapterId
 }: any) {
-  const [loading, setLoading] = useState(false)
-  const [participationData, setParticipationData] = useState(Object)
-
-  useEffect(() => {
-    getParticipationData()
-  }, [])
-
-  const getParticipationData = async () => {
-    setLoading(true)
-    try {
-      const course = await queryCoursePartitipation(courseId)
-      setParticipationData(course?.data)
-      setLoading(false)
-    } catch (e) {
-      console.log(e)
-      setLoading(false)
-    }
-  }
-
-  if (loading) return <p>Loading...</p>
-
+  const participationData: any = getCourseParticipation(courseId)
   return (
     <div>
       <aside
@@ -68,7 +48,10 @@ export default function VidePlayerSidebar({
                       aria-label={chapter.title}
                       title={chapter.title}
                     >
-                      <VideoPlayerCard chapter={chapter} courseId={courseId} />
+                      <VideoPlayerCard
+                        chapter={chapter}
+                        courseId={courseId}
+                      />
                     </AccordionItem>
                   )
                 )}

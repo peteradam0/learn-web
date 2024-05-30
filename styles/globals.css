@@ -37,3 +37,7 @@
       )
       rgb(var(--background-start-rgb));
   }
+
+  nextjs-portal {
+  display: none;
+}

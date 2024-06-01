@@ -14,4 +14,5 @@ export type VideoEvent = {
   organization: string
   users: any[]
   date: string
+  active: boolean
 }

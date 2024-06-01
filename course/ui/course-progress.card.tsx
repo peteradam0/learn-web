@@ -19,10 +19,10 @@ import {
 export default function CourseProgressCard({ course }: any) {
   const [isLoading, setIsLoading] = useState(false)
   const [participationData, setParticipationData] = useState()
-  const [progressBarNumber, setProgressBarNumber] = useState(0)
   const router = useRouter()
 
   useEffect(() => {
+    setIsLoading(true)
     getParticipationData()
   }, [])
 
@@ -40,12 +40,6 @@ export default function CourseProgressCard({ course }: any) {
       const res = await queryCoursePartitipation(course.id)
 
       setParticipationData(res?.courseId)
-      setProgressBarNumber(
-        calculateProgressBar(
-          course.chapterData.length,
-          res?.completedChapterIds?.length
-        )
-      )
       setIsLoading(false)
     } catch (e) {
       console.log(e)
@@ -76,7 +70,7 @@ export default function CourseProgressCard({ course }: any) {
                   alt="waves"
                   style={{
                     height: "100px",
-                    width: "170px"
+                    width: "100%"
                   }}
                 />
               </div>

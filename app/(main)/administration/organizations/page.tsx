@@ -50,6 +50,7 @@ export default function OrganizationsPageRoute() {
     if (canvasAuth && Cookies.get("canvas_token")) {
       handleOpenModal("auth", organizationsData)
     }
+    setLoading(false)
   }, [])
 
   const getOrganizationData = async () => {
@@ -57,7 +58,6 @@ export default function OrganizationsPageRoute() {
       setLoading(true)
       const res = await getOrganizations()
       setOrganizationsData(res?.data)
-      setLoading(false)
     } catch (e) {
       console.log(e)
     }

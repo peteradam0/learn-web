@@ -8,6 +8,8 @@ export type UpcomingEventsProps = {
 export const UpcomingEvents: React.FC<UpcomingEventsProps> = ({
   futureEvents
 }) => {
+  const events = futureEvents?.filter(ev => !ev.active)
+
   return (
     <ScrollShadow
       hideScrollBar
@@ -15,8 +17,8 @@ export const UpcomingEvents: React.FC<UpcomingEventsProps> = ({
       orientation="horizontal"
       className="max-w-[400px] max-h-[300px]"
     >
-      {futureEvents &&
-        futureEvents.map((activeEvent: any) => (
+      {events &&
+        events.map((activeEvent: any) => (
           <div key={activeEvent.imageUrl}>
             <Card className="max-w-none ">
               <CardBody>

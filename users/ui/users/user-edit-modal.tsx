@@ -17,7 +17,6 @@ import { useState } from "react"
 export default function UserEditModal({
   isOpen,
   onOpenChange,
-  modalVersion,
   userId
 }: any) {
   const [role, setRole] = useState("")
@@ -25,6 +24,7 @@ export default function UserEditModal({
 
   const handleUserUpdate = async () => {
     await updateUserRole(userId, role)
+    location.reload()
   }
 
   return (
@@ -73,7 +73,6 @@ export default function UserEditModal({
                   onClick={() => {
                     handleUserUpdate()
                     onClose()
-                    router.refresh()
                   }}
                 >
                   Save

@@ -16,6 +16,7 @@ export default function CreateOrganizationForm({ onClose }: any) {
       name,
       imageUrl: url
     })
+    location.reload()
     onClose()
   }
 

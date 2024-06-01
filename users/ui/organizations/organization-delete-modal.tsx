@@ -18,9 +18,9 @@ export default function OrganizationDeleteModal({
   handleDeleteOrganization
 }: any) {
   const handleDeleteUser = async () => {
-    console.log(organization)
     await deleteOrganization({ name: organization.name })
     handleDeleteOrganization(organization)
+    location.reload()
   }
   return (
     <div>

@@ -58,13 +58,13 @@ export default function CourseListCard({ course }: any) {
               <p className=" font-semibold text-white">{course.title}</p>
             </CardHeader>
             <CardBody>
-              <div className="max-w-full ml-auto text-center lg:w-5/12 lg:flex-none">
+              <div className="max-w-full text-center lg:flex-none">
                 <img
                   src={course.imageUrl}
                   alt="waves"
                   style={{
-                    height: "100px",
-                    width: "170px"
+                    height: "100%",
+                    width: "100%"
                   }}
                 />
               </div>

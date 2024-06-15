@@ -13,7 +13,8 @@ import {
   NavbarMenuToggle
 } from "@nextui-org/react"
 import Image from "next/image"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import Cookies from "js-cookie"
 
 export type NavigationBarProps = {
   userData: User
@@ -21,6 +22,21 @@ export type NavigationBarProps = {
 
 export const NavigationBar: React.FC<NavigationBarProps> = ({ userData }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isCanvasTokenPresent, setIsCanvasTokenPresent] = useState(false);
+
+  useEffect(() => {
+    
+    const checkCookie = () => {
+    const cookie = Cookies.get('canvas_token');
+    setIsCanvasTokenPresent(!!cookie);
+  }
+    checkCookie();
+    
+    const intervalId = setInterval(checkCookie, 5000);
+    console.log(isCanvasTokenPresent)
+    return () => clearInterval(intervalId);
+
+  },[])
 
   const menuItems = [
     { name: "Home", url: "/" },
@@ -64,6 +80,9 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({ userData }) => {
               Admin
             </Button>
           )}
+        </NavbarItem>
+        <NavbarItem>
+        {isCanvasTokenPresent && <Button color="success" variant="flat">Canvas LMS</Button>}
         </NavbarItem>
         <NavbarItem className="p-4">
           <UserButton afterSignOutUrl="/" />

@@ -217,7 +217,7 @@ const ActiveRoom = ({ roomName, userChoices, onLeave }: any) => {
           />
           <div style={{ marginLeft: "23%" }}>
             <LiveKitRoom
-              style={{ width: "75%" }}
+              style={{ width: "75%", height: "600px" }}
               room={room}
               token={token}
               serverUrl={liveKitUrl}
@@ -226,7 +226,10 @@ const ActiveRoom = ({ roomName, userChoices, onLeave }: any) => {
               audio={userChoices.audioEnabled}
               onDisconnected={onLeave}
             >
-              <VideoConference chatMessageFormatter={formatChatMessageLinks} />
+              <VideoConference
+                style={{ width: "70x" }}
+                chatMessageFormatter={formatChatMessageLinks}
+              />
             </LiveKitRoom>
           </div>
         </div>

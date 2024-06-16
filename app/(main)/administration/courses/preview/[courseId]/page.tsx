@@ -1,10 +1,15 @@
-import CoursePreviewPage from "@/course/ui/course-preview-page"
+import { getCourse } from "@/course/api/get-courses"
+import { CourseDetailsPage } from "@/course/ui/course-details-page"
 import React from "react"
 
-export default function PreviewPageRoute({
+export default async function PreviewPageRoute({
   params
 }: {
   params: { courseId: string }
 }) {
-  return <CoursePreviewPage courseId={params.courseId} />
+  const course = await getCourse(atob(params.courseId))
+
+  if (!course) return
+
+  return <CourseDetailsPage course={course} />
 }

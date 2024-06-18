@@ -17,7 +17,7 @@ export default authMiddleware({
           Authorization: `Bearer ${req.cookies.get("__session")?.value}`
         }
       })
-
+      console.log(res)
       const userData = await res.json()
 
       if (userData.userRole !== "ADMIN") {

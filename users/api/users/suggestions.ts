@@ -6,16 +6,15 @@ import qs from "query-string";
 import axios from "axios";
 import { getCanvasDomain } from "@/technical/canvaslms";
 
-export const queryCourseSuggestions = async (canvasToken: string) => {
+export const queryUserSuggestions = async (canvasToken: string) => {
   const token = await queryToken();
   if (!token) {
     redirect("/");
   }
 
   const canvasDomain = getCanvasDomain();
-  console.log(canvasDomain)
   const url = qs.stringifyUrl({
-    url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/courses/create/suggestions`,
+    url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/create/suggestions`,
   });
   let res = undefined;
   try {

@@ -144,6 +144,7 @@ export default function UserPageRoute() {
                   userId={userId}
                   onOpenChange={onOpenChange}
                   modalVersion={modalVersion}
+                  userSuggestions={userSuggestions}
                 />
               </div>
             </div>

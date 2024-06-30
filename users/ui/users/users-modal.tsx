@@ -9,12 +9,13 @@ export default function UsersModal({
   isOpen,
   onOpenChange,
   modalVersion,
-  userId
+  userId,
+  userSuggestions
 }: any) {
   return (
     <div>
       {modalVersion === "add" && (
-        <UsersAddModal isOpen={isOpen} onOpenChange={onOpenChange} />
+        <UsersAddModal isOpen={isOpen} onOpenChange={onOpenChange} userSuggestions={userSuggestions}/>
       )}
       {modalVersion === "edit" && (
         <UserEditModal isOpen={isOpen} onOpenChange={onOpenChange} userId={userId}/>

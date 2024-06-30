@@ -70,8 +70,7 @@ export default function AddUserToOrganizationForm({
               <Autocomplete
                 allowsCustomValue={true}
                 className="max-w-xs"
-    
-                defaultItems={suggestedUsers}
+                    defaultItems={suggestedUsers}
                 label="Search or type in email"
                 variant="bordered"
                 {...register("email", {

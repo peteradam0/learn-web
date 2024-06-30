@@ -43,6 +43,7 @@ export default function CourseContent(data: any) {
           </div>
         </div>
       </div>
+      {course.chapterData.length > 0 && 
       <div
         style={{
           paddingTop: "3rem",
@@ -54,7 +55,7 @@ export default function CourseContent(data: any) {
           chapterData={course.chapterData}
           courseId={course.id}
         />
-      </div>
+      </div>}
     </div>
   )
 }

@@ -19,6 +19,8 @@ import UsersModal from "@/users/ui/users/users-modal"
 import { Icon } from "@iconify/react/dist/iconify.js"
 
 import { roleColorsMap } from "@/users/domain/users"
+import { getCanvasToken } from "@/technical/canvaslms"
+import { queryUserSuggestions } from "@/users/api/users/suggestions"
 
 const columns = [
   { name: "NAME", uid: "name" },
@@ -32,6 +34,8 @@ export default function UserPageRoute() {
   const [userData, setUserData] = useState([])
   const [modalVersion, setModalVersion] = useState("")
   const [userId, setUserId] = useState("")
+  const [userSuggestions, setUserSuggestions] = useState()
+  const canvasToken = getCanvasToken()
 
   const handleOpenModal = (modalVersion: string, userId: string) => {
     setModalVersion(modalVersion)
@@ -40,7 +44,16 @@ export default function UserPageRoute() {
   }
   useEffect(() => {
     getCourseData()
+    if (canvasToken) {
+      getSuggestion(canvasToken)
+      
+   }
   }, [])
+
+  const getSuggestion = async (canvasToken: string) => {
+    const res = await queryUserSuggestions(canvasToken)
+    setUserSuggestions(res?.data)
+  }
 
   const getCourseData = async () => {
     try {
@@ -131,6 +144,7 @@ export default function UserPageRoute() {
                   userId={userId}
                   onOpenChange={onOpenChange}
                   modalVersion={modalVersion}
+                  userSuggestions={userSuggestions}
                 />
               </div>
             </div>

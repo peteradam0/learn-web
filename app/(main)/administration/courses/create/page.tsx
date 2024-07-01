@@ -50,11 +50,11 @@ export default function AddCoursePageRoute() {
   const canvasToken = getCanvasToken()
 
   useEffect(() => {
-    getOrganizationData()
+     getOrganizationData()
     if (canvasToken) {
-      setToken(true)
-      getSuggestion(canvasToken)
-    }
+        getSuggestion(canvasToken)
+        setToken(true)
+     }
   }, [])
 
   const getSuggestion = async (canvasToken: string) => {
@@ -154,12 +154,13 @@ export default function AddCoursePageRoute() {
                     The first thing that you will have to specify is the name of
                     the course
                   </h3>
-                  {token ? (
+                  {courseSuggestions ? (
                     <Autocomplete
                       label="Title"
                       placeholder="Search from Canvas or add new"
                       defaultSelectedKey="cat"
                       defaultItems={courseSuggestions}
+                      allowsCustomValue={true}
                       className="max-w-xs"
                       scrollShadowProps={{
                         isEnabled: false

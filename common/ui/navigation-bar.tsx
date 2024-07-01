@@ -43,7 +43,6 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({ userData }) => {
     { name: "Explore Courses", url: "/courses" },
     { name: "My Courses", url: "/courses/mycourses" },
     { name: "About", url: "/about" },
-    { name: "Events", url: "/events" },
     { name: "Admin", url: "/administration/courses" }
   ]
 

@@ -7,9 +7,9 @@ export default function CourseTableOfContents(data: any) {
 
   return (
     <div>
-      <h2 className="font-semibold text-white pb-1 text-xl">
+      {chapterData.length > 0 && <h2 className="font-semibold text-white pb-1 text-xl">
         Table of Contents
-      </h2>
+      </h2>}
       {chapterData?.map((chapter: any) => (
         <CourseSection key={chapter.id} data={chapter} courseId={courseId} />
       ))}

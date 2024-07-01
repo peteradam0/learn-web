@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, Input } from "@nextui-org/react"
+import { Autocomplete, AutocompleteItem, Button, Input } from "@nextui-org/react"
 
 import { SubmitHandler, useForm } from "react-hook-form"
 import { OrganizationMember } from "../../domain/organization"
@@ -8,9 +8,12 @@ import { OrganizationMember } from "../../domain/organization"
 import { sendUserInvitation } from "@/users/api/users/user-invite"
 import { Modal, ModalBody, ModalContent, ModalHeader } from "@nextui-org/react"
 
-export default function AddUserModal({ onClose, isOpen, onOpenChange }: any) {
-
-
+export default function AddUserModal({
+  onClose,
+  isOpen,
+  onOpenChange,
+  userSuggestions
+}: any) {
   const processForm: SubmitHandler<OrganizationMember> = async data => {
     const { email } = data
     await sendUserInvitation({
@@ -57,12 +60,31 @@ export default function AddUserModal({ onClose, isOpen, onOpenChange }: any) {
                       <h3 className="text-default-500 text-small pb-1">
                         Please provide the email address of the new member
                       </h3>
-                      <Input
-                        label="Email"
-                        {...register("email", {
-                          required: "Email is required"
-                        })}
-                      />
+                      {userSuggestions && userSuggestions.length > 0 ? (
+                        <Autocomplete
+                          allowsCustomValue={true}
+                          className="max-w-xs"
+                          defaultItems={userSuggestions}
+                          label="Search from Canvas users or type in email"
+                          variant="bordered"
+                          {...register("email", {
+                            required: "Email is required"
+                          })}
+                        >
+                          {(item: any) => (
+                            <AutocompleteItem key={item?.email}>
+                              {item?.email}
+                            </AutocompleteItem>
+                          )}
+                        </Autocomplete>
+                      ) : (
+                        <Input
+                          label="Email"
+                          {...register("email", {
+                            required: "Email is required"
+                          })}
+                        />
+                      )}
                       {errors.email?.message && (
                         <p className="text-sm text-red-400">
                           {errors.email.message}

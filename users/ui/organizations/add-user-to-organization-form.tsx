@@ -68,9 +68,9 @@ export default function AddUserToOrganizationForm({
             </h3>
             {suggestedUsers.length > 0 ? (
               <Autocomplete
-                allowsCustomValue
+                allowsCustomValue={true}
                 className="max-w-xs"
-                defaultItems={suggestedUsers}
+                    defaultItems={suggestedUsers}
                 label="Search or type in email"
                 variant="bordered"
                 {...register("email", {
